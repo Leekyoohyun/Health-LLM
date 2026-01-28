@@ -1,11 +1,15 @@
 accelerate
 appdirs
-bitsandbytes
 black
 black[jupyter]
 datasets
 fire
-git+https://github.com/huggingface/peft.git
-git+https://github.com/huggingface/transformers.git
 gradio
 sentencepiece
+# 검증된 안정 버전 (트러블슈팅 문서 참고)
+transformers==4.28.0
+peft==0.3.0
+bitsandbytes==0.37.0
+protobuf==3.20.3
+scipy
+triton
