@@ -235,7 +235,7 @@ def main(
         optim=optim,
         lr_scheduler_type=lr_scheduler_type,
         evaluation_strategy="steps" if val_set_size > 0 else "no",
-        save_strategy="steps",
+        save_strategy="epoch",
         eval_steps=eval_steps if val_set_size > 0 else None,
         save_steps=eval_steps,
         output_dir=output_dir,
