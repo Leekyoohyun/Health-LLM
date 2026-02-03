@@ -240,7 +240,8 @@ if MODE == "train":
         print("[INFO] Subtask:", SUBTASK)
 
         with open('{}/aw_fb_data.csv'.format(DATA_PATH), newline='') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            csv_reader = csv.reader(csvfile)  # delimiter 기본값이 ','
+            #csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             final_data = []
             activities = []
 
