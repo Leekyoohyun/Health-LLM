@@ -235,7 +235,7 @@ if MODE == "train":
 
     elif DATA == "AW_FB":
         DATA_PATH = "/home/khlee/fine-tuning/Health-LLM/data/dataverse_files"
-        SUBTASK = "activity"
+        SUBTASK = "calories"
         print("[INFO] Generating datasets for AW_FB (Harvard Dataverse) ...")
         print("[INFO] Subtask:", SUBTASK)
 
