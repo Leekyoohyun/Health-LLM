@@ -250,7 +250,7 @@ if MODE == "train":
                     continue
 
                 try:
-                    tmp = row[0].split(",")
+                    tmp = row  # 콤마 delimiter 사용 시 row가 이미 분리된 리스트
                     age = int(tmp[2])
                     gender = int(tmp[3])
                     if gender == 1:
@@ -273,10 +273,8 @@ if MODE == "train":
                     steps_times_distance = float(tmp[17]) 
                     device = tmp[18]
                     
-                    if len(row) == 3:
-                        activity = row[0].split(",")[-1] + " " + row[1] + " " + row[2]
-                    else:
-                        activity = tmp[19] # label
+                    # 콤마 delimiter 사용 시 activity가 제대로 파싱됨
+                    activity = tmp[19]  # label
 
                     activity = activity.replace('"', "")
 
