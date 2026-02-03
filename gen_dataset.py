@@ -49,7 +49,7 @@ def extract_words_inside_brackets(input_string):
 if MODE == "train":
     if DATA == "LifeSnaps":
         print("[INFO] Dataset:", DATA)
-        SUBTASK = "stress_resilience" #"sleep_disorder"
+        SUBTASK = "sleep_disorder" #"sleep_disorder"
         print("[INFO] Subtask:", SUBTASK)
         DATA_PATH = "data/life_snaps"
 
@@ -234,7 +234,7 @@ if MODE == "train":
 
 
     elif DATA == "AW_FB":
-        DATA_PATH = "medAlpaca/data/harvard_dataverse"
+        DATA_PATH = "/home/khlee/fine-tuning/Health-LLM/data/dataverse_files"
         SUBTASK = "activity"
         print("[INFO] Generating datasets for AW_FB (Harvard Dataverse) ...")
         print("[INFO] Subtask:", SUBTASK)
@@ -335,7 +335,7 @@ if MODE == "train":
             'p1': [-1, -1, 'N/A', 'N/A', 'N/A']
         }
         
-        DATA_PATH = "medAlpaca/data/pmdata"
+        DATA_PATH = "/home/khlee/fine-tuning/Health-LLM/data/pmdata"
         SUBTASK = "sleep_quality" # ['sleep_quality', 'stress', 'readiness', 'fatigue']:
         final_data = []
         print("[INFO] Subtask:", SUBTASK)
