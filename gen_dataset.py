@@ -342,7 +342,8 @@ if MODE == "train":
         for dir1 in tqdm(os.listdir(DATA_PATH)):
             if "." in dir1:
                 continue
-            tmp = participant_info[dir1]
+            tmp = participant_info.get(dir1, [-1, -1, 'N/A', 'N/A', 'N/A'])
+            #tmp = participant_info[dir1]
             age = tmp[0]
             height = str(tmp[1]) + " cm"
             gender = tmp[2]
