@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-HealthAlpaca 모델 평가 스크립트
+HealthAlpaca 모델 평가 스크립트 (태스크별 개별 평가)
 Baseline (MedAlpaca-7b) vs Fine-tuned (HealthAlpaca) 성능 비교
 
 평가 내용:
-- 정량 평가: MAE (숫자형), Accuracy (분류형)
-- 정성 평가: 샘플별 답변 비교
+- Regression 태스크: MAE (Mean Absolute Error)
+- Classification 태스크: Accuracy
 """
 
 import os
@@ -18,18 +18,80 @@ from datasets import load_dataset
 from medalpaca.inferer import Inferer
 
 
+# ============================================================================
+# 태스크별 설정 (논문 Table 16 기준)
+# ============================================================================
+TASKS = {
+    # PMData 태스크들
+    "PMData_stress": {
+        "data_path": "PMData_stress_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "Stress Prediction (1-5)"
+    },
+    "PMData_readiness": {
+        "data_path": "PMData_readiness_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "Readiness Prediction (0-10)"
+    },
+    "PMData_sleep_quality": {
+        "data_path": "PMData_sleep_quality_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "Sleep Quality Prediction (1-5)"
+    },
+    "PMData_fatigue": {
+        "data_path": "PMData_fatigue_train_all.json",
+        "task_type": "classification",  # Accuracy
+        "description": "Fatigue Prediction (1-5)"
+    },
+
+    # AW_FB 태스크들
+    "AW_FB_activity": {
+        "data_path": "AW_FB_activity_train_all.json",
+        "task_type": "classification",  # Accuracy
+        "description": "Activity Recognition"
+    },
+    "AW_FB_calories": {
+        "data_path": "AW_FB_calories_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "Calorie Burn Estimation"
+    },
+
+    # LifeSnaps 태스크들
+    "LifeSnaps_stress_resilience": {
+        "data_path": "LifeSnaps_stress_resilience_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "Stress Resilience (0.2-5)"
+    },
+    "LifeSnaps_sleep_disorder": {
+        "data_path": "LifeSnaps_sleep_disorder_train_all.json",
+        "task_type": "classification",  # Accuracy
+        "description": "Sleep Disorder Detection (0/1)"
+    },
+
+    # GLOBEM 태스크들
+    "GLOBEM_depression": {
+        "data_path": "GLOBEM_depression_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "PHQ-4 Depression (0-4)"
+    },
+    "GLOBEM_anxiety": {
+        "data_path": "GLOBEM_anxiety_train_all.json",
+        "task_type": "regression",  # MAE
+        "description": "PHQ-4 Anxiety (0-4)"
+    },
+}
+
+
 def load_test_data(data_path, seed=42):
     """
-    Test set 로드 (학습 시와 동일한 split 재현)
-
-    Args:
-        data_path: finetune_data.json 경로
-        seed: Random seed (학습 시와 동일하게 42)
-
-    Returns:
-        test_data: 213개 샘플 (학습에 사용 안 한 데이터)
+    Test set 로드 (90:10 split)
     """
-    print(f"   Loading data from: {data_path}")
+    print(f"      Loading: {data_path}")
+
+    if not os.path.exists(data_path):
+        print(f"      ⚠ File not found: {data_path}")
+        return None
+
     data = load_dataset("json", data_files=data_path)
 
     split = data["train"].train_test_split(
@@ -39,17 +101,12 @@ def load_test_data(data_path, seed=42):
     )
 
     test_data = split["test"]
-    print(f"   ✓ Test samples loaded: {len(test_data)}")
+    print(f"      ✓ Test samples: {len(test_data)}")
     return test_data
 
 
 def load_baseline_model():
-    """
-    Baseline 모델 로드 (MedAlpaca-7b)
-
-    Returns:
-        Inferer 객체
-    """
+    """Baseline 모델 로드 (MedAlpaca-7b)"""
     print("   Loading Baseline (MedAlpaca-7b)...")
     model = Inferer(
         model_name="medalpaca/medalpaca-7b",
@@ -62,18 +119,7 @@ def load_baseline_model():
 
 
 def attach_lora_adapter(inferer, adapter_path="outputs/healthalpaca-7b-lora"):
-    """
-    기존 모델에 LoRA 어댑터 결합
-
-    Args:
-        inferer: Baseline Inferer 객체
-        adapter_path: LoRA 어댑터 경로
-            - adapter_model.bin (pytorch_model.bin에서 이름 변경)
-            - adapter_config.json
-
-    Returns:
-        LoRA가 결합된 모델
-    """
+    """기존 모델에 LoRA 어댑터 결합"""
     from peft import PeftModel
 
     print(f"   Attaching LoRA adapter from {adapter_path}...")
@@ -88,255 +134,38 @@ def attach_lora_adapter(inferer, adapter_path="outputs/healthalpaca-7b-lora"):
 
 
 def extract_number(text):
-    """
-    텍스트에서 숫자 추출 (정규식 사용)
-
-    Args:
-        text: 입력 텍스트
-
-    Returns:
-        float 또는 None
-    """
-    # 먼저 전체 텍스트를 숫자로 변환 시도
+    """텍스트에서 숫자 추출"""
     try:
         return float(text.strip())
     except:
         pass
 
-    # 정규식으로 숫자 찾기 (소수점 포함)
     numbers = re.findall(r'-?\d+\.?\d*', text)
     if numbers:
         try:
             return float(numbers[0])
         except:
             pass
-
     return None
 
 
-def normalize_text(text):
-    """
-    텍스트 정규화 (소문자 변환, 공백 제거)
-
-    Args:
-        text: 입력 텍스트
-
-    Returns:
-        정규화된 텍스트
-    """
+def extract_classification_answer(text):
+    """분류 답변에서 핵심 키워드 추출"""
+    # "is XXX" 패턴 찾기
+    match = re.search(r'is\s+(.+?)(?:\.|$)', text, re.IGNORECASE)
+    if match:
+        return match.group(1).strip().lower()
     return text.strip().lower()
 
 
-def extract_classification_answer(text):
-    """
-    분류 답변에서 핵심 키워드 추출
-
-    예: "The predicted activity type is Lying" -> "lying"
-
-    Args:
-        text: 입력 텍스트
-
-    Returns:
-        추출된 키워드
-    """
-    # "is XXX" 패턴 찾기
-    match = re.search(r'is\s+(\w+)', text, re.IGNORECASE)
-    if match:
-        return normalize_text(match.group(1))
-
-    # 패턴이 없으면 전체 텍스트 정규화
-    return normalize_text(text)
-
-
-def is_pure_numeric(text):
-    """
-    텍스트가 순수 숫자인지 판별 (숫자만 포함되어 있는지)
-
-    Args:
-        text: 입력 텍스트
-
-    Returns:
-        True if 순수 숫자, False otherwise
-    """
-    try:
-        float(text.strip())
-        return True
-    except:
-        return False
-
-
-def calculate_metrics(results):
-    """
-    평가 지표 계산 (MAE, Accuracy)
-
-    Args:
-        results: run_inference()의 결과
-
-    Returns:
-        metrics: 계산된 지표들
-    """
-    # 숫자형 예측용
-    baseline_errors = []
-    finetuned_errors = []
-
-    # 분류 예측용
-    baseline_correct_classification = 0
-    finetuned_correct_classification = 0
-    total_classification = 0
-
-    # 전체 정확도
-    baseline_correct_total = 0
-    finetuned_correct_total = 0
-
-    for r in results:
-        gt = r['ground_truth']
-        baseline_pred = r['baseline_output']
-        finetuned_pred = r['finetuned_output']
-
-        # Ground truth가 순수 숫자인지 판별 (중요!)
-        # "1.22" → True (숫자형)
-        # "Running 3 METs" → False (텍스트형, 숫자 포함되어 있어도)
-        if is_pure_numeric(gt):
-            # 숫자형 예측 (MAE 계산)
-            gt_num = float(gt.strip())
-            baseline_num = extract_number(baseline_pred)
-            finetuned_num = extract_number(finetuned_pred)
-
-            if baseline_num is not None:
-                baseline_errors.append(abs(gt_num - baseline_num))
-                # 숫자형에서는 근사 일치 (오차 0.1 이하)를 정확으로 간주
-                if abs(gt_num - baseline_num) < 0.1:
-                    baseline_correct_total += 1
-
-            if finetuned_num is not None:
-                finetuned_errors.append(abs(gt_num - finetuned_num))
-                if abs(gt_num - finetuned_num) < 0.1:
-                    finetuned_correct_total += 1
-        else:
-            # 텍스트형 예측 (Accuracy 계산)
-            total_classification += 1
-
-            gt_normalized = extract_classification_answer(gt)
-            baseline_normalized = extract_classification_answer(baseline_pred)
-            finetuned_normalized = extract_classification_answer(finetuned_pred)
-
-            if baseline_normalized == gt_normalized:
-                baseline_correct_classification += 1
-                baseline_correct_total += 1
-
-            if finetuned_normalized == gt_normalized:
-                finetuned_correct_classification += 1
-                finetuned_correct_total += 1
-
-    # MAE 계산 (숫자형만)
-    baseline_mae = np.mean(baseline_errors) if baseline_errors else None
-    finetuned_mae = np.mean(finetuned_errors) if finetuned_errors else None
-
-    # Accuracy 계산 (분류형만)
-    baseline_acc_classification = baseline_correct_classification / total_classification if total_classification > 0 else None
-    finetuned_acc_classification = finetuned_correct_classification / total_classification if total_classification > 0 else None
-
-    # 전체 정확도
-    total_samples = len(results)
-    baseline_acc_total = baseline_correct_total / total_samples if total_samples > 0 else 0
-    finetuned_acc_total = finetuned_correct_total / total_samples if total_samples > 0 else 0
-
-    return {
-        'baseline_mae': float(baseline_mae) if baseline_mae is not None else None,
-        'finetuned_mae': float(finetuned_mae) if finetuned_mae is not None else None,
-        'baseline_accuracy_classification': float(baseline_acc_classification) if baseline_acc_classification is not None else None,
-        'finetuned_accuracy_classification': float(finetuned_acc_classification) if finetuned_acc_classification is not None else None,
-        'baseline_accuracy_total': float(baseline_acc_total),
-        'finetuned_accuracy_total': float(finetuned_acc_total),
-        'total_samples': total_samples,
-        'numeric_samples': len(baseline_errors),
-        'classification_samples': total_classification
-    }
-
-
-def save_results(results, metrics, output_dir="results"):
-    """
-    결과 저장
-
-    Args:
-        results: 추론 결과
-        metrics: 평가 지표
-        output_dir: 저장 디렉토리
-    """
-    os.makedirs(output_dir, exist_ok=True)
-
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-    # 전체 결과 저장
-    results_file = f"{output_dir}/evaluation_results_{timestamp}.json"
-    with open(results_file, 'w', encoding='utf-8') as f:
-        json.dump({
-            'timestamp': timestamp,
-            'metrics': metrics,
-            'samples': results
-        }, f, indent=2, ensure_ascii=False)
-
-    print(f"\n✓ Results saved to: {results_file}")
-
-    # 정성 평가용 샘플 저장 (처음 5개)
-    case_study_file = f"{output_dir}/case_study_{timestamp}.json"
-    with open(case_study_file, 'w', encoding='utf-8') as f:
-        json.dump(results[:5], f, indent=2, ensure_ascii=False)
-
-    print(f"✓ Case study samples saved to: {case_study_file}")
-
-
-def print_metrics(metrics):
-    """평가 지표 출력"""
-    print("\n" + "="*80)
-    print("EVALUATION RESULTS")
-    print("="*80)
-
-    print(f"\nTotal samples evaluated: {metrics['total_samples']}")
-    print(f"  - Numeric samples (MAE): {metrics['numeric_samples']}")
-    print(f"  - Classification samples (Accuracy): {metrics['classification_samples']}")
-
-    if metrics['baseline_mae'] is not None:
-        print(f"\n[MAE (Mean Absolute Error) - Numeric Predictions Only]")
-        print(f"  Baseline:    {metrics['baseline_mae']:.4f}")
-        print(f"  Fine-tuned:  {metrics['finetuned_mae']:.4f}")
-        improvement = (metrics['baseline_mae'] - metrics['finetuned_mae']) / metrics['baseline_mae'] * 100
-        print(f"  Improvement: {improvement:+.2f}%")
-
-    if metrics['baseline_accuracy_classification'] is not None:
-        print(f"\n[Accuracy - Classification Tasks Only]")
-        print(f"  Baseline:    {metrics['baseline_accuracy_classification']:.2%}")
-        print(f"  Fine-tuned:  {metrics['finetuned_accuracy_classification']:.2%}")
-        improvement = (metrics['finetuned_accuracy_classification'] - metrics['baseline_accuracy_classification']) / max(metrics['baseline_accuracy_classification'], 0.001) * 100
-        print(f"  Improvement: {improvement:+.2f}%")
-
-    print(f"\n[Overall Accuracy - All Tasks]")
-    print(f"  Baseline:    {metrics['baseline_accuracy_total']:.2%}")
-    print(f"  Fine-tuned:  {metrics['finetuned_accuracy_total']:.2%}")
-    improvement = (metrics['finetuned_accuracy_total'] - metrics['baseline_accuracy_total']) / max(metrics['baseline_accuracy_total'], 0.001) * 100
-    print(f"  Improvement: {improvement:+.2f}%")
-
-    print("\n" + "="*80)
-
-
-def run_inference_single(model, test_data, num_samples=10):
-    """
-    단일 모델로 추론 수행
-
-    Args:
-        model: Inferer 객체
-        test_data: Test set
-        num_samples: 평가할 샘플 수
-
-    Returns:
-        outputs: 각 샘플별 출력 리스트
-    """
+def run_inference(model, test_data, max_samples=None):
+    """모델 추론 수행"""
     outputs = []
+    samples = test_data if max_samples is None else test_data[:max_samples]
+    total = len(samples)
 
-    print(f"   Evaluating {num_samples} samples...")
-
-    for i, sample in enumerate(test_data[:num_samples]):
-        print(f"   [{i+1}/{num_samples}] Processing...", end='\r')
+    for i, sample in enumerate(samples):
+        print(f"      [{i+1}/{total}] Processing...", end='\r')
 
         instruction = sample.get('instruction', '')
         input_text = sample.get('input', '')
@@ -346,39 +175,92 @@ def run_inference_single(model, test_data, num_samples=10):
             input=input_text,
             max_new_tokens=128
         )
-
         outputs.append(output)
 
-    print(f"   ✓ {num_samples} samples evaluated")
+    print(f"      ✓ {total} samples evaluated          ")
     return outputs
 
 
-def main():
-    """메인 실행 함수"""
-    print("="*80)
-    print("HealthAlpaca Model Evaluation")
-    print("Baseline (MedAlpaca-7b) vs Fine-tuned (HealthAlpaca)")
-    print("="*80)
+def calculate_task_metrics(results, task_type):
+    """
+    태스크 타입별 메트릭 계산
 
-    # 1. Test 데이터 로드
-    print("\n[1/4] Loading test data...")
-    test_data = load_test_data("data/finetune_data.json")
-    num_samples = 10  # 필요시 변경 (전체: 213)
+    Args:
+        results: 추론 결과 리스트
+        task_type: "regression" (MAE) 또는 "classification" (Accuracy)
+    """
+    baseline_scores = []
+    finetuned_scores = []
 
-    # 2. Baseline 모델 로드 및 평가
-    print("\n[2/4] Loading Baseline model and running inference...")
-    model = load_baseline_model()
-    baseline_outputs = run_inference_single(model, test_data, num_samples)
+    for r in results:
+        gt = r['ground_truth']
+        baseline_pred = r['baseline_output']
+        finetuned_pred = r['finetuned_output']
 
-    # 3. LoRA 어댑터 결합 후 Fine-tuned 평가
-    print("\n[3/4] Attaching LoRA adapter and running inference...")
-    model = attach_lora_adapter(model)
-    finetuned_outputs = run_inference_single(model, test_data, num_samples)
+        if task_type == "regression":
+            # MAE 계산
+            gt_num = extract_number(gt)
+            baseline_num = extract_number(baseline_pred)
+            finetuned_num = extract_number(finetuned_pred)
 
-    # 4. 결과 병합 및 평가
-    print("\n[4/4] Calculating metrics...")
+            if gt_num is not None:
+                if baseline_num is not None:
+                    baseline_scores.append(abs(gt_num - baseline_num))
+                else:
+                    baseline_scores.append(abs(gt_num))  # 실패시 큰 에러
+
+                if finetuned_num is not None:
+                    finetuned_scores.append(abs(gt_num - finetuned_num))
+                else:
+                    finetuned_scores.append(abs(gt_num))
+
+        else:  # classification
+            # Accuracy 계산
+            gt_label = extract_classification_answer(gt)
+            baseline_label = extract_classification_answer(baseline_pred)
+            finetuned_label = extract_classification_answer(finetuned_pred)
+
+            baseline_scores.append(1 if gt_label == baseline_label else 0)
+            finetuned_scores.append(1 if gt_label == finetuned_label else 0)
+
+    if task_type == "regression":
+        return {
+            'metric': 'MAE',
+            'baseline': np.mean(baseline_scores) if baseline_scores else None,
+            'finetuned': np.mean(finetuned_scores) if finetuned_scores else None,
+            'num_samples': len(baseline_scores)
+        }
+    else:
+        return {
+            'metric': 'Accuracy',
+            'baseline': np.mean(baseline_scores) if baseline_scores else None,
+            'finetuned': np.mean(finetuned_scores) if finetuned_scores else None,
+            'num_samples': len(baseline_scores)
+        }
+
+
+def evaluate_single_task(task_name, task_config, baseline_model, finetuned_model, max_samples=None):
+    """단일 태스크 평가"""
+    print(f"\n   [{task_name}] {task_config['description']}")
+    print(f"      Task type: {task_config['task_type']}")
+
+    # 데이터 로드
+    test_data = load_test_data(task_config['data_path'])
+    if test_data is None:
+        return None
+
+    # Baseline 추론
+    print("      Running Baseline inference...")
+    baseline_outputs = run_inference(baseline_model, test_data, max_samples)
+
+    # Fine-tuned 추론
+    print("      Running Fine-tuned inference...")
+    finetuned_outputs = run_inference(finetuned_model, test_data, max_samples)
+
+    # 결과 병합
+    samples = test_data if max_samples is None else test_data[:max_samples]
     results = []
-    for i, sample in enumerate(test_data[:num_samples]):
+    for i, sample in enumerate(samples):
         results.append({
             'sample_id': i + 1,
             'instruction': sample.get('instruction', ''),
@@ -388,11 +270,136 @@ def main():
             'finetuned_output': finetuned_outputs[i]
         })
 
-    metrics = calculate_metrics(results)
+    # 메트릭 계산
+    metrics = calculate_task_metrics(results, task_config['task_type'])
 
-    # 결과 저장 및 출력
-    save_results(results, metrics)
-    print_metrics(metrics)
+    return {
+        'task_name': task_name,
+        'description': task_config['description'],
+        'task_type': task_config['task_type'],
+        'metrics': metrics,
+        'results': results
+    }
+
+
+def print_summary(all_results):
+    """전체 결과 요약 출력"""
+    print("\n" + "="*80)
+    print("EVALUATION SUMMARY")
+    print("="*80)
+
+    # 회귀 태스크 (MAE)
+    print("\n[Regression Tasks - MAE (↓ lower is better)]")
+    print("-" * 70)
+    print(f"{'Task':<35} {'Baseline':<12} {'Fine-tuned':<12} {'Improve':<10}")
+    print("-" * 70)
+
+    for r in all_results:
+        if r is None:
+            continue
+        if r['task_type'] == 'regression':
+            baseline = r['metrics']['baseline']
+            finetuned = r['metrics']['finetuned']
+            if baseline and finetuned:
+                improve = (baseline - finetuned) / baseline * 100
+                print(f"{r['task_name']:<35} {baseline:<12.4f} {finetuned:<12.4f} {improve:+.1f}%")
+            else:
+                print(f"{r['task_name']:<35} {'N/A':<12} {'N/A':<12} {'N/A':<10}")
+
+    # 분류 태스크 (Accuracy)
+    print("\n[Classification Tasks - Accuracy (↑ higher is better)]")
+    print("-" * 70)
+    print(f"{'Task':<35} {'Baseline':<12} {'Fine-tuned':<12} {'Improve':<10}")
+    print("-" * 70)
+
+    for r in all_results:
+        if r is None:
+            continue
+        if r['task_type'] == 'classification':
+            baseline = r['metrics']['baseline']
+            finetuned = r['metrics']['finetuned']
+            if baseline and finetuned:
+                improve = (finetuned - baseline) / max(baseline, 0.001) * 100
+                print(f"{r['task_name']:<35} {baseline:<12.2%} {finetuned:<12.2%} {improve:+.1f}%")
+            else:
+                print(f"{r['task_name']:<35} {'N/A':<12} {'N/A':<12} {'N/A':<10}")
+
+    print("\n" + "="*80)
+
+
+def save_all_results(all_results, output_dir="results"):
+    """전체 결과 저장"""
+    os.makedirs(output_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # 요약 결과 저장
+    summary = []
+    for r in all_results:
+        if r is None:
+            continue
+        summary.append({
+            'task_name': r['task_name'],
+            'description': r['description'],
+            'task_type': r['task_type'],
+            'metric': r['metrics']['metric'],
+            'baseline': r['metrics']['baseline'],
+            'finetuned': r['metrics']['finetuned'],
+            'num_samples': r['metrics']['num_samples']
+        })
+
+    summary_file = f"{output_dir}/evaluation_summary_{timestamp}.json"
+    with open(summary_file, 'w', encoding='utf-8') as f:
+        json.dump({
+            'timestamp': timestamp,
+            'tasks': summary
+        }, f, indent=2, ensure_ascii=False)
+
+    print(f"\n✓ Summary saved to: {summary_file}")
+
+    # 상세 결과 저장 (각 태스크별)
+    for r in all_results:
+        if r is None:
+            continue
+        detail_file = f"{output_dir}/{r['task_name']}_{timestamp}.json"
+        with open(detail_file, 'w', encoding='utf-8') as f:
+            json.dump(r, f, indent=2, ensure_ascii=False)
+
+    print(f"✓ Detailed results saved to: {output_dir}/")
+
+
+def main():
+    """메인 실행 함수"""
+    print("="*80)
+    print("HealthAlpaca Model Evaluation (Task-wise)")
+    print("Baseline (MedAlpaca-7b) vs Fine-tuned (HealthAlpaca)")
+    print("="*80)
+
+    # 설정
+    MAX_SAMPLES_PER_TASK = None  # None이면 전체, 숫자면 해당 개수만
+
+    # 1. 모델 로드
+    print("\n[Step 1] Loading models...")
+    baseline_model = load_baseline_model()
+    finetuned_model = attach_lora_adapter(baseline_model)
+
+    # 2. 태스크별 평가
+    print("\n[Step 2] Evaluating tasks...")
+    all_results = []
+
+    for task_name, task_config in TASKS.items():
+        result = evaluate_single_task(
+            task_name,
+            task_config,
+            baseline_model,
+            finetuned_model,
+            max_samples=MAX_SAMPLES_PER_TASK
+        )
+        all_results.append(result)
+
+    # 3. 결과 출력 및 저장
+    print("\n[Step 3] Saving results...")
+    print_summary(all_results)
+    save_all_results(all_results)
 
 
 if __name__ == "__main__":

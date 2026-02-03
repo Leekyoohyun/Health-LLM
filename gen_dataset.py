@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 
 MODE = "train"
-DATA = "AW_FB" # "PMData", "GLOBEM", "AW_FB"
+DATA = "LifeSnaps" # "LifeSnaps", "PMData", "GLOBEM", "AW_FB"
 
 
 def avg(_list):
