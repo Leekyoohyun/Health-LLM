@@ -336,7 +336,7 @@ if MODE == "train":
         }
         
         DATA_PATH = "/home/khlee/fine-tuning/Health-LLM/data/pmdata"
-        SUBTASK = "stress" # ['sleep_quality', 'stress', 'readiness', 'fatigue']:
+        SUBTASK = "readiness" # ['sleep_quality', 'stress', 'readiness', 'fatigue']:
         final_data = []
         print("[INFO] Subtask:", SUBTASK)
         for dir1 in tqdm(os.listdir(DATA_PATH)):
