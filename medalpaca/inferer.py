@@ -160,6 +160,10 @@ class Inferer:
         )
         input_token_ids = input_tokens["input_ids"].to("cuda")
 
+        # DEBUG: Print token length
+        if verbose:
+            print(f"[DEBUG] Input tokens: {input_token_ids.shape[1]}")
+
         generation_config = GenerationConfig(**generation_kwargs)
 
         with torch.no_grad():
