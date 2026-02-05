@@ -311,7 +311,7 @@ def extract_classification_answer(text):
 
 def run_inference(model, test_data, label="Model", max_new_tokens=256, max_samples=None):
     """단일 모델로 테스트 데이터 전체 추론"""
-    samples = test_data if max_samples is None else test_data[:max_samples]
+    samples = test_data if max_samples is None else test_data.select(range(min(max_samples, len(test_data))))
     total = len(samples)
     outputs = []
 
