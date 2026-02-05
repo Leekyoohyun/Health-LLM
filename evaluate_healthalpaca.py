@@ -606,7 +606,7 @@ def main():
         baseline_duration = baseline_all_outputs[task_name]['duration_seconds']
 
         # 결과 결합
-        samples = test_data if MAX_SAMPLES_PER_TASK is None else test_data[:MAX_SAMPLES_PER_TASK]
+        samples = test_data if MAX_SAMPLES_PER_TASK is None else test_data.select(range(min(MAX_SAMPLES_PER_TASK, len(test_data))))
         results = []
         for i, sample in enumerate(samples):
             results.append({
