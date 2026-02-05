@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 """
-HealthAlpaca 모델 평가 스크립트 (태스크별 개별 평가)
+HealthAlpaca 모델 평가 스크립트 (단일 GPU 순차 모델 교체) v4
 Baseline (MedAlpaca-7b) vs Fine-tuned (HealthAlpaca) 성능 비교
 
-평가 내용:
-- Regression 태스크: MAE (Mean Absolute Error)
-- Classification 태스크: Accuracy
-- GPU 메모리 사용량 모니터링
-- 결과 S3 자동 업로드
+수정사항 (v4):
+- [PERF] 단일 GPU (g6.xlarge, L4 24GB) 최적화
+  Phase 1: Baseline 로드 → 전체 태스크 추론 → 모델 해제
+  Phase 2: Finetuned 로드 → 전체 태스크 추론 → 모델 해제
+  Phase 3: 결과 결합 + 메트릭 계산 + 저장
+- [BUG FIX] Baseline/Finetuned 별도 모델 인스턴스 (순차 로드)
+- [BUG FIX] model_max_length 256 -> 2048
+- [FEATURE] 태스크별 즉시 저장 + S3 업로드 (spot instance 안전)
+- [FEATURE] max_new_tokens 128 -> 256
 """
 
 import os
+import gc
 import json
 import re
 import torch
@@ -36,18 +41,28 @@ class GPUMonitor:
         self.thread = None
 
     def _get_gpu_memory(self):
-        """현재 GPU 메모리 사용량 (MB)"""
         if torch.cuda.is_available():
+            num_gpus = torch.cuda.device_count()
+            per_gpu = {}
+            total_allocated = 0
+            total_reserved = 0
+            for i in range(num_gpus):
+                alloc = torch.cuda.memory_allocated(i) / 1024**2
+                resv = torch.cuda.memory_reserved(i) / 1024**2
+                per_gpu[f'gpu{i}_allocated_mb'] = alloc
+                per_gpu[f'gpu{i}_reserved_mb'] = resv
+                total_allocated += alloc
+                total_reserved += resv
             return {
-                'allocated_mb': torch.cuda.memory_allocated() / 1024**2,
-                'reserved_mb': torch.cuda.memory_reserved() / 1024**2,
-                'max_allocated_mb': torch.cuda.max_memory_allocated() / 1024**2,
+                'total_allocated_mb': total_allocated,
+                'total_reserved_mb': total_reserved,
+                'max_allocated_mb': max(torch.cuda.max_memory_allocated(i) / 1024**2 for i in range(num_gpus)),
+                'per_gpu': per_gpu,
                 'timestamp': datetime.now().isoformat()
             }
         return None
 
     def _monitor_loop(self):
-        """백그라운드 모니터링 루프"""
         while self.running:
             mem = self._get_gpu_memory()
             if mem:
@@ -55,17 +70,16 @@ class GPUMonitor:
             time.sleep(self.interval)
 
     def start(self):
-        """모니터링 시작"""
         if torch.cuda.is_available():
-            torch.cuda.reset_peak_memory_stats()
+            for i in range(torch.cuda.device_count()):
+                torch.cuda.reset_peak_memory_stats(i)
         self.running = True
         self.memory_history = []
         self.thread = threading.Thread(target=self._monitor_loop, daemon=True)
         self.thread.start()
-        print("   ✓ GPU Monitor started")
+        print("   GPU Monitor started")
 
     def stop(self):
-        """모니터링 중지 및 통계 반환"""
         self.running = False
         if self.thread:
             self.thread.join(timeout=2)
@@ -73,8 +87,13 @@ class GPUMonitor:
         if not self.memory_history:
             return None
 
-        allocated_list = [m['allocated_mb'] for m in self.memory_history]
-        reserved_list = [m['reserved_mb'] for m in self.memory_history]
+        allocated_list = [m['total_allocated_mb'] for m in self.memory_history]
+        reserved_list = [m['total_reserved_mb'] for m in self.memory_history]
+
+        num_gpus = torch.cuda.device_count() if torch.cuda.is_available() else 0
+        peak_per_gpu = {}
+        for i in range(num_gpus):
+            peak_per_gpu[f'gpu{i}_peak_mb'] = torch.cuda.max_memory_allocated(i) / 1024**2
 
         stats = {
             'avg_allocated_mb': np.mean(allocated_list),
@@ -82,36 +101,40 @@ class GPUMonitor:
             'min_allocated_mb': min(allocated_list),
             'avg_reserved_mb': np.mean(reserved_list),
             'max_reserved_mb': max(reserved_list),
-            'peak_memory_mb': torch.cuda.max_memory_allocated() / 1024**2 if torch.cuda.is_available() else 0,
+            'peak_per_gpu': peak_per_gpu,
             'samples_count': len(self.memory_history)
         }
-        print(f"   ✓ GPU Monitor stopped (Peak: {stats['peak_memory_mb']:.1f} MB)")
+        print(f"   GPU Monitor stopped")
+        for gpu_name, peak in peak_per_gpu.items():
+            print(f"      {gpu_name}: {peak:.1f} MB")
         return stats
 
     def get_current(self):
-        """현재 GPU 메모리 상태"""
         return self._get_gpu_memory()
 
 
 def get_nvidia_smi_info():
-    """nvidia-smi로 GPU 정보 조회"""
     try:
         result = subprocess.run(
-            ['nvidia-smi', '--query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu',
+            ['nvidia-smi', '--query-gpu=index,name,memory.total,memory.used,memory.free,utilization.gpu',
              '--format=csv,noheader,nounits'],
             capture_output=True, text=True, timeout=10
         )
         if result.returncode == 0:
-            parts = result.stdout.strip().split(', ')
-            return {
-                'gpu_name': parts[0],
-                'total_memory_mb': float(parts[1]),
-                'used_memory_mb': float(parts[2]),
-                'free_memory_mb': float(parts[3]),
-                'gpu_utilization_percent': float(parts[4])
-            }
+            gpus = []
+            for line in result.stdout.strip().split('\n'):
+                parts = [p.strip() for p in line.split(',')]
+                gpus.append({
+                    'index': int(parts[0]),
+                    'name': parts[1],
+                    'total_memory_mb': float(parts[2]),
+                    'used_memory_mb': float(parts[3]),
+                    'free_memory_mb': float(parts[4]),
+                    'utilization_percent': float(parts[5])
+                })
+            return gpus
     except Exception as e:
-        print(f"   ⚠ nvidia-smi failed: {e}")
+        print(f"   nvidia-smi failed: {e}")
     return None
 
 
@@ -119,26 +142,23 @@ def get_nvidia_smi_info():
 # S3 업로드 함수
 # ============================================================================
 def upload_to_s3(local_path, s3_bucket, s3_prefix="evaluation_results"):
-    """결과 파일을 S3에 업로드"""
     try:
         if os.path.isdir(local_path):
-            # 디렉토리 전체 업로드
             cmd = f"aws s3 sync {local_path} s3://{s3_bucket}/{s3_prefix}/ --quiet"
         else:
-            # 단일 파일 업로드
             filename = os.path.basename(local_path)
             cmd = f"aws s3 cp {local_path} s3://{s3_bucket}/{s3_prefix}/{filename} --quiet"
 
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=300)
 
         if result.returncode == 0:
-            print(f"   ✓ Uploaded to s3://{s3_bucket}/{s3_prefix}/")
+            print(f"   -> Uploaded to s3://{s3_bucket}/{s3_prefix}/")
             return True
         else:
-            print(f"   ⚠ S3 upload failed: {result.stderr}")
+            print(f"   S3 upload failed: {result.stderr}")
             return False
     except Exception as e:
-        print(f"   ⚠ S3 upload error: {e}")
+        print(f"   S3 upload error: {e}")
         return False
 
 
@@ -146,78 +166,67 @@ def upload_to_s3(local_path, s3_bucket, s3_prefix="evaluation_results"):
 # 태스크별 설정 (논문 Table 16 기준)
 # ============================================================================
 TASKS = {
-    # PMData 태스크들
     "PMData_stress": {
         "data_path": "PMData_stress_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "Stress Prediction (1-5)"
     },
     "PMData_readiness": {
         "data_path": "PMData_readiness_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "Readiness Prediction (0-10)"
     },
     "PMData_sleep_quality": {
         "data_path": "PMData_sleep_quality_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "Sleep Quality Prediction (1-5)"
     },
     "PMData_fatigue": {
         "data_path": "PMData_fatigue_train_all.json",
-        "task_type": "classification",  # Accuracy
+        "task_type": "classification",
         "description": "Fatigue Prediction (1-5)"
     },
-
-    # AW_FB 태스크들
     "AW_FB_activity": {
         "data_path": "AW_FB_activity_train_all.json",
-        "task_type": "classification",  # Accuracy
+        "task_type": "classification",
         "description": "Activity Recognition"
     },
     "AW_FB_calories": {
         "data_path": "AW_FB_calories_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "Calorie Burn Estimation"
     },
-
-    # LifeSnaps 태스크들
     "LifeSnaps_stress_resilience": {
         "data_path": "LifeSnaps_stress_resilience_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "Stress Resilience (0.2-5)"
     },
     "LifeSnaps_sleep_disorder": {
         "data_path": "LifeSnaps_sleep_disorder_train_all.json",
-        "task_type": "classification",  # Accuracy
+        "task_type": "classification",
         "description": "Sleep Disorder Detection (0/1)"
     },
-
-    # GLOBEM 태스크들
     "GLOBEM_depression": {
         "data_path": "GLOBEM_depression_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "PHQ-4 Depression (0-4)"
     },
     "GLOBEM_anxiety": {
         "data_path": "GLOBEM_anxiety_train_all.json",
-        "task_type": "regression",  # MAE
+        "task_type": "regression",
         "description": "PHQ-4 Anxiety (0-4)"
     },
 }
 
 
 def load_test_data(data_path, seed=42):
-    """
-    Test set 로드 (90:10 split)
-    """
     print(f"      Loading: {data_path}")
 
     if not os.path.exists(data_path):
-        print(f"      ⚠ File not found: {data_path}")
+        print(f"      File not found: {data_path}")
         return None
 
     data = load_dataset("json", data_files=data_path)
-
     split = data["train"].train_test_split(
         test_size=0.1,
         shuffle=True,
@@ -225,25 +234,41 @@ def load_test_data(data_path, seed=42):
     )
 
     test_data = split["test"]
-    print(f"      ✓ Test samples: {len(test_data)}")
+    print(f"      Test samples: {len(test_data)}")
     return test_data
 
 
-def load_baseline_model():
-    """Baseline 모델 로드 (MedAlpaca-7b)"""
-    print("   Loading Baseline (MedAlpaca-7b)...")
+def load_model_on_gpu(gpu_id=0, model_max_length=2048):
+    print(f"   Loading MedAlpaca-7b on GPU {gpu_id}...")
+
     model = Inferer(
         model_name="medalpaca/medalpaca-7b",
         prompt_template="medalpaca/prompt_templates/medalpaca.json",
-        model_max_length=256,
-        torch_dtype=torch.float16
+        model_max_length=model_max_length,
+        torch_dtype=torch.float16,
+        device_map={"": f"cuda:{gpu_id}"}
     )
-    print("   ✓ Baseline loaded")
+
+    mem = torch.cuda.memory_allocated(gpu_id) / 1024**2
+    print(f"   Model loaded on GPU {gpu_id} ({mem:.0f} MB)")
     return model
 
 
+def unload_model(model, gpu_id=0):
+    """모델을 GPU에서 완전히 해제"""
+    print(f"   Unloading model from GPU {gpu_id}...")
+    mem_before = torch.cuda.memory_allocated(gpu_id) / 1024**2
+
+    del model.model
+    del model
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    mem_after = torch.cuda.memory_allocated(gpu_id) / 1024**2
+    print(f"   GPU {gpu_id}: {mem_before:.0f} MB -> {mem_after:.0f} MB (freed {mem_before - mem_after:.0f} MB)")
+
+
 def attach_lora_adapter(inferer, adapter_path="outputs/healthalpaca-7b-lora"):
-    """기존 모델에 LoRA 어댑터 결합"""
     from peft import PeftModel
 
     print(f"   Attaching LoRA adapter from {adapter_path}...")
@@ -253,12 +278,11 @@ def attach_lora_adapter(inferer, adapter_path="outputs/healthalpaca-7b-lora"):
         torch_dtype=torch.float16
     )
     inferer.model.eval()
-    print("   ✓ LoRA adapter attached")
+    print("   LoRA adapter attached")
     return inferer
 
 
 def extract_number(text):
-    """텍스트에서 숫자 추출"""
     try:
         return float(text.strip())
     except:
@@ -274,32 +298,21 @@ def extract_number(text):
 
 
 def extract_classification_answer(text):
-    """분류 답변에서 핵심 키워드 추출"""
-    # "is XXX" 패턴 찾기
     match = re.search(r'is\s+(.+?)(?:\.|$)', text, re.IGNORECASE)
     if match:
         return match.group(1).strip().lower()
     return text.strip().lower()
 
 
-def run_inference(model, test_data, max_samples=None, gpu_monitor=None):
-    """모델 추론 수행 (GPU 메모리 로깅 포함)"""
-    outputs = []
+def run_inference(model, test_data, label="Model", max_new_tokens=256, max_samples=None):
+    """단일 모델로 테스트 데이터 전체 추론"""
     samples = test_data if max_samples is None else test_data[:max_samples]
     total = len(samples)
-    inference_gpu_snapshots = []
+    outputs = []
 
     for i, sample in enumerate(samples):
-        # GPU 메모리 스냅샷
-        if gpu_monitor and i % 10 == 0:  # 10개마다 기록
-            mem = gpu_monitor.get_current()
-            if mem:
-                inference_gpu_snapshots.append({
-                    'sample_idx': i,
-                    'allocated_mb': mem['allocated_mb']
-                })
-
-        print(f"      [{i+1}/{total}] Processing... (GPU: {torch.cuda.memory_allocated()/1024**2:.0f}MB)", end='\r')
+        if (i + 1) % 5 == 0 or i == 0:
+            print(f"      [{label}] [{i+1}/{total}]", end='\r')
 
         instruction = sample.get('instruction', '')
         input_text = sample.get('input', '')
@@ -307,22 +320,15 @@ def run_inference(model, test_data, max_samples=None, gpu_monitor=None):
         output = model(
             instruction=instruction if instruction else None,
             input=input_text,
-            max_new_tokens=128
+            max_new_tokens=max_new_tokens
         )
         outputs.append(output)
 
-    print(f"      ✓ {total} samples evaluated          ")
-    return outputs, inference_gpu_snapshots
+    print(f"      [{label}] {total}/{total} done          ")
+    return outputs
 
 
 def calculate_task_metrics(results, task_type):
-    """
-    태스크 타입별 메트릭 계산
-
-    Args:
-        results: 추론 결과 리스트
-        task_type: "regression" (MAE) 또는 "classification" (Accuracy)
-    """
     baseline_scores = []
     finetuned_scores = []
 
@@ -332,7 +338,6 @@ def calculate_task_metrics(results, task_type):
         finetuned_pred = r['finetuned_output']
 
         if task_type == "regression":
-            # MAE 계산
             gt_num = extract_number(gt)
             baseline_num = extract_number(baseline_pred)
             finetuned_num = extract_number(finetuned_pred)
@@ -341,7 +346,7 @@ def calculate_task_metrics(results, task_type):
                 if baseline_num is not None:
                     baseline_scores.append(abs(gt_num - baseline_num))
                 else:
-                    baseline_scores.append(abs(gt_num))  # 실패시 큰 에러
+                    baseline_scores.append(abs(gt_num))
 
                 if finetuned_num is not None:
                     finetuned_scores.append(abs(gt_num - finetuned_num))
@@ -349,7 +354,6 @@ def calculate_task_metrics(results, task_type):
                     finetuned_scores.append(abs(gt_num))
 
         else:  # classification
-            # Accuracy 계산
             gt_label = extract_classification_answer(gt)
             baseline_label = extract_classification_answer(baseline_pred)
             finetuned_label = extract_classification_answer(finetuned_pred)
@@ -373,78 +377,37 @@ def calculate_task_metrics(results, task_type):
         }
 
 
-def evaluate_single_task(task_name, task_config, baseline_model, finetuned_model, gpu_monitor=None, max_samples=None):
-    """단일 태스크 평가 (GPU 메모리 추적 포함)"""
-    print(f"\n   [{task_name}] {task_config['description']}")
-    print(f"      Task type: {task_config['task_type']}")
+def save_task_result(result, output_dir, timestamp):
+    os.makedirs(output_dir, exist_ok=True)
+    detail_file = f"{output_dir}/{result['task_name']}_{timestamp}.json"
+    with open(detail_file, 'w', encoding='utf-8') as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+    print(f"      -> Saved: {detail_file}")
+    return detail_file
 
-    task_start_time = time.time()
 
-    # 데이터 로드
-    test_data = load_test_data(task_config['data_path'])
-    if test_data is None:
-        return None
-
-    # GPU 메모리 초기 상태
-    gpu_before = gpu_monitor.get_current() if gpu_monitor else None
-
-    # Baseline 추론
-    print("      Running Baseline inference...")
-    baseline_outputs, baseline_gpu_snapshots = run_inference(
-        baseline_model, test_data, max_samples, gpu_monitor
-    )
-
-    # Fine-tuned 추론
-    print("      Running Fine-tuned inference...")
-    finetuned_outputs, finetuned_gpu_snapshots = run_inference(
-        finetuned_model, test_data, max_samples, gpu_monitor
-    )
-
-    # GPU 메모리 최종 상태
-    gpu_after = gpu_monitor.get_current() if gpu_monitor else None
-
-    task_duration = time.time() - task_start_time
-
-    # 결과 병합
-    samples = test_data if max_samples is None else test_data[:max_samples]
-    results = []
-    for i, sample in enumerate(samples):
-        results.append({
-            'sample_id': i + 1,
-            'instruction': sample.get('instruction', ''),
-            'input': sample.get('input', ''),
-            'ground_truth': sample.get('output', ''),
-            'baseline_output': baseline_outputs[i],
-            'finetuned_output': finetuned_outputs[i]
-        })
-
-    # 메트릭 계산
-    metrics = calculate_task_metrics(results, task_config['task_type'])
-
-    return {
-        'task_name': task_name,
-        'description': task_config['description'],
-        'task_type': task_config['task_type'],
-        'metrics': metrics,
-        'results': results,
-        'gpu_stats': {
-            'before': gpu_before,
-            'after': gpu_after,
-            'baseline_snapshots': baseline_gpu_snapshots,
-            'finetuned_snapshots': finetuned_gpu_snapshots
-        },
-        'duration_seconds': task_duration
-    }
+def save_baseline_interim(baseline_all_outputs, output_dir, timestamp):
+    """Baseline 추론 결과 중간 저장 (spot instance 안전)"""
+    interim_file = f"{output_dir}/baseline_interim_{timestamp}.json"
+    serializable = {}
+    for task_name, data in baseline_all_outputs.items():
+        serializable[task_name] = {
+            'outputs': data['outputs'],
+            'num_samples': len(data['outputs']),
+            'duration_seconds': data['duration_seconds']
+        }
+    with open(interim_file, 'w', encoding='utf-8') as f:
+        json.dump(serializable, f, indent=2, ensure_ascii=False)
+    print(f"   -> Baseline interim saved: {interim_file}")
+    return interim_file
 
 
 def print_summary(all_results):
-    """전체 결과 요약 출력"""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("EVALUATION SUMMARY")
-    print("="*80)
+    print("=" * 80)
 
-    # 회귀 태스크 (MAE)
-    print("\n[Regression Tasks - MAE (↓ lower is better)]")
+    print("\n[Regression Tasks - MAE (lower is better)]")
     print("-" * 70)
     print(f"{'Task':<35} {'Baseline':<12} {'Fine-tuned':<12} {'Improve':<10}")
     print("-" * 70)
@@ -461,8 +424,7 @@ def print_summary(all_results):
             else:
                 print(f"{r['task_name']:<35} {'N/A':<12} {'N/A':<12} {'N/A':<10}")
 
-    # 분류 태스크 (Accuracy)
-    print("\n[Classification Tasks - Accuracy (↑ higher is better)]")
+    print("\n[Classification Tasks - Accuracy (higher is better)]")
     print("-" * 70)
     print(f"{'Task':<35} {'Baseline':<12} {'Fine-tuned':<12} {'Improve':<10}")
     print("-" * 70)
@@ -473,24 +435,18 @@ def print_summary(all_results):
         if r['task_type'] == 'classification':
             baseline = r['metrics']['baseline']
             finetuned = r['metrics']['finetuned']
-            if baseline and finetuned:
+            if baseline is not None and finetuned is not None:
                 improve = (finetuned - baseline) / max(baseline, 0.001) * 100
                 print(f"{r['task_name']:<35} {baseline:<12.2%} {finetuned:<12.2%} {improve:+.1f}%")
             else:
                 print(f"{r['task_name']:<35} {'N/A':<12} {'N/A':<12} {'N/A':<10}")
 
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
 
 
-def save_all_results(all_results, gpu_overall_stats=None, output_dir="results"):
-    """전체 결과 저장 (GPU 통계 포함)"""
-    os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-    # nvidia-smi 정보 조회
+def save_final_summary(all_results, gpu_overall_stats, output_dir, timestamp, model_config):
     nvidia_info = get_nvidia_smi_info()
 
-    # 요약 결과 저장
     summary = []
     total_duration = 0
     for r in all_results:
@@ -506,9 +462,6 @@ def save_all_results(all_results, gpu_overall_stats=None, output_dir="results"):
             'num_samples': r['metrics']['num_samples'],
             'duration_seconds': r.get('duration_seconds', 0)
         }
-        # GPU 스냅샷 요약
-        if r.get('gpu_stats') and r['gpu_stats'].get('after'):
-            task_summary['gpu_peak_mb'] = r['gpu_stats']['after'].get('max_allocated_mb', 0)
         summary.append(task_summary)
         total_duration += r.get('duration_seconds', 0)
 
@@ -519,85 +472,183 @@ def save_all_results(all_results, gpu_overall_stats=None, output_dir="results"):
             'total_duration_seconds': total_duration,
             'gpu_info': nvidia_info,
             'gpu_overall_stats': gpu_overall_stats,
+            'model_config': model_config,
             'tasks': summary
         }, f, indent=2, ensure_ascii=False)
 
-    print(f"\n✓ Summary saved to: {summary_file}")
-
-    # 상세 결과 저장 (각 태스크별)
-    for r in all_results:
-        if r is None:
-            continue
-        detail_file = f"{output_dir}/{r['task_name']}_{timestamp}.json"
-        with open(detail_file, 'w', encoding='utf-8') as f:
-            json.dump(r, f, indent=2, ensure_ascii=False)
-
-    print(f"✓ Detailed results saved to: {output_dir}/")
-
-    return output_dir, timestamp
+    print(f"\n   Summary saved to: {summary_file}")
+    return summary_file
 
 
 def main():
-    """메인 실행 함수"""
-    print("="*80)
-    print("HealthAlpaca Model Evaluation (Task-wise)")
+    print("=" * 80)
+    print("HealthAlpaca Model Evaluation v4 (Single GPU - Sequential Model Swap)")
     print("Baseline (MedAlpaca-7b) vs Fine-tuned (HealthAlpaca)")
-    print("="*80)
+    print("=" * 80)
 
     # =========================================================================
     # 설정
     # =========================================================================
-    MAX_SAMPLES_PER_TASK = None  # None이면 전체, 숫자면 해당 개수만
-    S3_BUCKET = "khlee-healthllm-checkpoints"  # S3 버킷 이름
-    S3_PREFIX = "evaluation_results"  # S3 경로 prefix
-    UPLOAD_TO_S3 = True  # S3 업로드 여부
+    MAX_SAMPLES_PER_TASK = None
+    S3_BUCKET = "khlee-healthllm-checkpoints"
+    S3_PREFIX = "evaluation_results"
+    UPLOAD_TO_S3 = True
+    OUTPUT_DIR = "results"
+    TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    model_config = {
+        'mode': 'single-GPU sequential swap',
+        'gpu': 0,
+        'model_max_length': 2048,
+        'max_new_tokens': 256
+    }
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # =========================================================================
-    # 0. GPU 모니터 시작
+    # 0. GPU 확인 및 모니터 시작
     # =========================================================================
-    print("\n[Step 0] Starting GPU Monitor...")
-    gpu_monitor = GPUMonitor(interval=2.0)  # 2초마다 기록
-    gpu_monitor.start()
+    print("\n[Step 0] GPU Setup...")
 
-    # 초기 GPU 정보 출력
+    num_gpus = torch.cuda.device_count()
+    print(f"   Available GPUs: {num_gpus}")
+    print("   Mode: Single GPU sequential (Baseline first -> swap -> Finetuned)")
+
     nvidia_info = get_nvidia_smi_info()
     if nvidia_info:
-        print(f"   GPU: {nvidia_info['gpu_name']}")
-        print(f"   Total Memory: {nvidia_info['total_memory_mb']:.0f} MB")
-        print(f"   Current Used: {nvidia_info['used_memory_mb']:.0f} MB")
+        for gpu in nvidia_info:
+            print(f"   GPU {gpu['index']}: {gpu['name']} ({gpu['total_memory_mb']:.0f} MB total, {gpu['used_memory_mb']:.0f} MB used)")
+
+    gpu_monitor = GPUMonitor(interval=2.0)
+    gpu_monitor.start()
 
     total_start_time = time.time()
 
     # =========================================================================
-    # 1. 모델 로드
+    # 1. Phase 1: Baseline 추론 (전체 태스크)
     # =========================================================================
-    print("\n[Step 1] Loading models...")
-    baseline_model = load_baseline_model()
-    finetuned_model = attach_lora_adapter(baseline_model)
+    print("\n" + "=" * 80)
+    print("[Phase 1] BASELINE (MedAlpaca-7b) Inference")
+    print("=" * 80)
 
-    # 모델 로드 후 GPU 상태
-    if torch.cuda.is_available():
-        print(f"   GPU Memory after model load: {torch.cuda.memory_allocated()/1024**2:.0f} MB")
+    baseline_model = load_model_on_gpu(gpu_id=0, model_max_length=2048)
 
-    # =========================================================================
-    # 2. 태스크별 평가
-    # =========================================================================
-    print("\n[Step 2] Evaluating tasks...")
-    all_results = []
+    # 테스트 데이터 미리 로드 (Phase 2에서 동일한 데이터 재사용)
+    all_test_data = {}
+    baseline_all_outputs = {}
 
-    for task_name, task_config in TASKS.items():
-        result = evaluate_single_task(
-            task_name,
-            task_config,
-            baseline_model,
-            finetuned_model,
-            gpu_monitor=gpu_monitor,
+    for task_idx, (task_name, task_config) in enumerate(TASKS.items()):
+        print(f"\n   --- Task {task_idx+1}/{len(TASKS)}: {task_name} ({task_config['description']}) ---")
+
+        test_data = load_test_data(task_config['data_path'])
+        if test_data is None:
+            print(f"      SKIPPED (data not found)")
+            continue
+
+        all_test_data[task_name] = test_data
+
+        task_start = time.time()
+        outputs = run_inference(
+            baseline_model, test_data,
+            label=f"Baseline/{task_name}",
             max_samples=MAX_SAMPLES_PER_TASK
         )
-        all_results.append(result)
+        task_duration = time.time() - task_start
+
+        baseline_all_outputs[task_name] = {
+            'outputs': outputs,
+            'duration_seconds': task_duration
+        }
+        print(f"      Done in {task_duration/60:.1f} min ({len(outputs)} samples)")
+
+    # Baseline 중간 저장 (spot instance 안전)
+    interim_file = save_baseline_interim(baseline_all_outputs, OUTPUT_DIR, TIMESTAMP)
+    if UPLOAD_TO_S3:
+        upload_to_s3(interim_file, S3_BUCKET, f"{S3_PREFIX}/{TIMESTAMP}")
+
+    # Baseline 모델 해제
+    print("\n   Unloading Baseline model...")
+    unload_model(baseline_model, gpu_id=0)
 
     # =========================================================================
-    # 3. GPU 모니터 중지 및 통계 수집
+    # 2. Phase 2: Finetuned 추론 + 결과 결합
+    # =========================================================================
+    print("\n" + "=" * 80)
+    print("[Phase 2] FINETUNED (HealthAlpaca) Inference")
+    print("=" * 80)
+
+    finetuned_model = load_model_on_gpu(gpu_id=0, model_max_length=2048)
+    attach_lora_adapter(finetuned_model)
+
+    all_results = []
+
+    for task_idx, (task_name, task_config) in enumerate(TASKS.items()):
+        if task_name not in all_test_data:
+            continue
+
+        print(f"\n   --- Task {task_idx+1}/{len(TASKS)}: {task_name} ({task_config['description']}) ---")
+
+        test_data = all_test_data[task_name]
+
+        task_start = time.time()
+        finetuned_outputs = run_inference(
+            finetuned_model, test_data,
+            label=f"Finetuned/{task_name}",
+            max_samples=MAX_SAMPLES_PER_TASK
+        )
+        finetuned_duration = time.time() - task_start
+
+        baseline_outputs = baseline_all_outputs[task_name]['outputs']
+        baseline_duration = baseline_all_outputs[task_name]['duration_seconds']
+
+        # 결과 결합
+        samples = test_data if MAX_SAMPLES_PER_TASK is None else test_data[:MAX_SAMPLES_PER_TASK]
+        results = []
+        for i, sample in enumerate(samples):
+            results.append({
+                'sample_id': i + 1,
+                'instruction': sample.get('instruction', ''),
+                'input': sample.get('input', ''),
+                'ground_truth': sample.get('output', ''),
+                'baseline_output': baseline_outputs[i],
+                'finetuned_output': finetuned_outputs[i]
+            })
+
+        # 메트릭 계산
+        metrics = calculate_task_metrics(results, task_config['task_type'])
+        total_task_duration = baseline_duration + finetuned_duration
+
+        task_result = {
+            'task_name': task_name,
+            'description': task_config['description'],
+            'task_type': task_config['task_type'],
+            'metrics': metrics,
+            'results': results,
+            'duration_seconds': total_task_duration,
+            'baseline_duration_seconds': baseline_duration,
+            'finetuned_duration_seconds': finetuned_duration,
+        }
+
+        all_results.append(task_result)
+
+        # 즉시 저장
+        saved_file = save_task_result(task_result, OUTPUT_DIR, TIMESTAMP)
+
+        # 즉시 S3 업로드
+        if UPLOAD_TO_S3:
+            upload_to_s3(saved_file, S3_BUCKET, f"{S3_PREFIX}/{TIMESTAMP}")
+
+        # 중간 메트릭 출력
+        m = metrics
+        print(f"      {m['metric']}: Baseline={m['baseline']}, Finetuned={m['finetuned']} ({m['num_samples']} samples)")
+        print(f"      Duration: baseline {baseline_duration/60:.1f}min + finetuned {finetuned_duration/60:.1f}min = {total_task_duration/60:.1f}min")
+
+    # Finetuned 모델 해제
+    print("\n   Unloading Finetuned model...")
+    unload_model(finetuned_model, gpu_id=0)
+
+    # =========================================================================
+    # 3. GPU 모니터 중지
     # =========================================================================
     print("\n[Step 3] Stopping GPU Monitor...")
     gpu_overall_stats = gpu_monitor.stop()
@@ -606,34 +657,36 @@ def main():
     print(f"   Total evaluation time: {total_duration/60:.1f} minutes")
 
     # =========================================================================
-    # 4. 결과 출력 및 저장
+    # 4. 결과 요약
     # =========================================================================
-    print("\n[Step 4] Saving results...")
+    print("\n[Step 4] Final results...")
     print_summary(all_results)
-    output_dir, timestamp = save_all_results(all_results, gpu_overall_stats)
 
-    # GPU 통계 출력
+    summary_file = save_final_summary(all_results, gpu_overall_stats, OUTPUT_DIR, TIMESTAMP, model_config)
+
     if gpu_overall_stats:
         print(f"\n[GPU Memory Statistics]")
-        print(f"   Peak Memory: {gpu_overall_stats['peak_memory_mb']:.1f} MB")
         print(f"   Avg Allocated: {gpu_overall_stats['avg_allocated_mb']:.1f} MB")
         print(f"   Max Allocated: {gpu_overall_stats['max_allocated_mb']:.1f} MB")
+        if gpu_overall_stats.get('peak_per_gpu'):
+            for gpu_name, peak in gpu_overall_stats['peak_per_gpu'].items():
+                print(f"   {gpu_name}: {peak:.1f} MB")
 
     # =========================================================================
-    # 5. S3 업로드
+    # 5. 최종 S3 업로드
     # =========================================================================
     if UPLOAD_TO_S3:
-        print(f"\n[Step 5] Uploading results to S3...")
-        s3_path = f"{S3_PREFIX}/{timestamp}"
-        success = upload_to_s3(output_dir, S3_BUCKET, s3_path)
-        if success:
-            print(f"   ✓ Results available at: s3://{S3_BUCKET}/{s3_path}/")
+        print(f"\n[Step 5] Uploading final summary to S3...")
+        s3_path = f"{S3_PREFIX}/{TIMESTAMP}"
+        upload_to_s3(summary_file, S3_BUCKET, s3_path)
+        print(f"   Results at: s3://{S3_BUCKET}/{s3_path}/")
     else:
-        print("\n[Step 5] S3 upload skipped (UPLOAD_TO_S3=False)")
+        print("\n[Step 5] S3 upload skipped")
 
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("EVALUATION COMPLETE!")
-    print("="*80)
+    print(f"Results in: {OUTPUT_DIR}/")
+    print("=" * 80)
 
 
 if __name__ == "__main__":
