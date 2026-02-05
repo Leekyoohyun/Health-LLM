@@ -238,48 +238,52 @@ def load_test_data(data_path, seed=42):
     return test_data
 
 
-def load_model_on_gpu(gpu_id=0, model_max_length=2048):
-    print(f"   Loading MedAlpaca-7b on GPU {gpu_id}...")
+def load_baseline_model(model_max_length=2048):
+    """Baseline MedAlpaca-7b 로드 (GPU 0, Inferer 내부에서 device_map 자동 설정)"""
+    print("   Loading Baseline MedAlpaca-7b...")
 
     model = Inferer(
         model_name="medalpaca/medalpaca-7b",
         prompt_template="medalpaca/prompt_templates/medalpaca.json",
         model_max_length=model_max_length,
         torch_dtype=torch.float16,
-        device_map={"": f"cuda:{gpu_id}"}
     )
 
-    mem = torch.cuda.memory_allocated(gpu_id) / 1024**2
-    print(f"   Model loaded on GPU {gpu_id} ({mem:.0f} MB)")
+    mem = torch.cuda.memory_allocated(0) / 1024**2
+    print(f"   Baseline model loaded ({mem:.0f} MB)")
     return model
 
 
-def unload_model(model, gpu_id=0):
+def load_finetuned_model(adapter_path="outputs/healthalpaca-7b-lora", model_max_length=2048):
+    """Finetuned HealthAlpaca 로드 (Inferer 내장 PEFT 지원 사용)"""
+    print(f"   Loading Finetuned HealthAlpaca (LoRA: {adapter_path})...")
+
+    model = Inferer(
+        model_name=adapter_path,
+        base_model="medalpaca/medalpaca-7b",
+        prompt_template="medalpaca/prompt_templates/medalpaca.json",
+        model_max_length=model_max_length,
+        torch_dtype=torch.float16,
+        peft=True,
+    )
+
+    mem = torch.cuda.memory_allocated(0) / 1024**2
+    print(f"   Finetuned model loaded ({mem:.0f} MB)")
+    return model
+
+
+def unload_model(model):
     """모델을 GPU에서 완전히 해제"""
-    print(f"   Unloading model from GPU {gpu_id}...")
-    mem_before = torch.cuda.memory_allocated(gpu_id) / 1024**2
+    print("   Unloading model...")
+    mem_before = torch.cuda.memory_allocated(0) / 1024**2
 
     del model.model
     del model
     gc.collect()
     torch.cuda.empty_cache()
 
-    mem_after = torch.cuda.memory_allocated(gpu_id) / 1024**2
-    print(f"   GPU {gpu_id}: {mem_before:.0f} MB -> {mem_after:.0f} MB (freed {mem_before - mem_after:.0f} MB)")
-
-
-def attach_lora_adapter(inferer, adapter_path="outputs/healthalpaca-7b-lora"):
-    from peft import PeftModel
-
-    print(f"   Attaching LoRA adapter from {adapter_path}...")
-    inferer.model = PeftModel.from_pretrained(
-        inferer.model,
-        adapter_path,
-        torch_dtype=torch.float16
-    )
-    inferer.model.eval()
-    print("   LoRA adapter attached")
-    return inferer
+    mem_after = torch.cuda.memory_allocated(0) / 1024**2
+    print(f"   GPU 0: {mem_before:.0f} MB -> {mem_after:.0f} MB (freed {mem_before - mem_after:.0f} MB)")
 
 
 def extract_number(text):
@@ -531,7 +535,7 @@ def main():
     print("[Phase 1] BASELINE (MedAlpaca-7b) Inference")
     print("=" * 80)
 
-    baseline_model = load_model_on_gpu(gpu_id=0, model_max_length=2048)
+    baseline_model = load_baseline_model(model_max_length=2048)
 
     # 테스트 데이터 미리 로드 (Phase 2에서 동일한 데이터 재사용)
     all_test_data = {}
@@ -568,7 +572,7 @@ def main():
 
     # Baseline 모델 해제
     print("\n   Unloading Baseline model...")
-    unload_model(baseline_model, gpu_id=0)
+    unload_model(baseline_model)
 
     # =========================================================================
     # 2. Phase 2: Finetuned 추론 + 결과 결합
@@ -577,8 +581,7 @@ def main():
     print("[Phase 2] FINETUNED (HealthAlpaca) Inference")
     print("=" * 80)
 
-    finetuned_model = load_model_on_gpu(gpu_id=0, model_max_length=2048)
-    attach_lora_adapter(finetuned_model)
+    finetuned_model = load_finetuned_model(model_max_length=2048)
 
     all_results = []
 
@@ -645,7 +648,7 @@ def main():
 
     # Finetuned 모델 해제
     print("\n   Unloading Finetuned model...")
-    unload_model(finetuned_model, gpu_id=0)
+    unload_model(finetuned_model)
 
     # =========================================================================
     # 3. GPU 모니터 중지
