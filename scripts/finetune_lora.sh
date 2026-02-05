@@ -77,6 +77,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.1 \
+    --model_max_length 2048 \
     $RESUME_PATH \
     2>&1 | tee $TRAIN_LOG
 
