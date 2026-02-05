@@ -151,8 +151,13 @@ class Inferer:
         prompt = self.data_handler.generate_prompt(instruction = instruction, input = input, output = output)
         if verbose:
             print(prompt)
-            
-        input_tokens = self.data_handler.tokenizer(prompt, return_tensors="pt")
+
+        input_tokens = self.data_handler.tokenizer(
+            prompt,
+            return_tensors="pt",
+            max_length=self.data_handler.model_max_length,
+            truncation=True
+        )
         input_token_ids = input_tokens["input_ids"].to("cuda")
 
         generation_config = GenerationConfig(**generation_kwargs)
