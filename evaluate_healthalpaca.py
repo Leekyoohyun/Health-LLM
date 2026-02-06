@@ -163,60 +163,49 @@ def upload_to_s3(local_path, s3_bucket, s3_prefix="evaluation_results"):
 
 
 # ============================================================================
-# 태스크별 설정 (논문 Table 16 기준)
+# 태스크별 설정 (8개 task - GLOBEM 제외)
 # ============================================================================
-# QUICK TEST: 1개 태스크만 활성화
 TASKS = {
     "PMData_stress": {
         "data_path": "PMData_stress_train_all.json",
         "task_type": "regression",
         "description": "Stress Prediction (1-5)"
     },
-    # "PMData_readiness": {
-    #     "data_path": "PMData_readiness_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "Readiness Prediction (0-10)"
-    # },
-    # "PMData_sleep_quality": {
-    #     "data_path": "PMData_sleep_quality_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "Sleep Quality Prediction (1-5)"
-    # },
-    # "PMData_fatigue": {
-    #     "data_path": "PMData_fatigue_train_all.json",
-    #     "task_type": "classification",
-    #     "description": "Fatigue Prediction (1-5)"
-    # },
-    # "AW_FB_activity": {
-    #     "data_path": "AW_FB_activity_train_all.json",
-    #     "task_type": "classification",
-    #     "description": "Activity Recognition"
-    # },
-    # "AW_FB_calories": {
-    #     "data_path": "AW_FB_calories_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "Calorie Burn Estimation"
-    # },
-    # "LifeSnaps_stress_resilience": {
-    #     "data_path": "LifeSnaps_stress_resilience_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "Stress Resilience (0.2-5)"
-    # },
-    # "LifeSnaps_sleep_disorder": {
-    #     "data_path": "LifeSnaps_sleep_disorder_train_all.json",
-    #     "task_type": "classification",
-    #     "description": "Sleep Disorder Detection (0/1)"
-    # },
-    # "GLOBEM_depression": {
-    #     "data_path": "GLOBEM_depression_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "PHQ-4 Depression (0-4)"
-    # },
-    # "GLOBEM_anxiety": {
-    #     "data_path": "GLOBEM_anxiety_train_all.json",
-    #     "task_type": "regression",
-    #     "description": "PHQ-4 Anxiety (0-4)"
-    # },
+    "PMData_readiness": {
+        "data_path": "PMData_readiness_train_all.json",
+        "task_type": "regression",
+        "description": "Readiness Prediction (0-10)"
+    },
+    "PMData_sleep_quality": {
+        "data_path": "PMData_sleep_quality_train_all.json",
+        "task_type": "regression",
+        "description": "Sleep Quality Prediction (1-5)"
+    },
+    "PMData_fatigue": {
+        "data_path": "PMData_fatigue_train_all.json",
+        "task_type": "classification",
+        "description": "Fatigue Prediction (1-5)"
+    },
+    "LifeSnaps_stress_resilience": {
+        "data_path": "LifeSnaps_stress_resilience_train_all.json",
+        "task_type": "regression",
+        "description": "Stress Resilience (0.2-5)"
+    },
+    "LifeSnaps_sleep_disorder": {
+        "data_path": "LifeSnaps_sleep_disorder_train_all.json",
+        "task_type": "classification",
+        "description": "Sleep Disorder Detection (0/1)"
+    },
+    "AW_FB_activity": {
+        "data_path": "AW_FB_activity_train_all.json",
+        "task_type": "classification",
+        "description": "Activity Recognition"
+    },
+    "AW_FB_calories": {
+        "data_path": "AW_FB_calories_train_all.json",
+        "task_type": "regression",
+        "description": "Calorie Burn Estimation"
+    },
 }
 
 
@@ -494,7 +483,7 @@ def main():
     # =========================================================================
     # 설정
     # =========================================================================
-    MAX_SAMPLES_PER_TASK = 10  # QUICK TEST: 10개 샘플만 (None = 전체)
+    MAX_SAMPLES_PER_TASK = None  # None = 전체 샘플 평가 (quick test: 10)
     S3_BUCKET = "khlee-healthllm-checkpoints"
     S3_PREFIX = "evaluation_results"
     UPLOAD_TO_S3 = True

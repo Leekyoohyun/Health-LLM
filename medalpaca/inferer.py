@@ -152,12 +152,7 @@ class Inferer:
         if verbose:
             print(prompt)
 
-        input_tokens = self.data_handler.tokenizer(
-            prompt,
-            return_tensors="pt",
-            max_length=self.data_handler.model_max_length,
-            truncation=True
-        )
+        input_tokens = self.data_handler.tokenizer(prompt, return_tensors="pt")
         input_token_ids = input_tokens["input_ids"].to("cuda")
 
         # DEBUG: Print token length
