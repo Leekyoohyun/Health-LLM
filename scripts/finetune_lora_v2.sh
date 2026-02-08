@@ -29,6 +29,22 @@ MONITOR_PID=$!
 
 echo "[$(date +%H:%M:%S)] GPU monitoring started (PID: $MONITOR_PID)"
 
+# Checkpoint backup to S3 in background
+CHECKPOINT_LOG="$LOG_DIR/checkpoint_backup_$(date +%Y%m%d_%H%M%S).log"
+while true; do
+    sleep 300  # 5분마다
+    LATEST=$(ls -td $OUTPUT_DIR/checkpoint-* 2>/dev/null | head -1)
+    if [ -n "$LATEST" ]; then
+        CHECKPOINT_NAME=$(basename "$LATEST")
+        aws s3 sync "$LATEST" "s3://$S3_BUCKET/checkpoints/$CHECKPOINT_NAME/" --quiet 2>/dev/null || true
+        echo "[$(date +%H:%M:%S)] Backed up: $CHECKPOINT_NAME" >> $CHECKPOINT_LOG
+        echo "[$(date +%H:%M:%S)] Backed up: $CHECKPOINT_NAME"
+    fi
+done &
+BACKUP_PID=$!
+
+echo "[$(date +%H:%M:%S)] Checkpoint backup started (PID: $BACKUP_PID)"
+
 TRAIN_LOG="$LOG_DIR/lora_finetune_$(date +%Y%m%d_%H%M%S).log"
 
 echo "[$(date +%H:%M:%S)] Starting LoRA training..."
@@ -59,6 +75,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
 EXIT_CODE=${PIPESTATUS[0]}
 
 kill $MONITOR_PID 2>/dev/null || true
+kill $BACKUP_PID 2>/dev/null || true
 
 echo ""
 echo "=========================================="
@@ -99,6 +116,7 @@ fi
 
 aws s3 cp $TRAIN_LOG "s3://$S3_BUCKET/logs/$(basename $TRAIN_LOG)" --quiet 2>/dev/null || true
 aws s3 cp $GPU_LOG "s3://$S3_BUCKET/logs/$(basename $GPU_LOG)" --quiet 2>/dev/null || true
+aws s3 cp $CHECKPOINT_LOG "s3://$S3_BUCKET/logs/$(basename $CHECKPOINT_LOG)" --quiet 2>/dev/null || true
 
 echo ""
 echo "=========================================="
@@ -108,3 +126,4 @@ echo ""
 echo "Output directory: $OUTPUT_DIR"
 echo "Log file: $TRAIN_LOG"
 echo "GPU memory log: $GPU_LOG"
+echo "Checkpoint backup log: $CHECKPOINT_LOG"
