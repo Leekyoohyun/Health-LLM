@@ -45,8 +45,8 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --warmup_steps 50 \
     --eval_steps 50 \
     --save_total_limit 3 \
-    --fp16 False \
-    --bf16 True \
+    --fp16 True \
+    --bf16 False \
     --train_in_8bit True \
     --use_lora True \
     --lora_r 8 \
