@@ -44,6 +44,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --learning_rate 2e-5 \
     --warmup_steps 50 \
     --eval_steps 50 \
+    --save_steps 50 \
     --save_total_limit 3 \
     --fp16 True \
     --bf16 False \
