@@ -236,7 +236,6 @@ def load_baseline_model(model_max_length=2048):
         model_name="medalpaca/medalpaca-7b",
         prompt_template="medalpaca/prompt_templates/medalpaca.json",
         model_max_length=model_max_length,
-        load_in_8bit=True,
         torch_dtype=torch.float16,
     )
 
@@ -254,7 +253,6 @@ def load_finetuned_model(adapter_path="outputs/healthalpaca-7b-lora", model_max_
         base_model="medalpaca/medalpaca-7b",
         prompt_template="medalpaca/prompt_templates/medalpaca.json",
         model_max_length=model_max_length,
-        load_in_8bit=True,
         torch_dtype=torch.float16,
         peft=True,
     )
