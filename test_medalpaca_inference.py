@@ -7,7 +7,7 @@ MedAlpaca inference 테스트 스크립트
 
 import json
 import torch
-from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # ========================================
 # Prompt Template 로드
@@ -38,12 +38,10 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained("medalpaca/medalpaca-7b")
 
-medalpaca_pl = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    max_new_tokens=128,
-)
+# padding token 설정 (없으면 eos_token 사용)
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+
 print("✓ Model loaded to GPU\n")
 
 
@@ -80,17 +78,31 @@ for i in range(NUM_TEST_SAMPLES):
     print(f"Ground truth: {ground_truth}")
 
     try:
-        # inference 실행 (return_full_text=False로 생성된 부분만 반환)
-        result = medalpaca_pl(question, return_full_text=False)
-        full_output = result[0]['generated_text']
+        # Tokenize input (truncation 적용)
+        inputs = tokenizer(
+            question,
+            return_tensors="pt",
+            truncation=True,
+            max_length=512
+        ).to(model.device)
 
-        # Response 부분만 추출 (template의 response_split 사용)
-        if prompt_template["response_split"] in full_output:
-            ans = full_output.split(prompt_template["response_split"])[-1].strip()
-        else:
-            ans = full_output
+        input_length = inputs.input_ids.shape[1]
+
+        # Generate (입력 제외하고 새로운 토큰만 생성)
+        with torch.no_grad():
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=128,
+                do_sample=False,  # greedy decoding
+                pad_token_id=tokenizer.eos_token_id,
+            )
+
+        # 생성된 부분만 디코딩 (입력 제외)
+        generated_tokens = outputs[0][input_length:]
+        ans = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
         print(f"✓ SUCCESS")
+        print(f"Input tokens: {input_length}")
         print(f"Generated answer: {ans}")
 
     except Exception as e:
