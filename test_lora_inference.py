@@ -98,7 +98,7 @@ for i in range(NUM_TEST_SAMPLES):
             question,
             return_tensors="pt",
             truncation=True,
-            max_length=256,  # 학습 시와 동일!
+            max_length=1024,  # 학습 시와 동일!
             return_token_type_ids=False  # LLaMA 계열 모델은 사용 안 함
         ).to(model.device)
 
