@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-MedAlpaca inference 테스트 스크립트
-- pipeline으로 medalpaca_pl 정의
-- 샘플 몇 개만 실행해서 정상 동작 확인
+HealthAlpaca-7b-lora (Fine-tuned) inference 테스트 스크립트
+- Base model + LoRA adapter 로드
+- 샘플 3개만 실행해서 정상 동작 확인
 """
 
 import json
 import torch
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
 
 # ========================================
 # Prompt Template 로드
@@ -24,27 +25,42 @@ def format_prompt(instruction, input_text):
     return prompt
 
 # ========================================
-# medalpaca_pl 정의 (HuggingFace pipeline)
+# LoRA 모델 로드 (Base + Adapter)
 # ========================================
-print("Loading MedAlpaca-7b with pipeline...")
+print("Loading HealthAlpaca-7b-lora (Base + LoRA adapter)...")
 print(f"CUDA available: {torch.cuda.is_available()}")
-print(f"CUDA device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'N/A'}")
+print(f"CUDA device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'N/A'}\n")
 
-# 모델을 GPU로 명시적으로 로드
-model = AutoModelForCausalLM.from_pretrained(
+# 1. Base model 로드
+print("Step 1/3: Loading base model (medalpaca-7b)...")
+base_model = AutoModelForCausalLM.from_pretrained(
     "medalpaca/medalpaca-7b",
-    device_map="auto",  # 자동으로 GPU에 배치
-    torch_dtype=torch.float16,  # 메모리 절약
+    device_map="auto",
+    torch_dtype=torch.float16,  # fp16 (not 8bit)
 )
+print("✓ Base model loaded")
+
+# 2. LoRA adapter 로드
+print("\nStep 2/3: Loading LoRA adapter from outputs/healthalpaca-7b-lora...")
+model = PeftModel.from_pretrained(base_model, "outputs/healthalpaca-7b-lora")
+print("✓ LoRA adapter merged")
+
+# 3. Tokenizer 로드
+print("\nStep 3/3: Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("medalpaca/medalpaca-7b")
 
-medalpaca_pl = pipeline(
+# 4. Pipeline 생성
+healthalpaca_pl = pipeline(
     "text-generation",
     model=model,
     tokenizer=tokenizer,
     max_new_tokens=128,
 )
-print("✓ Model loaded to GPU\n")
+print("✓ Pipeline created\n")
+print("=" * 80)
+print("✅ HealthAlpaca-7b-lora loaded to GPU successfully!")
+print("=" * 80)
+print()
 
 
 # ========================================
@@ -59,11 +75,11 @@ print(f"✓ Loaded {len(data)} samples from {data_file}\n")
 
 
 # ========================================
-# 샘플 몇 개만 테스트
+# 샘플 3개만 테스트
 # ========================================
 NUM_TEST_SAMPLES = 3
 
-print(f"Testing {NUM_TEST_SAMPLES} samples...\n")
+print(f"Testing {NUM_TEST_SAMPLES} samples with Fine-tuned model...\n")
 print("=" * 80)
 
 for i in range(NUM_TEST_SAMPLES):
@@ -81,7 +97,7 @@ for i in range(NUM_TEST_SAMPLES):
 
     try:
         # inference 실행 (return_full_text=False로 생성된 부분만 반환)
-        result = medalpaca_pl(question, return_full_text=False)
+        result = healthalpaca_pl(question, return_full_text=False)
         full_output = result[0]['generated_text']
 
         # Response 부분만 추출 (template의 response_split 사용)
