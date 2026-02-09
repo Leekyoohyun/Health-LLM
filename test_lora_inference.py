@@ -119,12 +119,19 @@ for i in range(NUM_TEST_SAMPLES):
                 pad_token_id=tokenizer.eos_token_id,
             )
 
+        # 전체 output 확인 (디버깅용)
+        full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        print(f"\n=== Full output (last 300 chars) ===")
+        print(f"...{full_output[-300:]}")
+
         # 생성된 부분만 디코딩 (입력 제외)
         generated_tokens = outputs[0][input_length:]
         ans = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
-        print(f"✓ SUCCESS")
+        print(f"\n✓ SUCCESS")
         print(f"Input tokens: {input_length}")
+        print(f"Output tokens: {len(outputs[0])}")
+        print(f"Generated tokens: {len(generated_tokens)}")
         print(f"Generated answer: {ans}")
 
     except Exception as e:
