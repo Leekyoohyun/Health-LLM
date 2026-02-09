@@ -89,8 +89,14 @@ for i in range(NUM_TEST_SAMPLES):
     question = format_prompt(instruction, input_text)
 
     print(f"\n[Sample {i+1}]")
+    print(f"Instruction: {instruction[:100]}...")
     print(f"Input (first 200 chars): {input_text[:200]}...")
     print(f"Ground truth: {ground_truth}")
+    print(f"\n=== Full Prompt (first 500 chars) ===")
+    print(question[:500])
+    print("...")
+    print(f"=== Full Prompt (last 200 chars) ===")
+    print(question[-200:])
 
     try:
         # Tokenize input (학습 시와 동일하게 max_length=256)
