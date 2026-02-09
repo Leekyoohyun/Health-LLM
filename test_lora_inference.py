@@ -116,6 +116,7 @@ for i in range(NUM_TEST_SAMPLES):
                 **inputs,
                 max_new_tokens=128,
                 do_sample=False,  # greedy decoding
+                repetition_penalty=1.5,  # echo 방지!
                 pad_token_id=tokenizer.eos_token_id,
             )
 
