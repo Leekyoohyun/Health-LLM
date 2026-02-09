@@ -90,6 +90,10 @@ for i in range(NUM_TEST_SAMPLES):
 
         input_length = inputs.input_ids.shape[1]
 
+        # 실제 입력된 prompt 확인 (디버깅)
+        truncated_prompt = tokenizer.decode(inputs.input_ids[0], skip_special_tokens=True)
+        print(f"Truncated prompt (last 200 chars): ...{truncated_prompt[-200:]}")
+
         # Generate (입력 제외하고 새로운 토큰만 생성)
         with torch.no_grad():
             outputs = model.generate(
