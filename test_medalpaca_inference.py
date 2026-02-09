@@ -76,14 +76,15 @@ for i in range(NUM_TEST_SAMPLES):
     print(f"\n[Sample {i+1}]")
     print(f"Input (first 200 chars): {input_text[:200]}...")
     print(f"Ground truth: {ground_truth}")
+    print(f"Full prompt length: {len(question)} chars")
 
     try:
-        # Tokenize input (truncation 적용)
+        # Tokenize input (학습 시와 동일하게 max_length=256)
         inputs = tokenizer(
             question,
             return_tensors="pt",
             truncation=True,
-            max_length=512,
+            max_length=256,  # 학습 시와 동일!
             return_token_type_ids=False  # LLaMA 계열 모델은 사용 안 함
         ).to(model.device)
 
