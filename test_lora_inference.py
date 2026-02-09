@@ -99,12 +99,11 @@ for i in range(NUM_TEST_SAMPLES):
     print(question[-200:])
 
     try:
-        # Tokenize input (학습 시와 동일하게 max_length=256)
+        # Tokenize input (Inferer 방식: truncation=False)
         inputs = tokenizer(
             question,
             return_tensors="pt",
-            truncation=True,
-            max_length=1024,  # 학습 시와 동일!
+            truncation=False,  # ← Inferer 방식!
             return_token_type_ids=False  # LLaMA 계열 모델은 사용 안 함
         ).to(model.device)
 
