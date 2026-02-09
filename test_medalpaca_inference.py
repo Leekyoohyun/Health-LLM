@@ -44,6 +44,17 @@ if tokenizer.pad_token is None:
 
 print("✓ Model loaded to GPU\n")
 
+# ========================================
+# Generation Config 확인
+# ========================================
+print("=== Generation Config ===")
+print(f"max_length: {model.generation_config.max_length}")
+print(f"max_new_tokens: {model.generation_config.max_new_tokens}")
+print(f"temperature: {model.generation_config.temperature}")
+print(f"top_p: {model.generation_config.top_p}")
+print(f"do_sample: {model.generation_config.do_sample}")
+print(f"repetition_penalty: {model.generation_config.repetition_penalty}")
+print()
 
 # ========================================
 # 테스트 데이터 로드
