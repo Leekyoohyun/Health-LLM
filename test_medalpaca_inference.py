@@ -83,7 +83,8 @@ for i in range(NUM_TEST_SAMPLES):
             question,
             return_tensors="pt",
             truncation=True,
-            max_length=512
+            max_length=512,
+            return_token_type_ids=False  # LLaMA 계열 모델은 사용 안 함
         ).to(model.device)
 
         input_length = inputs.input_ids.shape[1]
