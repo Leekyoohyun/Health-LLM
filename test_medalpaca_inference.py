@@ -6,20 +6,31 @@ MedAlpaca inference 테스트 스크립트
 """
 
 import json
-from transformers import pipeline
+import torch
+from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
 
 # ========================================
 # medalpaca_pl 정의 (HuggingFace pipeline)
 # ========================================
 print("Loading MedAlpaca-7b with pipeline...")
+print(f"CUDA available: {torch.cuda.is_available()}")
+print(f"CUDA device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'N/A'}")
+
+# 모델을 GPU로 명시적으로 로드
+model = AutoModelForCausalLM.from_pretrained(
+    "medalpaca/medalpaca-7b",
+    device_map="auto",  # 자동으로 GPU에 배치
+    torch_dtype=torch.float16,  # 메모리 절약
+)
+tokenizer = AutoTokenizer.from_pretrained("medalpaca/medalpaca-7b")
+
 medalpaca_pl = pipeline(
     "text-generation",
-    model="medalpaca/medalpaca-7b",
-    tokenizer="medalpaca/medalpaca-7b",
-    device=0,  # GPU 0
+    model=model,
+    tokenizer=tokenizer,
     max_new_tokens=128,
 )
-print("✓ Model loaded\n")
+print("✓ Model loaded to GPU\n")
 
 
 # ========================================
