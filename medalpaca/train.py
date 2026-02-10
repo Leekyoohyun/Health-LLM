@@ -43,6 +43,7 @@ def main(
     output_dir: str = "./output",
     save_total_limit: int = 3,
     eval_steps: int = 200,
+    save_steps: int = None,
     device_map: str = "auto",
     group_by_length: bool = False,
     wandb_run_name: str = "test",
@@ -56,6 +57,7 @@ def main(
     warmup_steps: int = 100,
     fsdp: str = "full_shard auto_wrap",
     fsdp_transformer_layer_cls_to_wrap: str = "LlamaDecoderLayer",
+    resume_from_checkpoint: str = None,
     **kwargs
 ):
     """
@@ -235,7 +237,8 @@ def main(
         optim=optim,
         lr_scheduler_type=lr_scheduler_type,
         evaluation_strategy="epoch" if val_set_size > 0 else "no",
-        save_strategy="epoch",
+        save_strategy="steps" if save_steps is not None else "epoch",
+        save_steps=save_steps if save_steps is not None else 500,
         output_dir=output_dir,
         save_total_limit=save_total_limit,
         load_best_model_at_end=False,
@@ -275,7 +278,7 @@ def main(
     #    model = torch.compile(model)
 
     # finally, train
-    trainer.train()
+    trainer.train(resume_from_checkpoint=resume_from_checkpoint)
 
     model.save_pretrained(output_dir)
 

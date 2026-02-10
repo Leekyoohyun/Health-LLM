@@ -75,6 +75,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --data_path data/finetune_data.json \
     --output_dir "$OUTPUT_DIR" \
     --resume_from_checkpoint "$RESUME_FROM" \
+    --val_set_size 0 \
     --num_epochs 3 \
     --per_device_batch_size 4 \
     --global_batch_size 128 \
