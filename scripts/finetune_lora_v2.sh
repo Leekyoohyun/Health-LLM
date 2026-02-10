@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "  LoRA Fine-tuning (8bit + bf16)"
+echo "  LoRA Fine-tuning (8bit + bf16 + A10G)"
 echo "=========================================="
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3
@@ -29,16 +29,31 @@ MONITOR_PID=$!
 
 echo "[$(date +%H:%M:%S)] GPU monitoring started (PID: $MONITOR_PID)"
 
-# Checkpoint backup to S3 in background
+# Checkpoint backup to S3 in background (실시간 감지)
 CHECKPOINT_LOG="$LOG_DIR/checkpoint_backup_$(date +%Y%m%d_%H%M%S).log"
+echo "[$(date +%H:%M:%S)] Starting S3 checkpoint backup (real-time)" | tee -a $CHECKPOINT_LOG
+
+LAST_UPLOADED=""
 while true; do
-    sleep 300  # 5분마다
+    sleep 10  # 10초마다 체크 (빠른 감지)
+
+    # 가장 최근 checkpoint 찾기
     LATEST=$(ls -td $OUTPUT_DIR/checkpoint-* 2>/dev/null | head -1)
-    if [ -n "$LATEST" ]; then
+
+    # 새로운 checkpoint가 생성되었으면 즉시 업로드
+    if [ -n "$LATEST" ] && [ "$LATEST" != "$LAST_UPLOADED" ]; then
         CHECKPOINT_NAME=$(basename "$LATEST")
-        aws s3 sync "$LATEST" "s3://$S3_BUCKET/checkpoints/$CHECKPOINT_NAME/" --quiet 2>/dev/null || true
-        echo "[$(date +%H:%M:%S)] Backed up: $CHECKPOINT_NAME" >> $CHECKPOINT_LOG
-        echo "[$(date +%H:%M:%S)] Backed up: $CHECKPOINT_NAME"
+        echo "[$(date +%H:%M:%S)] 🔍 New checkpoint detected: $CHECKPOINT_NAME" | tee -a $CHECKPOINT_LOG
+
+        # 즉시 S3 업로드 (진행상황 표시)
+        echo "[$(date +%H:%M:%S)] ⬆️  Uploading to S3..." | tee -a $CHECKPOINT_LOG
+        aws s3 sync "$LATEST" "s3://$S3_BUCKET/checkpoints/$CHECKPOINT_NAME/" 2>&1 | tee -a $CHECKPOINT_LOG || {
+            echo "[$(date +%H:%M:%S)] ⚠️  Upload failed, will retry" | tee -a $CHECKPOINT_LOG
+            continue
+        }
+
+        echo "[$(date +%H:%M:%S)] ✅ Uploaded: $CHECKPOINT_NAME" | tee -a $CHECKPOINT_LOG
+        LAST_UPLOADED="$LATEST"
     fi
 done &
 BACKUP_PID=$!
@@ -55,21 +70,21 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --data_path data/finetune_data.json \
     --output_dir "$OUTPUT_DIR" \
     --num_epochs 3 \
-    --per_device_batch_size 4 \
+    --per_device_batch_size 6 \
     --global_batch_size 128 \
     --learning_rate 2e-5 \
     --warmup_steps 50 \
-    --eval_steps 50 \
-    --save_steps 50 \
-    --save_total_limit 3 \
-    --fp16 True \
-    --bf16 False \
+    --eval_steps 25 \
+    --save_steps 25 \
+    --save_total_limit 5 \
+    --fp16 False \
+    --bf16 True \
     --train_in_8bit True \
     --use_lora True \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.1 \
-    --model_max_length 256 \
+    --model_max_length 2048 \
     2>&1 | tee $TRAIN_LOG
 
 EXIT_CODE=${PIPESTATUS[0]}
@@ -108,8 +123,19 @@ if [ $EXIT_CODE -eq 0 ]; then
     }' $GPU_LOG
 
     echo ""
-    echo "Uploading to S3..."
-    aws s3 sync "$OUTPUT_DIR" "s3://$S3_BUCKET/final_model_lora/" --quiet 2>/dev/null || true
+    echo "Uploading final model to S3..."
+
+    # 최종 모델 전체 업로드
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    aws s3 sync "$OUTPUT_DIR" "s3://$S3_BUCKET/final_models/healthalpaca-7b-lora_$TIMESTAMP/" || {
+        echo "WARNING: S3 upload failed, but model is saved locally"
+    }
+
+    # 최신 버전으로도 복사
+    aws s3 sync "$OUTPUT_DIR" "s3://$S3_BUCKET/final_models/healthalpaca-7b-lora_latest/" --delete || true
+
+    echo "✓ Model uploaded to S3: s3://$S3_BUCKET/final_models/healthalpaca-7b-lora_$TIMESTAMP/"
+    echo "✓ Latest version: s3://$S3_BUCKET/final_models/healthalpaca-7b-lora_latest/"
 else
     echo "LoRA Fine-tuning FAILED (Exit code: $EXIT_CODE)"
 fi
