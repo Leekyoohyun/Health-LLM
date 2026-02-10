@@ -6,6 +6,7 @@ echo "  Resume LoRA Training from Checkpoint"
 echo "=========================================="
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3
+export TORCH_WEIGHTS_ONLY=0  # PyTorch 2.6 compatibility
 S3_BUCKET="${S3_BUCKET:-khlee-healthllm-checkpoints}"
 
 cd "$(dirname "$0")/.."

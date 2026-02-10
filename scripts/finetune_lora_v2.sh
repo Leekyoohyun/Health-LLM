@@ -6,6 +6,7 @@ echo "  LoRA Fine-tuning (8bit + bf16 + A10G)"
 echo "=========================================="
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3
+export TORCH_WEIGHTS_ONLY=0  # PyTorch 2.6 compatibility
 S3_BUCKET="${S3_BUCKET:-khlee-healthllm-checkpoints}"
 
 cd "$(dirname "$0")/.."
@@ -71,7 +72,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --output_dir "$OUTPUT_DIR" \
     --val_set_size 0 \
     --num_epochs 3 \
-    --per_device_batch_size 6 \
+    --per_device_batch_size 4 \
     --global_batch_size 128 \
     --learning_rate 2e-5 \
     --warmup_steps 50 \
