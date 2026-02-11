@@ -121,11 +121,12 @@ for task_idx, task in enumerate(TASKS):
             ground_truth = sample['output']
 
             try:
-                # Inferer로 추론
+                # Inferer로 추론 (원본 저자 방식 - 기본값 사용)
                 answer = inferer(
                     instruction=instruction,
                     input=input_text,
-                    max_new_tokens=128,
+                    max_new_tokens=256,  # 128 → 256 (더 긴 출력 허용)
+                    # temperature, repetition_penalty 등: 기본값 사용 (논문 재현)
                     verbose=False
                 )
 
