@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
 Baseline 결과에서 MAE 계산 (숫자 추출 + 파싱)
+단일 샘플 또는 다중 샘플 지원
 """
 
 import json
 import re
+import argparse
 from typing import Optional
+from collections import defaultdict
+import numpy as np
+
 
 def extract_number(text: str) -> Optional[float]:
     """
@@ -84,46 +89,65 @@ def calculate_mae_single(gt: str, pred: str, task_name: str) -> tuple:
         return (gt_num, pred_num, mae)
 
     elif task_name in classification_tasks:
-        # For classification, exact match = 0, mismatch = 1
+        # For classification, exact match = 1.0, mismatch = 0.0
         gt_class = extract_classification(gt, task_name) or gt.strip()
         pred_class = extract_classification(pred, task_name)
 
         if pred_class is None:
             return (gt_class, None, None)
 
-        match = 1.0 if gt_class.lower() == pred_class.lower() else 0.0
-        return (gt_class, pred_class, match)
+        accuracy = 1.0 if gt_class.lower() == pred_class.lower() else 0.0
+        return (gt_class, pred_class, accuracy)
 
     return (None, None, None)
 
 
 def main():
-    # Load results
-    results_file = "baseline_inferer_results.json"
-    with open(results_file) as f:
-        results = json.load(f)
+    parser = argparse.ArgumentParser(description='Calculate MAE from evaluation results')
+    parser.add_argument('--input', type=str, default='baseline_inferer_results.json',
+                       help='Input JSON file with evaluation results')
+    parser.add_argument('--task', type=str, default=None,
+                       help='Evaluate specific task only (e.g., PMData_stress)')
+    parser.add_argument('--verbose', action='store_true',
+                       help='Print detailed results for each sample')
+    args = parser.parse_args()
 
+    # Load results
     print("=" * 80)
     print("BASELINE MAE CALCULATION")
     print("=" * 80)
+    print(f"Input file: {args.input}")
+    if args.task:
+        print(f"Filtering task: {args.task}")
+
+    with open(args.input) as f:
+        results = json.load(f)
+
+    # Filter by task if specified
+    if args.task:
+        results = [r for r in results if r.get('task') == args.task]
+        if not results:
+            print(f"❌ No results found for task: {args.task}")
+            return
+        print(f"Found {len(results)} samples for {args.task}")
 
     # Paper baseline (Table 3)
     paper_baseline = {
-        'PMData_stress': 0.76,
-        'PMData_readiness': 2.18,
-        'PMData_sleep_quality': 0.43,
-        'PMData_fatigue': None,  # Accuracy metric, not MAE
-        'LifeSnaps_stress_resilience': 0.76,
-        'LifeSnaps_sleep_disorder': None,  # Accuracy metric
-        'AW_FB_activity': None,  # Accuracy metric
-        'AW_FB_calories': 45.7,
+        'PMData_stress': {'mae': 0.76, 'metric': 'MAE'},
+        'PMData_readiness': {'mae': 2.18, 'metric': 'MAE'},
+        'PMData_sleep_quality': {'mae': 0.43, 'metric': 'MAE'},
+        'PMData_fatigue': {'acc': 66.3, 'metric': 'Acc'},
+        'LifeSnaps_stress_resilience': {'mae': 0.76, 'metric': 'MAE'},
+        'LifeSnaps_sleep_disorder': {'acc': 69.8, 'metric': 'Acc'},
+        'AW_FB_activity': {'acc': 21.6, 'metric': 'Acc'},
+        'AW_FB_calories': {'mae': 45.7, 'metric': 'MAE'},
     }
 
-    task_metrics = {}
+    # Group by task
+    task_samples = defaultdict(list)
 
     for result in results:
-        if result['status'] != 'SUCCESS':
-            print(f"\n[{result['task']}] ❌ {result['status']}")
+        if result.get('status') != 'SUCCESS':
             continue
 
         task = result['task']
@@ -132,59 +156,119 @@ def main():
 
         gt_val, pred_val, metric = calculate_mae_single(gt, pred, task)
 
-        print(f"\n[{task}]")
-        print(f"  Ground Truth: {gt}")
-        print(f"  Predicted:    {pred[:100]}{'...' if len(pred) > 100 else ''}")
-        print(f"  Parsed GT:    {gt_val}")
-        print(f"  Parsed Pred:  {pred_val}")
+        if args.verbose and len(task_samples[task]) < 3:
+            print(f"\n[{task}] Sample {len(task_samples[task])}")
+            print(f"  GT: {gt}")
+            print(f"  Pred: {pred[:100]}{'...' if len(pred) > 100 else ''}")
+            print(f"  Parsed: {gt_val} -> {pred_val} (metric={metric})")
 
         if metric is not None:
-            if 'activity' in task or 'sleep_disorder' in task:
-                print(f"  Match:        {metric}")
-                print(f"  Paper:        N/A (Accuracy metric)")
-            else:
-                print(f"  MAE:          {metric:.2f}")
-                paper_mae = paper_baseline.get(task)
-                if paper_mae:
-                    print(f"  Paper MAE:    {paper_mae}")
-                    diff = metric - paper_mae
-                    print(f"  Difference:   {diff:+.2f} {'❌' if diff > 1.0 else '⚠️' if diff > 0.5 else '✅'}")
+            task_samples[task].append({
+                'gt': gt_val,
+                'pred': pred_val,
+                'metric': metric
+            })
 
-            task_metrics[task] = metric
+    # Calculate statistics per task
+    print("\n" + "=" * 80)
+    print("RESULTS BY TASK")
+    print("=" * 80)
+
+    task_stats = {}
+
+    for task, samples in sorted(task_samples.items()):
+        metrics = [s['metric'] for s in samples]
+
+        if not metrics:
+            print(f"\n[{task}]")
+            print(f"  ❌ No valid samples")
+            continue
+
+        mean_metric = np.mean(metrics)
+        std_metric = np.std(metrics)
+        n_samples = len(metrics)
+
+        task_stats[task] = {
+            'mean': mean_metric,
+            'std': std_metric,
+            'n': n_samples
+        }
+
+        # Classification vs Regression
+        is_classification = 'activity' in task or 'sleep_disorder' in task
+
+        print(f"\n[{task}]")
+        print(f"  Samples: {n_samples}")
+
+        if is_classification:
+            accuracy = mean_metric * 100  # Convert to percentage
+            print(f"  Accuracy: {accuracy:.2f}% (±{std_metric*100:.2f}%)")
+
+            paper_acc = paper_baseline[task].get('acc')
+            if paper_acc:
+                print(f"  Paper Acc: {paper_acc}%")
+                diff = accuracy - paper_acc
+                status = '✅' if diff > -5 else '⚠️' if diff > -10 else '❌'
+                print(f"  Difference: {diff:+.2f}% {status}")
         else:
-            print(f"  ❌ Parsing failed!")
+            print(f"  MAE: {mean_metric:.2f} (±{std_metric:.2f})")
+
+            paper_mae = paper_baseline[task].get('mae')
+            if paper_mae:
+                print(f"  Paper MAE: {paper_mae}")
+                diff = mean_metric - paper_mae
+                status = '✅' if diff < 0.5 else '⚠️' if diff < 1.0 else '❌'
+                print(f"  Difference: {diff:+.2f} {status}")
 
     # Summary
     print("\n" + "=" * 80)
     print("SUMMARY")
     print("=" * 80)
 
-    regression_tasks = [t for t in task_metrics.keys()
+    regression_tasks = [t for t in task_stats.keys()
                        if 'activity' not in t and 'sleep_disorder' not in t]
-
-    if regression_tasks:
-        print("\nRegression Tasks (MAE):")
-        for task in regression_tasks:
-            mae = task_metrics[task]
-            paper_mae = paper_baseline.get(task)
-            if paper_mae:
-                print(f"  {task:35} {mae:6.2f} (Paper: {paper_mae:.2f})")
-            else:
-                print(f"  {task:35} {mae:6.2f}")
-
-    classification_tasks = [t for t in task_metrics.keys()
+    classification_tasks = [t for t in task_stats.keys()
                            if 'activity' in t or 'sleep_disorder' in t]
 
+    if regression_tasks:
+        print("\nRegression Tasks (MAE ↓):")
+        print(f"  {'Task':<35} {'Our MAE':>10} {'Paper':>10} {'Diff':>10} {'Status':>8}")
+        print("  " + "-" * 75)
+        for task in sorted(regression_tasks):
+            stats = task_stats[task]
+            paper_mae = paper_baseline[task].get('mae', 0)
+            diff = stats['mean'] - paper_mae
+            status = '✅' if diff < 0.5 else '⚠️' if diff < 1.0 else '❌'
+            print(f"  {task:<35} {stats['mean']:>10.2f} {paper_mae:>10.2f} {diff:>+10.2f} {status:>8}")
+
     if classification_tasks:
-        print("\nClassification Tasks (Match = 1.0, Mismatch = 0.0):")
-        for task in classification_tasks:
-            match = task_metrics[task]
-            print(f"  {task:35} {match:.1f}")
+        print("\nClassification Tasks (Accuracy ↑):")
+        print(f"  {'Task':<35} {'Our Acc':>10} {'Paper':>10} {'Diff':>10} {'Status':>8}")
+        print("  " + "-" * 75)
+        for task in sorted(classification_tasks):
+            stats = task_stats[task]
+            paper_acc = paper_baseline[task].get('acc', 0)
+            our_acc = stats['mean'] * 100
+            diff = our_acc - paper_acc
+            status = '✅' if diff > -5 else '⚠️' if diff > -10 else '❌'
+            print(f"  {task:<35} {our_acc:>9.2f}% {paper_acc:>9.1f}% {diff:>+10.2f} {status:>8}")
+
+    # Overall summary
+    total_samples = sum(s['n'] for s in task_stats.values())
+    print(f"\n📊 Total samples evaluated: {total_samples}")
+
+    # Success criteria
+    regression_good = sum(1 for t in regression_tasks
+                         if task_stats[t]['mean'] - paper_baseline[t].get('mae', float('inf')) < 1.0)
+    classification_good = sum(1 for t in classification_tasks
+                             if task_stats[t]['mean'] * 100 - paper_baseline[t].get('acc', 0) > -10)
+
+    total_tasks = len(regression_tasks) + len(classification_tasks)
+    good_tasks = regression_good + classification_good
+
+    print(f"✅ Tasks close to paper: {good_tasks}/{total_tasks}")
 
     print("\n" + "=" * 80)
-    print("⚠️  Note: This is just 1 sample per task!")
-    print("    For full evaluation, run on all samples in evaluation-json-data/")
-    print("=" * 80)
 
 
 if __name__ == "__main__":
