@@ -90,6 +90,13 @@ print(f"   - Model max length: {inferer.data_handler.tokenizer.model_max_length}
 print(f"   - EOS token: {inferer.data_handler.tokenizer.eos_token} (id={inferer.data_handler.tokenizer.eos_token_id})")
 print(f"   - PAD token: {inferer.data_handler.tokenizer.pad_token} (id={inferer.data_handler.tokenizer.pad_token_id})")
 
+# ❌ 문제 발견: model_max_length가 512로 제한됨!
+if inferer.data_handler.tokenizer.model_max_length < 2048:
+    print(f"\n⚠️  WARNING: Tokenizer model_max_length is {inferer.data_handler.tokenizer.model_max_length}, not 2048!")
+    print(f"   Fixing tokenizer max_length to 2048...")
+    inferer.data_handler.tokenizer.model_max_length = 2048
+    print(f"   ✓ Fixed to: {inferer.data_handler.tokenizer.model_max_length}")
+
 # ========================================
 # Step 3: LoRA Adapter 로드
 # ========================================
@@ -163,14 +170,21 @@ input_text = sample['input']
 print(f"Instruction length: {len(instruction)} chars")
 print(f"Input length: {len(input_text)} chars")
 
-# Prompt 포맷팅 (Inferer 내부 로직 재현)
-from medalpaca.prompt_builder import build_prompt
+# Prompt 포맷팅 (수동으로 구현)
+# Template이 prompt_input 또는 prompt_no_input을 사용
+if input_text:
+    prompt_key = "prompt_input"
+else:
+    prompt_key = "prompt_no_input"
 
-full_prompt = build_prompt(
-    template,
-    instruction=instruction,
-    input=input_text
-)
+if prompt_key in template:
+    full_prompt = template[prompt_key].format(
+        instruction=instruction,
+        input=input_text
+    )
+else:
+    # Fallback: 간단한 포맷
+    full_prompt = f"### Instruction:\n{instruction}\n\n### Input:\n{input_text}\n\n### Response:\n"
 
 print(f"\n📋 Full prompt length: {len(full_prompt)} chars")
 print(f"Full prompt (first 500 chars):")
