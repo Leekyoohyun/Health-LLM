@@ -121,12 +121,12 @@ for task_idx, task in enumerate(TASKS):
             ground_truth = sample['output']
 
             try:
-                # Inferer로 추론 (원본 저자 방식 - 기본값 사용)
+                # Inferer로 추론 (repetition_penalty=1.1로 Echo 방지)
                 answer = inferer(
                     instruction=instruction,
                     input=input_text,
                     max_new_tokens=256,  # 128 → 256 (더 긴 출력 허용)
-                    # temperature, repetition_penalty 등: 기본값 사용 (논문 재현)
+                    repetition_penalty=1.1,  # Echo 방지
                     verbose=False
                 )
 
@@ -164,11 +164,15 @@ for task_idx, task in enumerate(TASKS):
         if task_errors > 0:
             print(f"❌ Errors: {task_errors}/{val_size}")
 
-        # 샘플 출력 (처음 2개)
-        print(f"\nSample predictions (first 2):")
-        for i in range(min(2, len(task_results))):
-            print(f"  [{i}] GT: {val_data[i]['output']}")
-            print(f"      Pred: {task_results[i][:100]}{'...' if len(task_results[i]) > 100 else ''}")
+        # 샘플 출력 (처음 5개 상세히)
+        print(f"\nSample predictions (first 5):")
+        for i in range(min(5, len(task_results))):
+            print(f"\n  {'─' * 60}")
+            print(f"  [Sample {i}]")
+            print(f"  Input ({len(val_data[i]['input'])} chars):")
+            print(f"    {val_data[i]['input'][:400]}...")
+            print(f"  GT: {val_data[i]['output']}")
+            print(f"  Pred: {task_results[i]}")
 
         # ========================================
         # ✅ Task 끝날 때마다 저장!

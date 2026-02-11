@@ -16,18 +16,51 @@ def extract_number(text: str) -> Optional[float]:
     """
     Extract predicted number from text (smart parsing)
 
+    Returns None if:
+    - Echo (input repetition)
+    - AI refusal
+    - Error message
+    - Too short/empty output
+
     Examples:
         "Sleep_quality = 3/5" -> 3
         "The predicted stress level is 3." -> 3.0
         "0.2" -> 0.2
         "15 calories" -> 15.0
-        "The recent 14-days sensor readings show: ... predicted stress is 3" -> 3
+        "error 304" -> None (error message)
+        "The recent 14-days..." -> None (echo)
+        "As an AI, I cannot..." -> None (AI refusal)
     """
     # Remove special tokens
     text = text.replace('</s>', '').replace('<s>', '').strip()
 
+    # Check for invalid outputs BEFORE parsing
+    if not text or len(text) < 5:
+        return None
+
+    # Check for Echo (input repetition)
+    if text.startswith("The recent"):
+        return None
+
+    # Check for AI refusal
+    text_lower = text.lower()
+    ai_refusal_patterns = [
+        "ai language model", "as an ai", "i am an ai",
+        "cannot predict", "unable to predict", "i don't know",
+        "i apologize", "sorry"
+    ]
+    for pattern in ai_refusal_patterns:
+        if pattern in text_lower:
+            return None
+
+    # Check for error messages
+    error_patterns = ["error", "exception", "failed", "invalid"]
+    for pattern in error_patterns:
+        if pattern in text_lower:
+            return None
+
     # Remove common input echo patterns (to avoid extracting "14" from "14-days")
-    text = re.sub(r'The recent \d+-days? sensor readings.*?(?=predicted|answer|level|score|is|$)',
+    cleaned_text = re.sub(r'The recent \d+-days? sensor readings.*?(?=predicted|answer|level|score|is|$)',
                   '', text, flags=re.DOTALL | re.IGNORECASE)
 
     # Try to find number after keywords (most reliable)
@@ -37,12 +70,12 @@ def extract_number(text: str) -> Optional[float]:
     ]
 
     for pattern in keyword_patterns:
-        match = re.search(pattern, text, re.IGNORECASE)
+        match = re.search(pattern, cleaned_text, re.IGNORECASE)
         if match:
             return float(match.group(1))
 
     # Fallback: last number in remaining text
-    matches = re.findall(r'[-+]?\d*\.?\d+', text)
+    matches = re.findall(r'[-+]?\d*\.?\d+', cleaned_text)
     if matches:
         return float(matches[-1])  # Last number (most likely the answer)
 
