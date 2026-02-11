@@ -71,7 +71,7 @@ torchrun --nproc_per_node=4 medalpaca/train.py \
     --prompt_template medalpaca/prompt_templates/medalpaca.json \
     --data_path data/finetune_data.json \
     --output_dir "$OUTPUT_DIR" \
-    --val_set_size 0 \
+    --val_set_size 0.1 \
     --num_epochs 3 \
     --per_device_batch_size 4 \
     --global_batch_size 128 \
