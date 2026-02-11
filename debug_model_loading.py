@@ -244,26 +244,44 @@ if os.path.exists(train_data_path):
         train_data = json.load(f)
 
     print(f"✓ Training data found: {len(train_data)} samples")
+    print(f"   ⚠️  WARNING: Expected 9,280 samples, but found {len(train_data)}!")
 
-    # PMData_stress 샘플 찾기
-    stress_samples = [s for s in train_data if 'stress' in s.get('instruction', '').lower() and 'resilience' not in s.get('instruction', '').lower()]
-
-    if stress_samples:
-        print(f"\n📋 Training data example (PMData_stress):")
-        sample_train = stress_samples[0]
-        print(f"   Instruction: {sample_train.get('instruction', 'N/A')[:150]}...")
-        print(f"   Input: {sample_train.get('input', 'N/A')[:150]}...")
+    # 첫 5개 샘플의 구조 확인
+    print(f"\n📋 First 5 training samples structure:")
+    for i in range(min(5, len(train_data))):
+        sample_train = train_data[i]
+        print(f"\n[Sample {i}]")
+        print(f"   Keys: {list(sample_train.keys())}")
+        print(f"   Instruction: {sample_train.get('instruction', 'N/A')[:100]}...")
+        print(f"   Input: {sample_train.get('input', 'N/A')[:100]}..." if sample_train.get('input') else "   Input: (empty)")
         print(f"   Output: {sample_train.get('output', 'N/A')}")
 
-        # 학습 데이터와 평가 데이터의 instruction 비교
-        print(f"\n🔍 Comparing instructions:")
-        print(f"   Training instruction == Eval instruction: {sample_train.get('instruction', '') == instruction}")
+    # PMData_stress 샘플 찾기 (조건 완화)
+    print(f"\n🔍 Searching for stress samples...")
+    stress_samples = [s for s in train_data if 'stress' in s.get('instruction', '').lower()]
+    print(f"   Samples with 'stress' in instruction: {len(stress_samples)}")
 
-        if sample_train.get('instruction', '') != instruction:
-            print(f"   ⚠️  WARNING: Instructions are DIFFERENT!")
-            print(f"   This might cause poor performance!")
+    # Unique instructions 확인
+    unique_instructions = set()
+    for s in train_data[:100]:  # 첫 100개만
+        inst = s.get('instruction', '')[:50]  # 첫 50 chars만
+        unique_instructions.add(inst)
+
+    print(f"\n📊 Sample instructions (first 100 samples):")
+    for inst in list(unique_instructions)[:5]:
+        print(f"   - {inst}...")
+
+    # 평가 데이터의 instruction이 학습 데이터에 있는지 확인
+    eval_inst_short = instruction[:50]
+    matching_samples = [s for s in train_data if s.get('instruction', '')[:50] == eval_inst_short]
+    print(f"\n🔍 Samples matching eval instruction: {len(matching_samples)}")
+
+    if matching_samples:
+        print(f"   ✓ Eval instruction found in training data!")
+        print(f"   Example output: {matching_samples[0].get('output', 'N/A')}")
     else:
-        print(f"   ⚠️  No stress samples found in training data")
+        print(f"   ❌ Eval instruction NOT found in training data!")
+        print(f"   This explains poor performance!")
 else:
     print(f"❌ Training data not found at: {train_data_path}")
 
