@@ -53,12 +53,22 @@ def extract_classification(text: str, task_name: str) -> Optional[str]:
     """
     Extract classification result for categorical tasks
 
+    PMData_fatigue: 1-5 levels
     AW_FB_activity: "Running 3 METs", "Lying", etc.
     LifeSnaps_sleep_disorder: binary (0/1)
     """
     text = text.replace('</s>', '').replace('<s>', '').strip().lower()
 
-    if task_name == 'AW_FB_activity':
+    if task_name == 'PMData_fatigue':
+        # Fatigue levels (1-5)
+        number = extract_number(text)
+        if number is not None:
+            # Round to nearest integer and clamp to 1-5
+            level = max(1, min(5, round(number)))
+            return str(level)
+        return None
+
+    elif task_name == 'AW_FB_activity':
         # Extract activity type
         activities = ['running 7 mets', 'running 5 mets', 'running 3 mets',
                      'self pace walk', 'sitting', 'lying']
@@ -84,15 +94,17 @@ def calculate_mae_single(gt: str, pred: str, task_name: str) -> tuple:
     Returns:
         (gt_value, pred_value, mae)
     """
-    # Regression tasks
+    # Regression tasks (MAE)
     regression_tasks = [
         'PMData_stress', 'PMData_readiness', 'PMData_sleep_quality',
-        'PMData_fatigue', 'LifeSnaps_stress_resilience', 'AW_FB_calories'
+        'LifeSnaps_stress_resilience', 'AW_FB_calories'
     ]
 
-    # Classification tasks
+    # Classification tasks (Accuracy)
     classification_tasks = [
-        'AW_FB_activity', 'LifeSnaps_sleep_disorder'
+        'PMData_fatigue',  # 1-5 levels (논문에서 Accuracy로 측정)
+        'AW_FB_activity',  # 6 types
+        'LifeSnaps_sleep_disorder'  # binary 0/1
     ]
 
     if task_name in regression_tasks:
@@ -149,16 +161,16 @@ def main():
             return
         print(f"Found {len(results)} samples for {args.task}")
 
-    # Paper baseline (Table 3)
+    # Paper baseline (Table 3 from paper image)
     paper_baseline = {
         'PMData_stress': {'mae': 0.76, 'metric': 'MAE'},
         'PMData_readiness': {'mae': 2.18, 'metric': 'MAE'},
-        'PMData_sleep_quality': {'mae': 0.43, 'metric': 'MAE'},
-        'PMData_fatigue': {'acc': 66.3, 'metric': 'Acc'},
-        'LifeSnaps_stress_resilience': {'mae': 0.76, 'metric': 'MAE'},
-        'LifeSnaps_sleep_disorder': {'acc': 69.8, 'metric': 'Acc'},
-        'AW_FB_activity': {'acc': 21.6, 'metric': 'Acc'},
-        'AW_FB_calories': {'mae': 45.7, 'metric': 'MAE'},
+        'PMData_sleep_quality': {'mae': 0.68, 'metric': 'MAE'},  # SQ from paper
+        'PMData_fatigue': {'acc': 46.8, 'metric': 'Acc'},  # FATG from paper
+        'LifeSnaps_stress_resilience': {'mae': 1.17, 'metric': 'MAE'},  # SR from paper
+        'LifeSnaps_sleep_disorder': {'acc': 40.3, 'metric': 'Acc'},  # SD from paper
+        'AW_FB_activity': {'acc': 21.7, 'metric': 'Acc'},  # ACT from paper
+        'AW_FB_calories': {'mae': 35.0, 'metric': 'MAE'},  # CAL from paper
     }
 
     # Group by task
