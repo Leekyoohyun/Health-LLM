@@ -14,21 +14,39 @@ import numpy as np
 
 def extract_number(text: str) -> Optional[float]:
     """
-    Extract first number from text
+    Extract predicted number from text (smart parsing)
 
     Examples:
         "Sleep_quality = 3/5" -> 3
         "The predicted stress level is 3." -> 3.0
         "0.2" -> 0.2
         "15 calories" -> 15.0
-        "긴 설명문" -> None
+        "The recent 14-days sensor readings show: ... predicted stress is 3" -> 3
     """
-    # Remove special tokens like </s><s>
+    # Remove special tokens
     text = text.replace('</s>', '').replace('<s>', '').strip()
 
-    # Find first number (integer or float)
-    match = re.search(r'[-+]?\d*\.?\d+', text)
-    return float(match.group()) if match else None
+    # Remove common input echo patterns (to avoid extracting "14" from "14-days")
+    text = re.sub(r'The recent \d+-days? sensor readings.*?(?=predicted|answer|level|score|is|$)',
+                  '', text, flags=re.DOTALL | re.IGNORECASE)
+
+    # Try to find number after keywords (most reliable)
+    keyword_patterns = [
+        r'(?:predicted|answer|level|score|value|result|index)\s+(?:is\s+)?(\d+\.?\d*)',
+        r'(?:is|:)\s+(\d+\.?\d*)',
+    ]
+
+    for pattern in keyword_patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            return float(match.group(1))
+
+    # Fallback: last number in remaining text
+    matches = re.findall(r'[-+]?\d*\.?\d+', text)
+    if matches:
+        return float(matches[-1])  # Last number (most likely the answer)
+
+    return None
 
 
 def extract_classification(text: str, task_name: str) -> Optional[str]:
