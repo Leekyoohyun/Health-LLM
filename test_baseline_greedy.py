@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 """
-Fine-tuned LoRA 모델 테스트 - 원래 프롬프트 사용
-프롬프트 개선 없이 학습 시와 동일한 instruction 사용
+Baseline (MedAlpaca-7b) 테스트 - 원본 논문 파라미터 사용
+max_new_tokens=128, greedy decoding (do_sample=False)
 """
 
 import json
 import torch
 from medalpaca.inferer import Inferer
 from datasets import load_dataset
-from peft import PeftModel
-
-# ========================================
-# 설정
-# ========================================
-LORA_ADAPTER_PATH = "outputs/healthalpaca-7b-lora"
 
 # ========================================
 # 8개 Task 설정
@@ -30,10 +24,10 @@ TASKS = [
 ]
 
 # ========================================
-# Inferer 로드 + LoRA Adapter
+# Inferer 로드 (Baseline only)
 # ========================================
 print("=" * 80)
-print("Loading Fine-tuned MedAlpaca-7b (+ LoRA Adapter)...")
+print("Loading Baseline MedAlpaca-7b (no LoRA)...")
 print("=" * 80)
 
 inferer = Inferer(
@@ -43,18 +37,10 @@ inferer = Inferer(
     torch_dtype=torch.float16,
 )
 
-print("✓ Base model loaded")
-print(f"Loading LoRA adapter from: {LORA_ADAPTER_PATH}")
-
-inferer.model = PeftModel.from_pretrained(
-    inferer.model,
-    LORA_ADAPTER_PATH
-)
-
-print("✓ LoRA adapter loaded")
+print("✓ Baseline model loaded (no LoRA)")
 
 # ========================================
-# CRITICAL FIX: Tokenizer max_length
+# 🔥 CRITICAL FIX: Tokenizer max_length
 # ========================================
 if inferer.data_handler.tokenizer.model_max_length < 2048:
     print(f"⚠️  Fixing tokenizer max_length: {inferer.data_handler.tokenizer.model_max_length} → 2048")
@@ -64,10 +50,11 @@ else:
     print(f"✓ Tokenizer max_length: {inferer.data_handler.tokenizer.model_max_length}\n")
 
 # ========================================
-# Quick Test: 원래 프롬프트 사용
+# Quick Test: 원본 논문 파라미터 (greedy)
 # ========================================
 print("=" * 80)
-print("QUICK TEST: Fine-tuned Model (ORIGINAL PROMPT)")
+print("QUICK TEST: Baseline Model (GREEDY DECODING)")
+print("Parameters: max_new_tokens=128, do_sample=False (greedy)")
 print("=" * 80)
 
 for task_idx, task in enumerate(TASKS):
@@ -92,7 +79,7 @@ for task_idx, task in enumerate(TASKS):
 
         # 첫 번째 샘플만 테스트
         sample = val_data[0]
-        instruction = sample['instruction']  # 원래 instruction 그대로
+        instruction = sample['instruction']
         input_text = sample['input']
         ground_truth = sample['output']
 
@@ -105,13 +92,13 @@ for task_idx, task in enumerate(TASKS):
         print(f"\n🎯 Ground Truth:")
         print(f"   {ground_truth}")
 
-        # Inference (원래 프롬프트만 사용)
-        print(f"\n⏳ Generating...")
+        # Inference - 원본 논문 파라미터
+        print(f"\n⏳ Generating (greedy decoding)...")
         answer = inferer(
-            instruction=instruction,  # 개선 없이 원래대로
+            instruction=instruction,
             input=input_text,
-            max_new_tokens=256,
-            repetition_penalty=1.1,
+            max_new_tokens=128,    # 원본 default
+            do_sample=False,       # greedy decoding
             verbose=False
         )
 
@@ -145,6 +132,5 @@ for task_idx, task in enumerate(TASKS):
 print("\n" + "=" * 80)
 print("QUICK TEST COMPLETE")
 print("=" * 80)
-print("\n📊 Compare with:")
-print("   python test_baseline_quick.py")
+print("\n💡 Compare with: python test_finetuned_greedy.py")
 print("=" * 80)
