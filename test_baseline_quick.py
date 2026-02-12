@@ -38,7 +38,17 @@ inferer = Inferer(
     torch_dtype=torch.float16,
 )
 
-print("✓ Baseline model loaded (no LoRA)\n")
+print("✓ Baseline model loaded (no LoRA)")
+
+# ========================================
+# 🔥 CRITICAL FIX: Tokenizer max_length
+# ========================================
+if inferer.data_handler.tokenizer.model_max_length < 2048:
+    print(f"⚠️  Fixing tokenizer max_length: {inferer.data_handler.tokenizer.model_max_length} → 2048")
+    inferer.data_handler.tokenizer.model_max_length = 2048
+    print(f"✓ Tokenizer max_length fixed to 2048\n")
+else:
+    print(f"✓ Tokenizer max_length: {inferer.data_handler.tokenizer.model_max_length}\n")
 
 # ========================================
 # Quick Test: 원래 프롬프트 사용
