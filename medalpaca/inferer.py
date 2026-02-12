@@ -60,10 +60,12 @@ class Inferer:
         )
         
         tokenizer = self._load_tokenizer(base_model or model_name)
-                
+        # Fix: explicitly set model_max_length (default is 512)
+        tokenizer.model_max_length = model_max_length
+
         self.data_handler = DataHandler(
             tokenizer,
-            prompt_template = prompt_template, 
+            prompt_template = prompt_template,
             model_max_length = model_max_length,
             train_on_inputs = False,
         )
