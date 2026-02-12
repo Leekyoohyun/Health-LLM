@@ -39,7 +39,7 @@ def extract_number(text: str) -> Optional[float]:
         return None
 
     # Check for Echo (input repetition)
-    if text.startswith("The recent"):
+    if text.startswith("The recent") or text.startswith("The latest"):
         return None
 
     # Check for AI refusal
