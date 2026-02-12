@@ -280,6 +280,10 @@ def main(
     # finally, train
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
 
+    # Restore original state_dict before final save (fix for LoRA adapter save bug)
+    if use_lora:
+        model.state_dict = old_state_dict
+
     model.save_pretrained(output_dir)
 
 
