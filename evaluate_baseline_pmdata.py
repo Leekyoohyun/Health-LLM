@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Fine-tuned 평가 (Zero-shot 형식 + Sampling Decoding)
-유저 정보 포함 데이터셋 사용
+Baseline 평가 (MedAlpaca-7b, LoRA 없음)
+PMData 4개 task, 10% validation set, Sampling decoding
 """
 
 import json
@@ -12,7 +12,8 @@ from datasets import load_dataset
 import os
 
 VAL_SET_SIZE = 0.1
-OUTPUT_FILE = "finetuned_zeroshot_results.json"
+SEED = 42
+OUTPUT_FILE = "baseline_pmdata_results.json"
 
 TASKS = [
     {"name": "PMData_stress", "file": "evaluation-json-data/PMData_stress_zeroshot.json"},
@@ -22,19 +23,22 @@ TASKS = [
 ]
 
 print("=" * 80)
-print("FINE-TUNED EVALUATION (ZERO-SHOT FORMAT + SAMPLING DECODING)")
+print("BASELINE EVALUATION (MedAlpaca-7b, NO LoRA)")
+print("=" * 80)
+print(f"Validation set: 10% (seed={SEED})")
+print(f"Sampling: temperature=0.7, do_sample=True")
 print("=" * 80)
 
-# Load model
+# Load baseline model (NO LoRA)
+print("\nLoading baseline model...")
 inferer = Inferer(
-    model_name="outputs/healthalpaca-7b-lora",
-    base_model="medalpaca/medalpaca-7b",
+    model_name="medalpaca/medalpaca-7b",
     prompt_template="medalpaca/prompt_templates/medalpaca.json",
-    model_max_length=2048,
+    model_max_length=2048,  # 입력 길이 제한 해제
     torch_dtype=torch.float16,
-    peft=True
+    peft=False  # NO LoRA
 )
-print("✓ Fine-tuned model loaded (LoRA)\n")
+print("✓ Baseline model loaded (MedAlpaca-7b)\n")
 
 all_results = []
 total_samples = 0
@@ -49,14 +53,17 @@ for task_idx, task in enumerate(TASKS):
 
     try:
         dataset = load_dataset("json", data_files=task['file'])
+
+        # Train/Val split (train.py와 동일)
         split_data = dataset["train"].train_test_split(
             test_size=VAL_SET_SIZE,
             shuffle=True,
-            seed=42
+            seed=SEED
         )
         val_data = split_data["test"]
 
-        print(f"Total validation samples: {len(val_data)}")
+        print(f"Total samples: {len(dataset['train'])}")
+        print(f"Validation samples: {len(val_data)}")
 
         for idx in tqdm(range(len(val_data)), desc=f"{task_name}"):
             sample = val_data[idx]
@@ -69,11 +76,11 @@ for task_idx, task in enumerate(TASKS):
                     instruction=instruction,
                     input=input_text,
                     max_new_tokens=128,
-                    temperature=0.7,      # Sampling temperature (논문)
+                    temperature=0.7,      # Sampling temperature
                     top_k=50,             # Top-K sampling
                     top_p=0.9,            # Nucleus sampling
                     repetition_penalty=1.1,
-                    do_sample=True,       # Enable sampling! (diversity)
+                    do_sample=True,       # Enable sampling (diversity!)
                     verbose=False
                 )
 
@@ -103,7 +110,7 @@ for task_idx, task in enumerate(TASKS):
     except Exception as e:
         print(f"❌ TASK ERROR: {str(e)[:150]}")
 
-# Save
+# Save results
 with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
     json.dump(all_results, f, indent=2, ensure_ascii=False)
 
@@ -114,5 +121,5 @@ print(f"Total evaluated: {total_samples}")
 print(f"Total errors: {total_errors}")
 print(f"Success rate: {(total_samples - total_errors) / total_samples * 100:.2f}%")
 print(f"\n✅ Results saved to: {OUTPUT_FILE}")
-print("\nNext: python calculate_baseline_mae.py --input finetuned_zeroshot_results.json")
+print("\nNext: python calculate_baseline_mae.py --input baseline_pmdata_results.json")
 print("=" * 80)
