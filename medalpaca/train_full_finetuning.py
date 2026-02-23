@@ -261,8 +261,13 @@ def main(
             print(f"  Val samples:   {len(data['test'])}")
 
     # ── FSDP 설정 ──
+    # cpu_ram_efficient_loading: rank 0만 모델 로드, 나머지는 빈 모델
+    # sync_module_states: rank 0에서 다른 rank로 파라미터 브로드캐스트
+    # → FSDP 초기화 시 GPU에 모델 전체 복사본이 올라가는 것을 방지
     fsdp_config = {
         "transformer_layer_cls_to_wrap": "LlamaDecoderLayer",
+        "cpu_ram_efficient_loading": True,
+        "sync_module_states": True,
     }
 
     # ── TrainingArguments ──
