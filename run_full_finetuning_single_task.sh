@@ -26,7 +26,7 @@ torchrun \
     --model medalpaca/medalpaca-7b \
     --data_path ../data/finetune_data.json \
     --output_dir ../outputs/healthalpaca-7b-full-${TASK} \
-    --prompt_template prompts/medalpaca.json \
+    --prompt_template prompt_templates/medalpaca.json \
     --model_max_length 2048 \
     --per_device_batch_size 1 \
     --global_batch_size 32 \
