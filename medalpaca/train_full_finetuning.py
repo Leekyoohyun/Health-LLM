@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Full Fine-Tuning with FSDP + CPU Offload
+Full Fine-Tuning with DeepSpeed ZeRO-3 + CPU Offload
 MedAlpaca-7b on PMData, 4x L4 GPUs (24GB each)
 
-FSDP full_shard: 파라미터 + 그래디언트 + optimizer state를 GPU들에 분산
-CPU Offload: optimizer state를 CPU RAM으로 내려서 GPU 메모리 절약
+DeepSpeed ZeRO-3: 파라미터 + 그래디언트 + optimizer state를 GPU들에 분산
+CPU Offload: 파라미터 + optimizer state를 CPU RAM으로 내려서 GPU 메모리 절약
 Gradient Checkpointing: activation 메모리를 재계산으로 대체하여 절약
 
 Usage:
@@ -153,13 +153,12 @@ def main(
     **kwargs
 ):
     """
-    Full Fine-Tuning (no LoRA) with FSDP + CPU Offload.
+    Full Fine-Tuning (no LoRA) with DeepSpeed ZeRO-3 + CPU Offload.
 
     기존 train.py 대비 변경점:
     - LoRA, 8-bit 관련 코드 제거
-    - FSDP full_shard + CPU Offload 활성화
+    - DeepSpeed ZeRO-3 + CPU Offload (파라미터 + optimizer 모두 offload)
     - Gradient Checkpointing 기본 활성화
-    - device_map 제거 (FSDP가 디바이스 배치 담당)
     - bf16 기본 사용 (L4 GPU 지원, fp16보다 안정적)
     - per_device_batch_size=1 (CPU Offload 시 메모리 절약)
     - S3 동기화: 체크포인트 저장 시마다 S3에 업로드 (Spot 대비)
@@ -175,10 +174,13 @@ def main(
     if use_wandb and len(wandb_project) > 0:
         os.environ["WANDB_PROJECT"] = wandb_project
 
+    # DeepSpeed config 경로
+    ds_config_path = os.path.join(os.path.dirname(__file__), "ds_config_zero3_offload.json")
+
     # ── 로깅 (rank 0만) ──
     if local_rank == 0:
         print("=" * 80)
-        print("FULL FINE-TUNING (FSDP + CPU Offload)")
+        print("FULL FINE-TUNING (DeepSpeed ZeRO-3 + CPU Offload)")
         print("=" * 80)
         print(f"Model:                    {model_name}")
         print(f"Data:                     {data_path}")
@@ -190,13 +192,14 @@ def main(
         print(f"BF16:                     {bf16}")
         print(f"Epochs:                   {num_epochs}")
         print(f"Learning rate:            {learning_rate}")
-        print(f"FSDP:                     full_shard + auto_wrap + offload")
+        print(f"DeepSpeed:                ZeRO-3 + CPU Offload (param + optimizer)")
         print(f"Gradient Checkpointing:   True")
         print(f"Task filter:              {task_filter if task_filter else 'all (no filter)'}")
         print(f"S3 sync:                  {s3_path if s3_path else 'disabled'}")
+        print(f"DS config:                {ds_config_path}")
         print("=" * 80)
 
-    # ── 모델 로드 (CPU에 로드, FSDP가 분산 처리) ──
+    # ── 모델 로드 (CPU에 로드, DeepSpeed가 분산 처리) ──
     if local_rank == 0:
         print("\nLoading model to CPU...")
 
@@ -208,7 +211,7 @@ def main(
     model = load_model.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16 if bf16 else torch.float32,
-        # device_map 지정하지 않음 → CPU에 로드 → FSDP가 sharding 처리
+        # device_map 지정하지 않음 → CPU에 로드 → DeepSpeed가 sharding 처리
     )
 
     model.config.use_cache = False  # gradient checkpointing과 호환 불가
@@ -260,17 +263,7 @@ def main(
         if val_set_size > 0:
             print(f"  Val samples:   {len(data['test'])}")
 
-    # ── FSDP 설정 ──
-    # cpu_ram_efficient_loading: rank 0만 모델 로드, 나머지는 빈 모델
-    # sync_module_states: rank 0에서 다른 rank로 파라미터 브로드캐스트
-    # → FSDP 초기화 시 GPU에 모델 전체 복사본이 올라가는 것을 방지
-    fsdp_config = {
-        "transformer_layer_cls_to_wrap": "LlamaDecoderLayer",
-        "cpu_ram_efficient_loading": True,
-        "sync_module_states": True,
-    }
-
-    # ── TrainingArguments ──
+    # ── TrainingArguments (DeepSpeed) ──
     training_args = TrainingArguments(
         # 배치 & 학습
         per_device_train_batch_size=per_device_batch_size,
@@ -299,9 +292,8 @@ def main(
         # wandb
         report_to="wandb" if use_wandb else None,
         run_name=wandb_run_name if use_wandb else None,
-        # FSDP + CPU Offload
-        fsdp="full_shard auto_wrap offload",
-        fsdp_config=fsdp_config,
+        # DeepSpeed ZeRO-3 + CPU Offload
+        deepspeed=ds_config_path,
         **kwargs
     )
 
@@ -336,7 +328,7 @@ def main(
         print("\nStarting training...")
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
 
-    # ── 저장 (FSDP: rank 0에서 full state dict 수집 후 저장) ──
+    # ── 저장 (DeepSpeed: stage3_gather_16bit_weights_on_model_save로 전체 모델 수집) ──
     if local_rank == 0:
         print("\nSaving model...")
     trainer.save_model(output_dir)
