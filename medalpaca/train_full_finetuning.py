@@ -149,6 +149,7 @@ def main(
     warmup_steps: int = 100,
     resume_from_checkpoint: str = None,
     s3_path: str = "",
+    task_filter: str = "",
     **kwargs
 ):
     """
@@ -191,6 +192,7 @@ def main(
         print(f"Learning rate:            {learning_rate}")
         print(f"FSDP:                     full_shard + auto_wrap + offload")
         print(f"Gradient Checkpointing:   True")
+        print(f"Task filter:              {task_filter if task_filter else 'all (no filter)'}")
         print(f"S3 sync:                  {s3_path if s3_path else 'disabled'}")
         print("=" * 80)
 
@@ -231,6 +233,18 @@ def main(
         train_on_inputs=train_on_inputs,
     )
     data = load_dataset("json", data_files=data_path)
+
+    # task_filter가 지정되면 해당 task만 필터링
+    # e.g. --task_filter stress → "predict user's stress" 포함 샘플만 사용
+    if task_filter:
+        keyword = task_filter.replace("_", " ")  # sleep_quality → sleep quality
+        before = len(data["train"])
+        data["train"] = data["train"].filter(
+            lambda x: f"predict user's {keyword}" in x["input"]
+        )
+        after = len(data["train"])
+        if local_rank == 0:
+            print(f"  Task filter: '{task_filter}' → {before} → {after} samples")
 
     if val_set_size > 0:
         data = (
