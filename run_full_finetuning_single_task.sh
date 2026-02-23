@@ -11,8 +11,8 @@ S3_BUCKET="s3://khlee-healthllm-checkpoints/healthalpaca-full-${TASK}"
 
 set -e
 
-# DeepSpeed에 필요한 CUDA_HOME 설정
-export CUDA_HOME=${CUDA_HOME:-/usr/local/cuda}
+# DeepSpeed에 필요한 CUDA_HOME 설정 (conda 환경 루트)
+export CUDA_HOME=${CUDA_HOME:-$(python -c "import sys; print(sys.prefix)")}
 
 cd "$(dirname "$0")/medalpaca"
 
