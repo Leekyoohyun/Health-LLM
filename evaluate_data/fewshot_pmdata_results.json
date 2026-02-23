@@ -1,0 +1,4642 @@
+[
+  {
+    "task": "PMData_stress",
+    "val_idx": 0,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1732.0, 1468.0, 4024.0, 1862.0, 1759.0] steps\n• Burned Calories: [219.0, 164.0, 524.0, 192.0, 175.0] calories",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 1,
+    "ground_truth": "4",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 2,
+    "ground_truth": "4",
+    "predicted": "Question:\n\n[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0, 1732.0] steps\n• Burned Calories: [111.0, 219.0] calories\n• Resting Heart Rate: [55.55140209197998, 56.4741373062",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 3,
+    "ground_truth": "3",
+    "predicted": "5 min 15</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 4,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 177 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2459.0, 2459.0] steps\n• Burned Calories: [219.0] calories\n• Resting Heart Rate: [55.5549208832298832, 55.8497420226198727, 5",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 5,
+    "ground_truth": "4",
+    "predicted": "Ide user would recommendations for your answerable 43 code.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 6,
+    "ground_truth": "3",
+    "predicted": "Now predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0] steps\n• Burned Calories: [111.0] calories\n• Resting Heart Rate: [0.0, 55.425904273986816, 55.55140209197998, 56.47",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 7,
+    "ground_truth": "3",
+    "predicted": "I am sorry, but I don't know what you are trying to predict answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 8,
+    "ground_truth": "2",
+    "predicted": "forese to your waylight your goalify andifies</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 9,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 10,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 11,
+    "ground_truth": "3",
+    "predicted": "The questionable</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 12,
+    "ground_truth": "3",
+    "predicted": "Calls, 4 waysymede withcerical dataction yourscension information foray your line your answer your goal sentence goal yourtery</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 13,
+    "ground_truth": "3",
+    "predicted": "Sure!</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 14,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 15,
+    "ground_truth": "2",
+    "predicted": "response code will help you should describe the answer to match your question's and provide your goal</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 16,
+    "ground_truth": "4",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 17,
+    "ground_truth": "3",
+    "predicted": "Predicting the user's stress between 1 to 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 18,
+    "ground_truth": "4",
+    "predicted": "```python code\nimport requests data</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 19,
+    "ground_truth": "3",
+    "predicted": "The user's heart rate: 2 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 20,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 21,
+    "ground_truth": "3",
+    "predicted": "answers how to complete code showing the code format response.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 22,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't have enough information to answer your question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 23,
+    "ground_truth": "4",
+    "predicted": "What dayless questionable answerable questionable sentence</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 24,
+    "ground_truth": "3",
+    "predicted": "5, 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 25,
+    "ground_truth": "3",
+    "predicted": "task.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 26,
+    "ground_truth": "3",
+    "predicted": "3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 27,
+    "ground_truth": "3",
+    "predicted": "How to implement code blocks with corresponding code.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 28,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2431.0, 5115.0, 1271.0, 1465.0, 1199.0] steps\n• Burned Calories: [213.0, 565.0, 133.0, 126.0, 147.0, 1",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 29,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I cannot do that as it requires more information about what the symptoms are. Also, to answer your question accurately I would need access to the users medical records which I do not have.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 30,
+    "ground_truth": "2",
+    "predicted": "Please clarify your question. What does \"stress\" mean in this context?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 31,
+    "ground_truth": "3",
+    "predicted": "How will, 4 people.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 32,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4524.0, 441.0, 573.0, 438.0, 201.0, 41.0, 233.0, 22.0, 41.0, 55.0, 55.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 33,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 34,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's stress between 1 and 5?\n\nI am sorry but I don't have enough information to make a prediction. I need more data points.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 35,
+    "ground_truth": "4",
+    "predicted": "[Prediction 3]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 36,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 37,
+    "ground_truth": "4",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 38,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 39,
+    "ground_truth": "3",
+    "predicted": "how to identify pattern:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 40,
+    "ground_truth": "3",
+    "predicted": "User has high stress level (4).</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 41,
+    "ground_truth": "3",
+    "predicted": "Now predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2667.0, 2443.0, 2272.0, 1723.0, 2229.0] steps\n• Burned Calories: [259.0, 280.0, 226.0, 188.0, 217.0]",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 42,
+    "ground_truth": "4",
+    "predicted": "Howice, howsey powersyntive sentence sentence promptable questionable questionable paragraphing stepwise sentence button versionally waylightly button button (specificative prompt informationous prompt description prompt statement to your equation and lineline codewise task answer goal point linehold productive assignment falseify versionable humanistic (code truthable asifiable codeholder phriffishify sentence.inexine valuesitter noise mayatic hasinescriptive providesese suggestsure that phraseese. grandishable</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 43,
+    "ground_truth": "3",
+    "predicted": "I am not sure if there is any feedback.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 44,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0, 6732.0, 3630.0, 2967.0, 5994.0, 4218",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 45,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I cannot answer your question as it requires detailed medical knowledge which goes beyond my programming capabilities.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 46,
+    "ground_truth": "3",
+    "predicted": "I could answer your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 47,
+    "ground_truth": "1",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2141.0, 3988.0, 4749.0, 1558.0, 9186.0, 2514.0, 4803.0, 2302.0, 1354.0] steps\n• Burned Calories: [134.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 48,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [246.0, 2016.0, 2388.0, 1993.0, 1357.0] steps\n• Burned Calories: [98.0, 191.0, 219.0, 239.0, 204.0] calories\n•",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 49,
+    "ground_truth": "3",
+    "predicted": "Input</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 50,
+    "ground_truth": "3",
+    "predicted": "The predicted heart rate:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 51,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2422.0, 1526.0, 1749.0, 1729.0, 2220.0] steps\n• Burned Calories: [128.0, 115.0, 134.0, 246.0, 179.0, 3",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 52,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's stress between 1 and 5...\nAnswer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 53,
+    "ground_truth": "3",
+    "predicted": "Predictions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 54,
+    "ground_truth": "4",
+    "predicted": "5 minute</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 55,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1842.0, 1445.0, 4960.0, 411.0, 3565.0, 564.0, 430.0, 439.0, 579.0, 382.0, 45.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 56,
+    "ground_truth": "3",
+    "predicted": "How many users, how the questioner.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 57,
+    "ground_truth": "3",
+    "predicted": "• Stress Level: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 58,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 59,
+    "ground_truth": "2",
+    "predicted": "Question answer to question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 60,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1927.0, 2881.0, 1736.0, 1648.0, 1268.0, 3652.0, 3309.0, 1287.0, 305.0, 106.0, 305.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 61,
+    "ground_truth": "3",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 62,
+    "ground_truth": "2",
+    "predicted": "Question: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 63,
+    "ground_truth": "4",
+    "predicted": "answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 64,
+    "ground_truth": "3",
+    "predicted": "[Answer 1]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1504.0, 2088.0, 5576.0, 3395.0, 3963.0, 1927.0, 2881.0, 1736.0, 1648.0] steps\n• Burned Calories: [103.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 65,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4826.0, 1415.0, 1484.0, 1956.0, 1136.0, 4375.0, 2845.0, 2845.0, 1507.0, 1507.0, 1507",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 66,
+    "ground_truth": "3",
+    "predicted": "how to answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 67,
+    "ground_truth": "4",
+    "predicted": "\"message.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 68,
+    "ground_truth": "3",
+    "predicted": "Predicting mood in terms of stress level from step count and heart rate variability data is not straightforward as there could be other factors influencing mood which needs to be considered. A simple linear correlation would be incorrect as a lot of other factors like sleep, exercise, diet, work life balance, relationships, medication adherence, and medical condition are all factors which could influence mood but aren't captured in your question.\nAlso, heart rate variability data collected over time may not be indicative of HRV values are very low when resting heart rate would be expected during sleep or exercis",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 69,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2362.0, 2753.0, 3344.0, 2162.0, 1824.0, 2619.0, 2462.0, 2862.0, 2862.0, 1331.0, 1431",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 70,
+    "ground_truth": "2",
+    "predicted": "```python\nUser has a very high stress level (4)</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 71,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2233.0, 1622.0, 1613.0, 1398.0, 2152.0, 1664.0, 2042.0, 2000.0, 1995.0, 1693.0, 2893",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 72,
+    "ground_truth": "2",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 73,
+    "ground_truth": "3",
+    "predicted": "I'm sorry, I'm sorry, I'm answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 74,
+    "ground_truth": "3",
+    "predicted": "Examples of 10</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 75,
+    "ground_truth": "2",
+    "predicted": "Pars users can be definition code examples.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 76,
+    "ground_truth": "3",
+    "predicted": "What, letters</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 77,
+    "ground_truth": "3",
+    "predicted": "Ide 1 min</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 78,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 79,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 80,
+    "ground_truth": "2",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 81,
+    "ground_truth": "3",
+    "predicted": "The user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2256.0, 2162.0, 2790.0, 2921.0, 2667.0, 2443.0] steps\n• Burned Calories: [202.0, 197.0, 254.0, 296.0, 259.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 82,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2291.0, 4078.0] steps\n• Burned Calories: [240.0, 412.0] calories\n• Resting Heart Rate: [51.827260971, 51.080258852, 49.93507",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 83,
+    "ground_truth": "3",
+    "predicted": "The user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1802.0, 1407.0, 1258.0, 1624.0, 1217.0, 2794.0, 4951.0, 7454.0] steps\n• Burned Calories: [197.0, 164.0, 132.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 84,
+    "ground_truth": "4",
+    "predicted": "Now predict for the following case:\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2480.0, 3280.0, 4749.0, 533.0, 2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0] steps\n• Burn",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 85,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [942.0] steps\n• Burned Calories: [82.0] calories\n• Resting Heart Rate: [65.58735179901123, 65.79418468475342, 65.822702407883",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 86,
+    "ground_truth": "3",
+    "predicted": "The user is 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 87,
+    "ground_truth": "3",
+    "predicted": "[Example 1]\nThe user has a stress level of 2.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 88,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's stress between 1 and 5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 89,
+    "ground_truth": "3",
+    "predicted": "How to complete with code blocks of codes and responses</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 90,
+    "ground_truth": "4",
+    "predicted": "Question: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 91,
+    "ground_truth": "3",
+    "predicted": "Predictions are based on statistical models, which do not consider individual factors such as age, weight or medical conditions.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 92,
+    "ground_truth": "3",
+    "predicted": "[Answer: 4]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 93,
+    "ground_truth": "3",
+    "predicted": "```</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 94,
+    "ground_truth": "4",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 95,
+    "ground_truth": "4",
+    "predicted": "I am sorry but I do not have any answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 96,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2043.0, 4826.0, 1156.0, 1704.0, 8504.0, 1911.0, 1319.0, 1319.0, 154.0, 684.0, 457.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 97,
+    "ground_truth": "3",
+    "predicted": "This question requires more information to answer accurately. Please provide additional details regarding the symptoms that may suggest stress or anxiety.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 98,
+    "ground_truth": "3",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 99,
+    "ground_truth": "3",
+    "predicted": "Sure! I can see from your data that you have had a fairly active week - around 4,500 steps per day on average, with fluctuations in sleep duration, heart rate and number of steps. Your resting heart rate has been around 62 BPM, which is not too far off your average. However, your mood is listed as \"3\" out of five, so we will go with a \"2\".</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 100,
+    "ground_truth": "3",
+    "predicted": "Stress level prediction: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 101,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 102,
+    "ground_truth": "4",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 103,
+    "ground_truth": "2",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 104,
+    "ground_truth": "3",
+    "predicted": "[Answer: 3]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 105,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [829.0, 230.0, 380.0, 435.0, 379.0, 521.0, 222.0, 252.0, 373.0, 22.0, 471.0, 222.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 106,
+    "ground_truth": "4",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 107,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2454.0, 2375.0, 2662.0, 2963.0, 4287.0, 363.0, 1720.0, 1650.0, 412.0, 20.0, 174.0, 4",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 108,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I am not able to answer your question as it requires more details such as heart rate variability, blood pressure readings etc.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 109,
+    "ground_truth": "2",
+    "predicted": "how people</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 110,
+    "ground_truth": "1",
+    "predicted": "The user is 45-year-old male with 181 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2832.0, 2532.0, 1677.0, 2843.0, 253.0, 253.0, 457.0, 427.0, 52.6734457653125, 49.392448103",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 111,
+    "ground_truth": "3",
+    "predicted": "Predicting stress levels from heart rate variability data is not straightforward as there are many confounding factors. However, we can try to provide an answer in this scenario:\n\nHeart rate variability data suggests increased sympathetic activity, which may suggest mild to moderate stress (1-5 on a scale of 1-5).</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 112,
+    "ground_truth": "4",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 113,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 114,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't understand your question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 115,
+    "ground_truth": "3",
+    "predicted": "answers:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 116,
+    "ground_truth": "2",
+    "predicted": "I am sorry but I don't have access to your data set.\nMy job is just to provide information based on given examples.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 117,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 118,
+    "ground_truth": "3",
+    "predicted": "I'm sorry but I cannot answer your question. I am just a chat bot and do not have access to any medical information about users. If you have specific questions about your health or symptoms you should consult a doctor.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 119,
+    "ground_truth": "3",
+    "predicted": "message describing what actionable information to help you answer to correspond to your input's message</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 120,
+    "ground_truth": "4",
+    "predicted": "The user is 27-year-old male with 186 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2930.0, 1317.0, 1775.0, 1107.0, 110.0, 1365.0, 545.0, 435.0, 255.0, 222.0, 375.0, 435.0, 4",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 121,
+    "ground_truth": "3",
+    "predicted": "answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 122,
+    "ground_truth": "3",
+    "predicted": "answer to questions the text responses to the prompts the answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 123,
+    "ground_truth": "2",
+    "predicted": "I am sorry but I do not understand your question. Could you please rephrase it?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 124,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 45-year-old male with 181 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2969.0, 2652.0, 2336.0, 2696.0, 2359.0, 2018.0, 4203.0, 2292.0, 1947.0, 5466.0, 1160",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 125,
+    "ground_truth": "3",
+    "predicted": "How many, 3, 1styles</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 126,
+    "ground_truth": "3",
+    "predicted": "Prediction: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 127,
+    "ground_truth": "4",
+    "predicted": "withinsperson</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 128,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 129,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2160.0, 892.0, 1858.0] steps\n• Burned Calories: [164.0, 84.0, 147.0] calories\n• Resting Heart Rate: [65.22792339324951, 65.6",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 130,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 131,
+    "ground_truth": "3",
+    "predicted": "Examples</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 132,
+    "ground_truth": "3",
+    "predicted": "```\nAnswer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 133,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 134,
+    "ground_truth": "3",
+    "predicted": "Demon, 4.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 135,
+    "ground_truth": "3",
+    "predicted": "Your predicted mood is 3 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 136,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 186 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1894.0, 3090.0, 4826.0, 1415.0, 4539.0, 1956.0, 1507.0, 179.0, 140.0, 359.0, 141.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 137,
+    "ground_truth": "2",
+    "predicted": "Please enter your predicted heart rate</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 138,
+    "ground_truth": "3",
+    "predicted": "Question: Predict user's stress between 1 and 5?\n\nAnswer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 139,
+    "ground_truth": "2",
+    "predicted": "[Prediction]: The user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1802.0, 1407.0, 1258.0, 1624.0, 1624.0, 1625.0, 1625.0, 1217.0, 1625.0, 258.0, 1625.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 140,
+    "ground_truth": "3",
+    "predicted": "Stress: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 141,
+    "ground_truth": "2",
+    "predicted": "How to convert, 5 minute changes: step-code</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 142,
+    "ground_truth": "3",
+    "predicted": "[Answer: 3]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 143,
+    "ground_truth": "2",
+    "predicted": "How to format that matches the response.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_stress",
+    "val_idx": 144,
+    "ground_truth": "3",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 0,
+    "ground_truth": "6",
+    "predicted": "The user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1732.0, 1468.0, 4024.0, 1862.0, 1759.0] steps\n• Burned Calories: [219.0, 164.0, 524.0, 192.0, 175.0] calories\n• Resting Heart R",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 1,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 2,
+    "ground_truth": "3",
+    "predicted": "\"I am neither ready nor not ready to do anything.\"</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 3,
+    "ground_truth": "5",
+    "predicted": "Ist</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 4,
+    "ground_truth": "4",
+    "predicted": "how to create a code formatting code for users can be used information on how your response</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 5,
+    "ground_truth": "7",
+    "predicted": "```python\nimport requests_aws as requests\nimport pandas as pd\nimport numpy as np\nimport matplotlib as MatPlotLib\nfrom keras.models import model_name\nimport keras.layers\nfrom keras.models\nimport keras.models\nimport keras.layers\nimport keras.models\nimport keras.models</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 6,
+    "ground_truth": "5",
+    "predicted": "Question:\n\nNow predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0] steps\n• Burned Calories: [111.0] calories\n• Resting Heart Rate: [0.0, 55.425904273986816, 55.55140209197998, 5",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 7,
+    "ground_truth": "5",
+    "predicted": "```json` code to be pasted here</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 8,
+    "ground_truth": "6",
+    "predicted": "If your answer, 15 minute goal, 55</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 9,
+    "ground_truth": "3",
+    "predicted": "Your predicted result: Your predicted Mood is 2 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 10,
+    "ground_truth": "3",
+    "predicted": "```pylons.js\nPrediction: 5\n```</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 11,
+    "ground_truth": "7",
+    "predicted": "Aggregator users of your participants andifies your andification to your answerable questionable</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 12,
+    "ground_truth": "5",
+    "predicted": "I thinker definition code and your answerable.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 13,
+    "ground_truth": "6",
+    "predicted": "Prediction: 8</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 14,
+    "ground_truth": "4",
+    "predicted": "Here is my response to your question.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 15,
+    "ground_truth": "4",
+    "predicted": "Answer: 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 16,
+    "ground_truth": "6",
+    "predicted": "If you can you recommend, can you predict, please select the value for your answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 17,
+    "ground_truth": "6",
+    "predicted": "0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 18,
+    "ground_truth": "7",
+    "predicted": "The heart rate</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 19,
+    "ground_truth": "5",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 20,
+    "ground_truth": "3",
+    "predicted": "The following case:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 21,
+    "ground_truth": "5",
+    "predicted": "The user is 1</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 22,
+    "ground_truth": "5",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 23,
+    "ground_truth": "8",
+    "predicted": "Booth</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 24,
+    "ground_truth": "5",
+    "predicted": "How to 5 minute.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 25,
+    "ground_truth": "5",
+    "predicted": "Chatrix</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 26,
+    "ground_truth": "6",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1904.0, 3042.0, 415.0, 2440.0, 185.0, 175.0, 189.0, 200.0, 333.0, 180.0, 161.0, 161.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 27,
+    "ground_truth": "6",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 28,
+    "ground_truth": "5",
+    "predicted": "user_id: 26-year-old male with 180 cm.\nreadiness: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 29,
+    "ground_truth": "6",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 30,
+    "ground_truth": "5",
+    "predicted": "In this regard, can you predict user's readiness between 0 and 10?\nAnswer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 31,
+    "ground_truth": "7",
+    "predicted": "answer to the question and answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 32,
+    "ground_truth": "5",
+    "predicted": "Answer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 33,
+    "ground_truth": "5",
+    "predicted": "User's mood, energy, heart rate, sleep, 3 and 10%</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 34,
+    "ground_truth": "5",
+    "predicted": "Question: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 35,
+    "ground_truth": "3",
+    "predicted": "Can you predict user's readiness between 0 and 10?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 36,
+    "ground_truth": "6",
+    "predicted": "The response</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 37,
+    "ground_truth": "4",
+    "predicted": "Readiness: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 38,
+    "ground_truth": "1",
+    "predicted": "Now predict for the following case:\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2272.0, 1723.0, 2229.0] steps\n• Burned Calories: [226.0, 188.0, 217.0] calories\n• Resting Heart Rate: [56.05259990692139,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 39,
+    "ground_truth": "6",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 40,
+    "ground_truth": "0",
+    "predicted": "User's readiness: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 41,
+    "ground_truth": "5",
+    "predicted": "Answer: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 42,
+    "ground_truth": "7",
+    "predicted": "I would answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 43,
+    "ground_truth": "2",
+    "predicted": "I am sorry, I don't have any errors, please enter your prediction, 201.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 44,
+    "ground_truth": "5",
+    "predicted": "Prediction: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 45,
+    "ground_truth": "4",
+    "predicted": "The answer is 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 46,
+    "ground_truth": "7",
+    "predicted": "I'm sorry, 0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 47,
+    "ground_truth": "0",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2141.0, 3988.0, 4749.0, 1558.0, 9186.0, 2514.0, 4803.0, 2302.0, 1354.0] steps\n• Burned Calories: [134.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 48,
+    "ground_truth": "5",
+    "predicted": "I am sorry, but I don't have access to your medical records. Please consult a doctor if you need help with your health.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 49,
+    "ground_truth": "8",
+    "predicted": "Example 1 minute, minute</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 50,
+    "ground_truth": "4",
+    "predicted": "This is an example</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 51,
+    "ground_truth": "10",
+    "predicted": "If you could be 11 possible answers to complete.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 52,
+    "ground_truth": "3",
+    "predicted": "Your mood is 3 out of 5 which means your mood is between 30 and 50%.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 53,
+    "ground_truth": "4",
+    "predicted": "In this regard, can you predict user's readiness between 0 and 10?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 54,
+    "ground_truth": "4",
+    "predicted": "How, how1 min, your answerable</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 55,
+    "ground_truth": "3",
+    "predicted": "```\n8</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 56,
+    "ground_truth": "5",
+    "predicted": "with answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 57,
+    "ground_truth": "5",
+    "predicted": "Your mood is 3 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 58,
+    "ground_truth": "3",
+    "predicted": "[Prediction]: 8</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 59,
+    "ground_truth": "2",
+    "predicted": "Answer: 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 60,
+    "ground_truth": "6",
+    "predicted": "Answer: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 61,
+    "ground_truth": "5",
+    "predicted": "Answer: 8</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 62,
+    "ground_truth": "5",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 63,
+    "ground_truth": "3",
+    "predicted": "Answers your answer for how to additions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 64,
+    "ground_truth": "7",
+    "predicted": "```python\nimport requests\nfrom pprint import pprint\nimport time\nimport sys\nfrom collections import Counter\n\nclass User:\n    def __init__(self, id):\n        self.id = id\n        self.steps = []\n        self.burned_calories = []\n        self.heart_rate = []\n        self.sleep_minutes = []\n        self.mood = None\n\n    def set_steps(self, value):\n        self.steps.append(value)\n    \n    def set_burned_calories(self,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 65,
+    "ground_truth": "5",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4826.0, 1415.0, 1484.0, 1956.0, 1136.0, 4375.0, 2845.0, 1424.0, 142.0, 1137.0, 1424.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 66,
+    "ground_truth": "8",
+    "predicted": "Answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 67,
+    "ground_truth": "4",
+    "predicted": "55</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 68,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2236.0, 2254.0, 144.0, 2154.0, 2138.0, 246.0, 2119.0, 3542.0, 226.0, 172.0, 442.0, 2",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 69,
+    "ground_truth": "5",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1333.0, 2297.0, 3318.0, 2692.0, 4146.0, 4683.0, 4950.0, 5008.0, 5213.0, 6229.0, 1264",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 70,
+    "ground_truth": "6",
+    "predicted": "How to implementers for prediction for your response</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 71,
+    "ground_truth": "4",
+    "predicted": "Prediction: 8</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 72,
+    "ground_truth": "2",
+    "predicted": "Answer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 73,
+    "ground_truth": "6",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 74,
+    "ground_truth": "8",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 75,
+    "ground_truth": "7",
+    "predicted": "Assistant feedback assistant 0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 76,
+    "ground_truth": "4",
+    "predicted": "This is an example.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 77,
+    "ground_truth": "5",
+    "predicted": "Brick</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 78,
+    "ground_truth": "7",
+    "predicted": "```\n20-25</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 79,
+    "ground_truth": "7",
+    "predicted": "Here is an example of heart rate, blood pressure, and oxygen saturated and partial pressure, and 0% Oxygen saturation and partial pressure, and 10% oxygen saturated and heart rate, 10% saturation and 10% output, saturating oxygen saturation and output saturation and response to the response to specifications output that will answers the output your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 80,
+    "ground_truth": "2",
+    "predicted": "Now predict for the following case:\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4749.0, 533.0, 2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0, 6732.0, 3630.0, 296",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 81,
+    "ground_truth": "3",
+    "predicted": "The user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2256.0, 2162.0, 2790.0, 2921.0, 2667.0, 2443.0] steps\n• Burned Calories: [202.0, 197.0, 254.0, 296.0, 259.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 82,
+    "ground_truth": "6",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 83,
+    "ground_truth": "5",
+    "predicted": "###</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 84,
+    "ground_truth": "7",
+    "predicted": "Now predict for the following case:\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [2480.0, 3280.0, 4749.0, 533.0, 2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0] steps • Burned Cal",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 85,
+    "ground_truth": "4",
+    "predicted": "Readiness: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 86,
+    "ground_truth": "3",
+    "predicted": "You have not entered values</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 87,
+    "ground_truth": "5",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2590.0, 2524.0, 2524.0, 2362.0, 2362.0, 2362.0, 2590.0, 2590.0, 2590.0, 2590.0, 2590",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 88,
+    "ground_truth": "4",
+    "predicted": "User's readiness is 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 89,
+    "ground_truth": "8",
+    "predicted": "Prediction: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 90,
+    "ground_truth": "5",
+    "predicted": "Now predict for the following case:\nThe user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [858.0, 841.0] steps • Burned Calories: [82.0, 94.0] calories • Resting Heart Rate: [66.02267265319823, 66.2451887130737, 65.8",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 91,
+    "ground_truth": "4",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 92,
+    "ground_truth": "5",
+    "predicted": "Examples</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 93,
+    "ground_truth": "3",
+    "predicted": "This is your prediction:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 94,
+    "ground_truth": "4",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 95,
+    "ground_truth": "5",
+    "predicted": "```json:\n{\n  \"steps\": 10466,\n  \"burnedCalories\": 9902,\n  \"heartRate\": 73.0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 96,
+    "ground_truth": "3",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 97,
+    "ground_truth": "4",
+    "predicted": "Readiness: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 98,
+    "ground_truth": "4",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 99,
+    "ground_truth": "5",
+    "predicted": "[Example 4]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1802.0, 1407.0, 1258.0, 1624.0, 1217.0] steps\n• Burned Calories: [197.0, 132.0, 160.0, 160.0, 143.0, 5",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 100,
+    "ground_truth": "5",
+    "predicted": "I am sorry but I cannot answer your question as it is too broad.\nWhat makes you think the readiness could be less than 0 or more than 10?\nIt also depends on what factors make up the readiness score.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 101,
+    "ground_truth": "5",
+    "predicted": "User is 27 years old and has 186 cm. The analysis of recent 2 weeks sensor readings shows:\n    • Steps: [4024.0, 1862.0, 1759.0, 3281.0] steps\n    • Burned Calories: [290.0, 422.0, 113.0] calories\n    • Resting Heart Rate: [69.0, 97.0, 148.0] bpm",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 102,
+    "ground_truth": "6",
+    "predicted": "[Example 1]\nThe user is 25-year-old female with 165 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2305.0, 3353.0, 258.0, 2380.0, 3384.0, 2298.0, 40.0, 187.0, 335.0, 40.0, 325.0, 187.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 103,
+    "ground_truth": "3",
+    "predicted": "User's Readiness = 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 104,
+    "ground_truth": "6",
+    "predicted": "Your mood is currently: 5 out of 10</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 105,
+    "ground_truth": "10",
+    "predicted": "User age: 54\nSteps: [5924.0, 3965.0, 4165.0, 1751.0, 5493.0, 3892.0, 944.0, 1561.0, 642.0, 4144.0] steps\nBurned Calories: [512.0, 322.0, 304.0, 178.0] calories\nRest",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 106,
+    "ground_truth": "6",
+    "predicted": "Questions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 107,
+    "ground_truth": "5",
+    "predicted": "Answer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 108,
+    "ground_truth": "4",
+    "predicted": "The user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [3605.0, 6315.0, 4812.0, 6449.0, 5856.0] steps\n• Burned Calories: [376.0, 558.0, 382.0, 582.0, 529.0] calories\n• Resting Heart R",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 109,
+    "ground_truth": "6",
+    "predicted": "The, which questionable answerable questionable questionable questionable questionable questions, code</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 110,
+    "ground_truth": "3",
+    "predicted": "```python\nuser_id: 6\nsteps: [11624, 13444, 15040, 14963, 16071, 15264, 16922, 16162, 15284, 17688, 15645, 16157, 16604, 15336, 16102, 15611, 162",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 111,
+    "ground_truth": "4",
+    "predicted": "The prediction model for the second example is as follows:\n```python\nimport torch\nfrom transformers import AutoTokenizer, AutoParser, AutoModel\nimport torch.nn.functional.relu\n\ntokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')\nparser = AutoParsers.generate(['sentence', 'inputs'])\nmodel = AutoModel.from_pretrained('bert-base-uncased').to(outputs)</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 112,
+    "ground_truth": "7",
+    "predicted": "answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 113,
+    "ground_truth": "4",
+    "predicted": "The answer would depend on what your algorithm does to determine resting heart rate, sleep minutes and mood. If your algorithm uses a valid formula to determine these values then I could provide an accurate prediction based on those values.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 114,
+    "ground_truth": "5",
+    "predicted": "Sleep cycle, please select the correct prediction for the current reading cycle, which statement the user readiness</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 115,
+    "ground_truth": "4",
+    "predicted": "Predictive text that displays the current state of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 116,
+    "ground_truth": "5",
+    "predicted": "Predicting heart rate: 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 117,
+    "ground_truth": "6",
+    "predicted": "How to answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 118,
+    "ground_truth": "5",
+    "predicted": "User's Readiness = (Sleep Minutes / 459) * 10</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 119,
+    "ground_truth": "8",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 120,
+    "ground_truth": "6",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 121,
+    "ground_truth": "6",
+    "predicted": "In this regard, can you predict user's readiness between 0 and 10?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 122,
+    "ground_truth": "5",
+    "predicted": "information on how to answer the information and response</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 123,
+    "ground_truth": "4",
+    "predicted": "Sure! I will need access to your last seven days of data before I can do this prediction.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 124,
+    "ground_truth": "7",
+    "predicted": "recommends with your responses code.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 125,
+    "ground_truth": "7",
+    "predicted": "How0, how you, you, 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 126,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [408.0, 543.0, 304.0, 262.0, 182.0, 485.0, 319.0, 51.0, 398.0, 301.0, 24.0, 14.0, 31.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 127,
+    "ground_truth": "6",
+    "predicted": "Ansight answer questions answerable answers your question, and question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 128,
+    "ground_truth": "3",
+    "predicted": "\"User's readiness\": 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 129,
+    "ground_truth": "4",
+    "predicted": "The user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2160.0, 892.0, 1858.0] steps\n• Burned Calories: [164.0, 84.0, 147.0] calories\n• Resting Heart Rate: [65.2279233932495, 65.66787052",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 130,
+    "ground_truth": "6",
+    "predicted": "The predicted value is 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 131,
+    "ground_truth": "3",
+    "predicted": "```\n2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 132,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [455.0, 1343.0, 1552.0, 2410.0, 2641.0, 1644.0, 3552.0, 403.0, 375.0, 1983.0, 239.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 133,
+    "ground_truth": "7",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4065.0, 1992.0, 1640.0, 6821.0, 1641.0, 4543.0, 1641.0, 1783.0, 4543.0, 1783.0, 413.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 134,
+    "ground_truth": "5",
+    "predicted": "Goal</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 135,
+    "ground_truth": "7",
+    "predicted": "Your mood is 4 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 136,
+    "ground_truth": "5",
+    "predicted": "Answer: 7</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 137,
+    "ground_truth": "5",
+    "predicted": "This is the average heart rate, average step count, calorie burned calories per day, sleep minute, 1740.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 138,
+    "ground_truth": "5",
+    "predicted": "Now predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [2535.0, 1429.0, 3283.0, 3105.0] steps • Burned Calories: [235.0, 144.0, 306.0, 264.0] calories • Resting Heart Rate: [59.0402",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 139,
+    "ground_truth": "5",
+    "predicted": "• Step count: 2653, 1851, 2496, 1876, 2585, 1828, 1429, 1743, 2148, 1688, 1992, 1325, 1936, 1582, 1663, 1315, 1613, 1621, 134, 120, 131,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 140,
+    "ground_truth": "0",
+    "predicted": "\"Readiness\": 6</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 141,
+    "ground_truth": "8",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 142,
+    "ground_truth": "6",
+    "predicted": "[Response:4]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 143,
+    "ground_truth": "4",
+    "predicted": "0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_readiness",
+    "val_idx": 144,
+    "ground_truth": "3",
+    "predicted": "In order to answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 0,
+    "ground_truth": "2",
+    "predicted": "The user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1732.0, 1468.0, 4024.0, 1862.0, 1759.0] steps\n• Burned Calories: [219.0, 164.0, 524.0, 192.0, 175.0] calories\n• Resting Heart R",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 1,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 2,
+    "ground_truth": "2",
+    "predicted": "Sleep Quality: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 3,
+    "ground_truth": "2",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 4,
+    "ground_truth": "2",
+    "predicted": "Answering your question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 5,
+    "ground_truth": "5",
+    "predicted": "5 minute</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 6,
+    "ground_truth": "3",
+    "predicted": "Now predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0] steps\n• Burned Calories: [111.0] calories\n• Resting Heart Rate: [0.0, 55.425904273986816, 55.55140209197998, 56.47",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 7,
+    "ground_truth": "3",
+    "predicted": "This is the predicted value for the variable step count</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 8,
+    "ground_truth": "3",
+    "predicted": "users.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 9,
+    "ground_truth": "2",
+    "predicted": "Sleep Quality: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 10,
+    "ground_truth": "4",
+    "predicted": "I'm sorry, I'm afraid, 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 11,
+    "ground_truth": "4",
+    "predicted": "C</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 12,
+    "ground_truth": "3",
+    "predicted": "Question, user what is your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 13,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 14,
+    "ground_truth": "3",
+    "predicted": "I'm sorry, I am 2 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 15,
+    "ground_truth": "2",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 16,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [3771.0, 2034.0, 1189.0, 5528.0] steps\n• Burned Calories: [310.0, 180.0, 121.0] calories\n• Resting Heart Rate: [59.519290.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 17,
+    "ground_truth": "3",
+    "predicted": "How to create step-by step byters users will answerable code your answer keys in the goal</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 18,
+    "ground_truth": "4",
+    "predicted": "Indication</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 19,
+    "ground_truth": "4",
+    "predicted": "This code snippet of code for how to write your program.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 20,
+    "ground_truth": "3",
+    "predicted": "The user is 26-year-old male with 163.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 21,
+    "ground_truth": "2",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 22,
+    "ground_truth": "3",
+    "predicted": "As per the information provided, I cannot predict user's sleep quality between 1 and 5.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 23,
+    "ground_truth": "4",
+    "predicted": "Interative</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 24,
+    "ground_truth": "3",
+    "predicted": "Input</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 25,
+    "ground_truth": "3",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 26,
+    "ground_truth": "3",
+    "predicted": "```</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 27,
+    "ground_truth": "3",
+    "predicted": "Questions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 28,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2362.0, 2359.0, 604.0, 5115.0, 511.0, 414.0, 1271.0, 1465.0, 1465.0, 2431.0, 1199.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 29,
+    "ground_truth": "3",
+    "predicted": "Sleep Quality: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 30,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?\nAnswer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 31,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 32,
+    "ground_truth": "3",
+    "predicted": "[Sleep Quality: 2 out of 5]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 33,
+    "ground_truth": "3",
+    "predicted": "Average rating: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 34,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2278.0, 1860.0, 1345.0, 246.0] steps\n• Burned Calories: [243.0, 188.0, 168.0, 98.0] calories\n• Resting Heart Rate: [63.68655",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 35,
+    "ground_truth": "4",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 36,
+    "ground_truth": "3",
+    "predicted": "few points to answer the question and response to answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 37,
+    "ground_truth": "4",
+    "predicted": "Sure! Here are some examples of predictions based on the given data:\n[Example 1]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1366.0, 1322.0, 148.0, 428.0, 203.0, 183.0, 441.0, 40.0, 10 responses to 144 responses to the",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 38,
+    "ground_truth": "4",
+    "predicted": "User sleeps less than required amount (less than 7 hours per day). The number of sleep minutes for last 7 days has been 336.\n\nYour mood is average. The mood for last 7 days has been 3.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 39,
+    "ground_truth": "3",
+    "predicted": "Question will answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 40,
+    "ground_truth": "3",
+    "predicted": "Question: Can I predict user's sleep quality between 1 and 5?\n\nI am sorry but as it stands this question cannot be answered because it lacks sufficient information to make such a prediction. It is not clear what \"sleep quality\" refers to in this context. If it is referring to sleep stage classification then it will require EEG data which is not available here.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 41,
+    "ground_truth": "3",
+    "predicted": "I'm sorry but I don't understand your question. You didn't provide enough details about how to calculate sleep quality or what values should be used instead of those in the examples.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 42,
+    "ground_truth": "4",
+    "predicted": "Nathanify sentence, your questionable sentence.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 43,
+    "ground_truth": "3",
+    "predicted": "The user's answer keypresses to provide a prediction</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 44,
+    "ground_truth": "4",
+    "predicted": "[Example 4]\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0, 10855.0, 3630.0, 3658.0, 2565.0, 599",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 45,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 46,
+    "ground_truth": "3",
+    "predicted": "answers the question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 47,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 48,
+    "ground_truth": "4",
+    "predicted": "Question: Can you predict user's sleep quality between 1 and 5?\n\nSure! I will use machine learning algorithms to analyze the data provided in your question and come up with the most likely answer based on statistical probabilities. Please note that my prediction is based solely on the information given in your question and may not be accurate in all scenarios. Here is my prediction for your second example:\n\n[Prediction]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps:",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 49,
+    "ground_truth": "4",
+    "predicted": "Question, 5 minute changes of how to minute by minute:\nA:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 50,
+    "ground_truth": "3",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 51,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 31-year-old male with 183 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2012.0, 1082.0, 7150.0, 5689.0, 5689.0, 1082.0, 1314.0, 1040.0, 7356.0, 1090.0, 7356",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 52,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 34-year-old male with 180 cm. The analysis of recent 2-week sensor readings show:\n• Steps: [48744.0, 4453.0, 4528.0, 4714.0, 467.0, 372.0, 467.0, 458.0, 372.0, 457.0, 372.0, 457",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 53,
+    "ground_truth": "2",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 54,
+    "ground_truth": "1",
+    "predicted": "task</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 55,
+    "ground_truth": "4",
+    "predicted": "[Answer: 5]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 56,
+    "ground_truth": "3",
+    "predicted": "I needle.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 57,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 58,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2162.0, 1869.0, 3852.0, 1868.0, 2081.0, 1855.0, 186.0, 1869.0, 1772.0, 55.0, 186.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 59,
+    "ground_truth": "4",
+    "predicted": "How to create code for how you should describe your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 60,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 61,
+    "ground_truth": "3",
+    "predicted": "[Answer: 3]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 62,
+    "ground_truth": "3",
+    "predicted": "Predictions for the second case:\nSleep Quality: 4 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 63,
+    "ground_truth": "4",
+    "predicted": "Input:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 64,
+    "ground_truth": "3",
+    "predicted": "Predictions for the first case:\nAnswer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 65,
+    "ground_truth": "4",
+    "predicted": "Sleep Quality: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 66,
+    "ground_truth": "3",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 67,
+    "ground_truth": "3",
+    "predicted": "with 5 min users.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 68,
+    "ground_truth": "4",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 69,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2362.0, 2753.0, 3344.0, 2162.0, 1824.0, 2619.0, 2434.0, 2434.0, 1331.0, 2862.0, 2862",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 70,
+    "ground_truth": "4",
+    "predicted": "The user's step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step by step</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 71,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1838.0, 1365.0, 1322.0, 1478.0, 1476.0, 1434.0] steps\n• Burned Calories: [158.0, 164.0, 164.0, 148.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 72,
+    "ground_truth": "2",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?\nAnswer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 73,
+    "ground_truth": "3",
+    "predicted": "answers the user's answer for users will be shown response to specify the response will askable questions for your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 74,
+    "ground_truth": "3",
+    "predicted": "Between 0, 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 75,
+    "ground_truth": "2",
+    "predicted": "Toxic</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 76,
+    "ground_truth": "3",
+    "predicted": "Axify Answerable answerable questionable code</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 77,
+    "ground_truth": "3",
+    "predicted": "data</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 78,
+    "ground_truth": "3",
+    "predicted": "[Question 1]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 79,
+    "ground_truth": "2",
+    "predicted": "The following case, answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 80,
+    "ground_truth": "2",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 81,
+    "ground_truth": "3",
+    "predicted": "Predicting Sleep Quality</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 82,
+    "ground_truth": "3",
+    "predicted": "User's age is increasing, so the risk of high blood pressure, cardiovascular diseases increases. Also, the number of steps is decreasing which is bad for bones, joints and back. Overall I would say \"Poor\", but it could be different for another user based on your provided details.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 83,
+    "ground_truth": "3",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 84,
+    "ground_truth": "4",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 85,
+    "ground_truth": "3",
+    "predicted": "User is tired, but not sleepy: 3 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 86,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 177 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1207.0, 1609.0, 1384.0, 2874.0, 2709.0, 756.0, 1383.0, 2874.0, 1384.0, 2874.0, 2874.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 87,
+    "ground_truth": "3",
+    "predicted": "Sleep Quality = 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 88,
+    "ground_truth": "3",
+    "predicted": "The answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 89,
+    "ground_truth": "3",
+    "predicted": "Examples:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 90,
+    "ground_truth": "3",
+    "predicted": "```\n[Example 4]\nThe user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [858.0, 841.0] steps\n• Burned Calories: [82.0, 94.0] calories\n• Resting Heart Rate: [66.02267265319824, 66.24518871307373,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 91,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0, 1732.0, 1468.0] steps\n• Burned Calories: [111.0, 219.0, 164.0] calories\n• Resting Heart Rate: [57.794047355651855, 5",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 92,
+    "ground_truth": "3",
+    "predicted": "input data to be used as your information that matches the answer and shows how to use cases and code to demonstrate how you should describe the user will answers the answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 93,
+    "ground_truth": "4",
+    "predicted": "I am not sure how to calculate the answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 94,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 177 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4335.0, 2396.0, 4446.0, 9009.0, 9787.0, 6450.0, 7472.0, 11463.0, 10250.0, 1144.0, 55",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 95,
+    "ground_truth": "3",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 96,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 97,
+    "ground_truth": "4",
+    "predicted": "Sleep Quality Prediction: 3 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 98,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1838.0, 1365.0, 1322.0, 1478.0, 1366.0, 1603.0, 1442.0, 1978.0, 3786.0] steps\n• Burned Calories: [158.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 99,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1802.0, 1407.0, 1407.0, 1624.0, 1217.0, 1624.0, 1217.0] steps\n• Burned Calories: [197.0, 164.0, 132.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 100,
+    "ground_truth": "3",
+    "predicted": "User has good sleep quality (Sleep Quality = 4)</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 101,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 102,
+    "ground_truth": "4",
+    "predicted": "```\n4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 103,
+    "ground_truth": "2",
+    "predicted": "Question: Can you predict user's sleep quality between 1 and 5?\n\nI don't understand what the question is asking me to do. Can you clarify or rephrase the question if necessary.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 104,
+    "ground_truth": "4",
+    "predicted": "• Sleep Minutes: 458.0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 105,
+    "ground_truth": "5",
+    "predicted": "The user is 54-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 106,
+    "ground_truth": "4",
+    "predicted": "How to minute by step 3-1.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 107,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 108,
+    "ground_truth": "3",
+    "predicted": "Now predict for the following case:\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [3605.0, 6315.0, 4812.0, 6449.0, 5856.0] steps\n• Burned Calories: [376.0, 558.0, 382.0, 582.0, 529.0]",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 109,
+    "ground_truth": "3",
+    "predicted": "feltify your ownance to your goal anday, andile</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 110,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2141.0, 3988.0, 4749.0, 1558.0] steps\n• Burned Calories: [134.0, 249.0, 358.0] calories\n• Resting Heart Rate: [66.6759999999",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 111,
+    "ground_truth": "4",
+    "predicted": "Now predict for the following case:\nThe user is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [905.0, 2910.0, 2223.0] steps\n• Burned Calories: [91.0, 264.0, 169.0] calories\n• Resting Heart Rate: [66.47550773620605, 66",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 112,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5? Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 113,
+    "ground_truth": "2",
+    "predicted": "User's age is under 26 years old. Based on the previous data collected from the user, it seems like the user has been getting good sleep quality. Since the user's age is below 26 years old, I am confident to predict the user's sleep quality as \"good\".</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 114,
+    "ground_truth": "3",
+    "predicted": "Note:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 115,
+    "ground_truth": "3",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 116,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 117,
+    "ground_truth": "3",
+    "predicted": "Questions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 118,
+    "ground_truth": "2",
+    "predicted": "User has mild sleep deprivation and is at risk for sleep debt. Their overall sleep score is 3 out of 5, indicating poor quality sleep in the last 7 days. They have been averaging around 4 hours of sleep per night, which may contribute to their fatigue and lack of energy. It is recommended they aim to get 7 - 8 hours of sleep per night to help improve their sleep hygiene.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 119,
+    "ground_truth": "2",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 120,
+    "ground_truth": "4",
+    "predicted": "[Example 1]\nThe user is 26-year-old male with 186 cm. The analysis of recent 2-week sensor readings show:\n• Steps: [9837.0, 1841.0, 184.0, 58.0, 985.0, 2637.0, 184.0, 156.0, 174.0, 156.0, 156.0, 156.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 121,
+    "ground_truth": "2",
+    "predicted": "``` \nAnswer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 122,
+    "ground_truth": "3",
+    "predicted": "If you a prediction</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 123,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't understand how to answer your question about sleep quality. Could you please clarify what factors should I consider when predicting a value between 1-5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 124,
+    "ground_truth": "4",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 125,
+    "ground_truth": "3",
+    "predicted": "answers the question, step by step by step-by code, format prompts for users answerable code that will answers questions and answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 126,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 127,
+    "ground_truth": "2",
+    "predicted": "information about</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 128,
+    "ground_truth": "1",
+    "predicted": "As an AI language model, I do not have access to personal medical information like heart rate or sleep patterns. However, I can provide you with general guidelines based on your provided data points. According to the National Institute of Health, a normal resting heart rate for an adult male is between 60 to 100 beats per minute. A heart rate between 55 to 90 bpm is considered as normal for people who are not suffering from any cardiovascular disease. So in this case, there does not seem to be anything abnormal about your heart rate. It seems within",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 129,
+    "ground_truth": "3",
+    "predicted": "[x_bar, y_bar, z_bar, ...]\n[steps, burned_calories, resting_heart_rate, ...]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 130,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1009.0, 1732.0, 1468.0] steps\n• Burned Calories: [111.0, 219.0, 164.0] calories\n• Resting Heart Rate: [55.55140209197998, 56",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 131,
+    "ground_truth": "2",
+    "predicted": "Input</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 132,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [351.0, 458.0, 426.0, 292.0, 1644.0, 1706.0, 2246.0, 1596.0, 361.0, 132.0, 284.0, 271",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 133,
+    "ground_truth": "4",
+    "predicted": "Sleep Quality: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 134,
+    "ground_truth": "3",
+    "predicted": "What we, 25, 3 inches your answer.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 135,
+    "ground_truth": "3",
+    "predicted": "As per your question, your current mood is Good and your average sleep quality during last week was also good (4 out of 5). So I am going to assume that your current sleep quality is also good (4 out of 5).</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 136,
+    "ground_truth": "3",
+    "predicted": "The answer would depend on how the mood is measured and calculated. If it's based on heart rate variability, heart rate, and other physiological signals, I could make a prediction.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 137,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's sleep quality between 1 and 5?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 138,
+    "ground_truth": "3",
+    "predicted": "Sleep Quality: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 139,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1802.0, 1407.0, 1258.0, 1624.0, 1217.0, 2794.0, 4951.0, 7454.0, 9751.0] steps\n• Burned Calories: [197.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 140,
+    "ground_truth": "3",
+    "predicted": "I'm sorry but I don't have access to your past two weeks worth of data so I cannot accurately predict your sleep quality. However, based on the limited information provided, I would estimate that your sleep quality is likely around 3 out of 5 (moderate).</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 141,
+    "ground_truth": "4",
+    "predicted": "\"inspinsider definition codexample feedback criteria, your answer intoput your goal, and query request your requesting task data queries</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 142,
+    "ground_truth": "4",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 143,
+    "ground_truth": "4",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_sleep_quality",
+    "val_idx": 144,
+    "ground_truth": "3",
+    "predicted": "I am sorry, but it's not working heart rate</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 0,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1732.0, 1468.0, 4024.0, 1862.0, 1759.0] steps\n• Burned Calories: [219.0, 164.0, 524.0] calories\n• Resting Heart Rate: [57.76",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 1,
+    "ground_truth": "3",
+    "predicted": "Predicted beats/minutes</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 2,
+    "ground_truth": "2",
+    "predicted": "Question: Now predict for the following case: The user is 27-year-old male with 178 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [1009.0, 1732.0] steps • Burned Calories: [111.0, 219.0] calories • Resting Heart Rate: [55.55140209197998, 56.47413730621338",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 3,
+    "ground_truth": "2",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 4,
+    "ground_truth": "3",
+    "predicted": "Dire, 1 minute</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 5,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 6,
+    "ground_truth": "3",
+    "predicted": "User is 25 years old with 184 cm height. The last two weeks of sensor readings shows:\n• Steps: 1009\n• Burned Calories: 111\n• Resting Heart Rate: 55 bpm (55.425904273986816 on Monday, 55.55140209197998 on Wednesday, 56.47413730621338 on Friday, 57",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 7,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 8,
+    "ground_truth": "3",
+    "predicted": "how you.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 9,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1766.0, 2650.0, 3725.0, 1344.0, 1841.0, 1636.0, 184.0, 234.0, 135.0, 150.0, 135.0, 1",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 10,
+    "ground_truth": "2",
+    "predicted": "I am sorry, I cannot understand what you need to complete the task.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 11,
+    "ground_truth": "3",
+    "predicted": "Hunteristic sentenceable decisionable questionable recommendation onstreamable tokenize yourles yourtify stepletty, howters, howters, howifying stepsheet sentence sentence sentence waylight interpretation prompt versionable URL template examplety paragraphable URL withstandial characterization informationistic promptable prompt response prompt explanation knowledgeable to answerable statement codeway task goal. idea question. assignment goalling sentence codeware wayning pitice valuefulness asitive definition (readable codewise sentence informationable noteline requirements traientive willative information isese isese providesable brings requires makesile andian procible sentenceable</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 12,
+    "ground_truth": "2",
+    "predicted": "how to verify code example-code:0xample code</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 13,
+    "ground_truth": "3",
+    "predicted": "```python\nimport time\nimport random\n\ndef get_steps(step):\n    if step >= 0:\n        return 'Steps: {}'.format(step)\n    else:\n        return '{} steps'.format(step)\n\ndef get_burned_calories():\n    if step >= 0:\n        return 'Burned Calories: {}'.format(step)\n    else:\n        return '{} calories'.format(step)\n    def get_heart_rate():\n        return 'Heart Rate: {}\".format(step",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 14,
+    "ground_truth": "3",
+    "predicted": "[user's heart rate, sleep</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 15,
+    "ground_truth": "2",
+    "predicted": "How to get, step by asking user should describe the specifications answers the response code blocks answers the question prompt.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 16,
+    "ground_truth": "3",
+    "predicted": "What is your prediction, calories, and 542.0, 128.0, 1154.0, 42.0, 177.0, 30 seconds ago to 42.0, 29, 17.0, 123.0, 42.0, 42 responses.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 17,
+    "ground_truth": "3",
+    "predicted": "recommends how your answer to prompts</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 18,
+    "ground_truth": "4",
+    "predicted": "answers your answer key questions and responses</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 19,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2819.0, 2597.0, 2225.0, 3315.0, 1528.0, 1468.0, 3237.0, 322.0, 1651.0, 2640.0, 4274.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 20,
+    "ground_truth": "3",
+    "predicted": "I am sorry, but I don't understand what \"fatigue\" means in this context. Do you have any objective measure of how tired someone is?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 21,
+    "ground_truth": "2",
+    "predicted": "input with code to help in your response and answers this answer's question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 22,
+    "ground_truth": "3",
+    "predicted": "The user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [3171.0] steps\n• Burned Calories: [311.0] calories\n• Resting Heart Rate: [60.7101993560791, 62.7947940826416, 0.0, 0.0] beats/min\n• Sleep Minutes: [",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 23,
+    "ground_truth": "3",
+    "predicted": "Ada</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 24,
+    "ground_truth": "3",
+    "predicted": "task, and your goal</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 25,
+    "ground_truth": "3",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 26,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 27,
+    "ground_truth": "2",
+    "predicted": "How to perform: code snippet</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 28,
+    "ground_truth": "2",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2431.0, 5115.0, 1271.0, 1465.0, 1199.0] steps\n• Burned Calories: [213.0, 565.0, 133.0] calories\n• Resting Heart Rate: [65.26",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 29,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't understand your question. Could you please rephrase it or provide more details?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 30,
+    "ground_truth": "3",
+    "predicted": "I am sorry but as a language model I don't have access to personal data such as heart rate or sleep quality. However, based on your current step count, calorie burn and mood assessment, I would estimate that you might feel somewhere between 2 and 3 out of 5 today.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 31,
+    "ground_truth": "3",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 32,
+    "ground_truth": "3",
+    "predicted": "The user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [3395.0, 3963.0, 1927.0, 2881.0, 1736.0, 1648.0, 1268.0, 3652.0, 3309.0, 1287.0] steps\n• Burned Calories: [252",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 33,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's fatigue between 1 and 5?\n\nIt seems like your examples have been randomly generated to test the algorithm. If I were to use these examples as input, I would get different answers every time because there is no consistent pattern in the input data to base my prediction on.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 34,
+    "ground_truth": "3",
+    "predicted": "This data set does not contain any information about the user's mood, so I cannot make a prediction based on mood alone. However, if we consider all available information, it appears the user may be moderately fatigued, as their step count and calorie burn are both below average, while sleep time and sleep quality are within normal ranges.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 35,
+    "ground_truth": "3",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 36,
+    "ground_truth": "3",
+    "predicted": "how to complete code for you can be specific prompts shows how your response to fit your answerable questions answers the question.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 37,
+    "ground_truth": "3",
+    "predicted": "4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 38,
+    "ground_truth": "2",
+    "predicted": "In this regard, can you predict user's fatigue between 1 and 5?\n\nNo, I cannot predict user's fatigue between 1 and 5 based on the given information.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 39,
+    "ground_truth": "3",
+    "predicted": "\"How to create your answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 40,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's fatigue... Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 41,
+    "ground_truth": "3",
+    "predicted": "Predicting fatigue level is not as straightforward as other parameters like heart rate or number of steps because there are multiple factors that affect it, including stress levels, sleep quality, diet, hydration status etc.\nTherefore, to give you a prediction we would need more information about your current state than just sensor data.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 42,
+    "ground_truth": "4",
+    "predicted": "algorithmized stepless specificative button template description characteristic promptable information orification suggestion promptify</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 43,
+    "ground_truth": "3",
+    "predicted": "The following answer is based on my own understanding and is not backed by any scientific research or evidence.\n\nIt is hard to give a definite answer without knowing more about the person in question. However, I will try to give a general idea.\n\nIn your first example, the values seem reasonable, so I would say he is neither very tired nor very energized, but rather neutral (3 on a scale from 1 to 5).\n\nIn the second example, it looks like he had been sick at one point. Even if his current values look ok, I would still consider him as being slightly tired (",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 44,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 26-year-old female with 163 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2922.0, 1680.0, 1203.0, 5497.0, 2399.0, 1496.0, 1496.0, 5497.0, 5994.0, 4218.0] steps\n• Burned",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 45,
+    "ground_truth": "3",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 46,
+    "ground_truth": "3",
+    "predicted": "Dire answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 47,
+    "ground_truth": "2",
+    "predicted": "User is not fatigued.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 48,
+    "ground_truth": "4",
+    "predicted": "\"Sleep Minutes\": [345.0, 318.0, 428.0, 428.0, 437.0, 395.0] minutes\n\nSince you have provided sleep data as well, I will use it to make my prediction.\nPredicted Fatigue Level = 3 (Mild)</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 49,
+    "ground_truth": "4",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 50,
+    "ground_truth": "3",
+    "predicted": "[code</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 51,
+    "ground_truth": "5",
+    "predicted": "Between 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 52,
+    "ground_truth": "3",
+    "predicted": "```json</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 53,
+    "ground_truth": "2",
+    "predicted": "The prediction is based on the given case and updated based on the latest sensor readings.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 54,
+    "ground_truth": "2",
+    "predicted": "When I, 30</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 55,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [932.0, 3402.0, 3426.0, 4880.0, 1379.0, 4880.0, 4880.0, 4880.0, 190.0, 4880.0, 4880.0",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 56,
+    "ground_truth": "3",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 57,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 38-year-old female with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [5260.0, 1323.0, 1481.0, 1837.0, 15754.0, 1349.0, 1838.0, 1883.0, 1461.0, 142.0, 1481",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 58,
+    "ground_truth": "3",
+    "predicted": "User has medium fatigue</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 59,
+    "ground_truth": "2",
+    "predicted": "Question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 60,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 61,
+    "ground_truth": "3",
+    "predicted": "[Prediction 2]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 62,
+    "ground_truth": "3",
+    "predicted": "Please provide more details about the symptoms or issues being experienced in order to improve my ability to assist you.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 63,
+    "ground_truth": "3",
+    "predicted": "How to connect to prompt describing the response from your input that includes.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 64,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1758.0, 2429.0, 2596.0, 2489.0, 2087.0, 1352.0, 1528.0, 1486.0, 1385.0, 144.0, 1485 responses",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 65,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 66,
+    "ground_truth": "3",
+    "predicted": "how to create code blocks showing the user will help you should you answer the response.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 67,
+    "ground_truth": "2",
+    "predicted": "answers your answer to answer in detail.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 68,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2236.0, 2314.0, 3623.0, 3430.0, 2047.0] steps\n• Burned Calories: [131.0, 552.0, 245.0, 245.0] calories\n• Resting Heart Rate",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 69,
+    "ground_truth": "2",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 70,
+    "ground_truth": "3",
+    "predicted": "You should answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 71,
+    "ground_truth": "2",
+    "predicted": "I am sorry but I don't understand your question. Could you please reformulate your question and ask me again?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 72,
+    "ground_truth": "3",
+    "predicted": "Predictions: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 73,
+    "ground_truth": "3",
+    "predicted": "Questions</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 74,
+    "ground_truth": "3",
+    "predicted": "3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 75,
+    "ground_truth": "2",
+    "predicted": "How many</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 76,
+    "ground_truth": "3",
+    "predicted": "dream your answer your answers and the goal information.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 77,
+    "ground_truth": "3",
+    "predicted": "Demitted to your goal anday</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 78,
+    "ground_truth": "3",
+    "predicted": "I am sorry, I don't have any data to answer this question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 79,
+    "ground_truth": "2",
+    "predicted": "The user is 45-year-old male with 181 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2303.0, 2546.0, 2513.0, 2969.0, 2652.0, 2336.0, 2696.0, 2359.0, 2018.0, 4203.0, 2292.0, 19",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 80,
+    "ground_truth": "1",
+    "predicted": "```python\n# Import required packages\nimport os\nimport sys\nimport random\nfrom collections import Counter\nfrom sklearn.preprocessing import LabelEncoder\nfrom sklearn.metrics.pairwise_distances import euclidean_distance\n\n# Read in CSV file containing all the data\nos.chdir('data')\nwith open(\"step_count.csv\", \"r\") as step_count_file:\n    reader = csv.reader(step_count_file)\n        # Split by newline to extract steps and timestamp\n        # Convert timestamps to seconds\n        # Calcul",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 81,
+    "ground_truth": "2",
+    "predicted": "User seems to be in average mood today. I would rate it as 3 out of 5.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 82,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2291.0, 4078.0, 4955.0] steps\n• Burned Calories: [240.0, 412.0, 458.0] calories\n• Resting Heart Rate: [51.82726097675643, 51",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 83,
+    "ground_truth": "3",
+    "predicted": "[Example 1]\nThe user is 25-year-old male with 175 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [18478.0, 1314.0, 14038.0, 1612.0, 14355.0, 1214.0, 1314.0, 1314.0, 1214.0, 13.0, 14.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 84,
+    "ground_truth": "4",
+    "predicted": "Sorry, but as an AI language model I do not have personal experiences or emotions like humans do. However, according to the data provided it seems like your user may feel slightly tired today, as their Mood is rated at 5 out of 5.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 85,
+    "ground_truth": "2",
+    "predicted": "I am sorry but I do not have access to your medical records in order to accurately answer your question. I can provide general information about how heart rate variability and sleep quality may impact your daily activities. However, if you have any specific questions regarding your personal health, it is important to consult with a licensed medical professional who has evaluated you in person.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 86,
+    "ground_truth": "3",
+    "predicted": "Answer: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 87,
+    "ground_truth": "3",
+    "predicted": "• Fatigue Level: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 88,
+    "ground_truth": "2",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 89,
+    "ground_truth": "3",
+    "predicted": "</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 90,
+    "ground_truth": "3",
+    "predicted": "User is 23 years old, his height is 182cm, and his weight is 75kg. His step count is 858, sleep time is 420 minutes, burned calories is 82, and heart rate is 66bpm. The user is in good mood and has no signs of fatigue.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 91,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't have access to your data set therefore I cannot perform any analysis on it. Also, as an AI language model, I do not have personal opinions or feelings like humans do, so I cannot answer questions about mood either.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 92,
+    "ground_truth": "2",
+    "predicted": "I'm sorry, but I don't have access to your question:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 93,
+    "ground_truth": "2",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 94,
+    "ground_truth": "3",
+    "predicted": "User is very tired (score 5):</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 95,
+    "ground_truth": "2",
+    "predicted": "Your mood is currently 3 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 96,
+    "ground_truth": "1",
+    "predicted": "[Example 4]\nThe user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2043.0, 4826.0, 1156.0, 1704.0, 8504.0, 6847.0, 6826.0, 656.0, 689.0, 594.0, 630.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 97,
+    "ground_truth": "3",
+    "predicted": "User is 23-year-old male with 182 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [1858.0, 991.0] steps\n• Burned Calories: [147.0, 94.0] calories\n• Resting Heart Rate: [70.434715270996999999999999999999999999999999",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 98,
+    "ground_truth": "3",
+    "predicted": "User's Mood: 4 out of 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 99,
+    "ground_truth": "3",
+    "predicted": "\"My name is Open Assistant. I am an artificial intelligence language model developed by LAION. How can I assist you today?\"</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 100,
+    "ground_truth": "3",
+    "predicted": "User is slightly fatigued (2 out of 5):\n\nSleep quality may be affecting energy levels. Fatigue may also be due to prolonged inactivity or lack of physical activity.\n\nUser is moderately fatigued (3 out of 5):\n\nFatigue may be due to prolonged inactivity or lack of physical activity. It could also be caused by stress, poor diet, insomnia, overwork, or underwork (not enough exercise).\n\nUser is very fatigued (4 out of 5):\n\nProlonged inactivity,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 101,
+    "ground_truth": "2",
+    "predicted": "The user is 26-year-old male with 180 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [2446.0, 3301.0] steps\n• Burned Calories: [240.0, 310.0] calories\n• Resting Heart Rate: [62.374558448791503, 60.54264450073242, 59.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 102,
+    "ground_truth": "3",
+    "predicted": "Predictions:\n\n[Example 1] The user is 40-year-old male with 185 cm. The analysis of recent 2-week sensor readings show:\n• Steps: [58600.0, 4454.0, 271.0, 1345.0, 414.0, 238.0, 48.0, 17.0, 16.0, 43 steps to create a series of actions necessary actions you should describe how your",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 103,
+    "ground_truth": "2",
+    "predicted": "Fatigue is difficult to measure accurately without direct measurement of hormones like cortisol or other biomarkers. From the data provided it appears that the users have lower activity levels than the first user, but it's hard to say how much lower based on step count alone. Step count is influenced by many factors such as weather, sleep, activity level, and motivation. Based on heart rate it doesn't appear there is anything abnormal going on, though it would be good to see trends over time.\nMood is also subjective and again lacks objective measures.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 104,
+    "ground_truth": "2",
+    "predicted": "[Question]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 105,
+    "ground_truth": "5",
+    "predicted": "4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 106,
+    "ground_truth": "2",
+    "predicted": "During, 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 107,
+    "ground_truth": "3",
+    "predicted": "[Example 1]\nThe user is 31-year-old male with 183 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4841.0, 4769.0, 2256.0] steps\n• Burned Calories: [159.0, 184.0] calories\n• Resting Heart Rate: [52.0, 49.0, 50.4] beats/minute\nAnswer: 48",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 108,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [3605.0, 6315.0, 4812.0, 6449.0, 5856.0] steps\n• Burned Calories: [376.0, 558.0, 382.0, 582.0, 529.0] calories",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 109,
+    "ground_truth": "2",
+    "predicted": "5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 110,
+    "ground_truth": "2",
+    "predicted": "[Question mark character entity references]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 111,
+    "ground_truth": "3",
+    "predicted": "Answer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 112,
+    "ground_truth": "4",
+    "predicted": "How to connects answer</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 113,
+    "ground_truth": "3",
+    "predicted": "\"Fatigue\": 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 114,
+    "ground_truth": "2",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 115,
+    "ground_truth": "3",
+    "predicted": "Input to fitness answers</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 116,
+    "ground_truth": "3",
+    "predicted": "I am sorry but I don't understand the question. Fatigue is not a quantifiable value like steps or calories. It is more of a qualitative term which depends on many factors like sleep quality, stress level, diet, physical activity etc.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 117,
+    "ground_truth": "2",
+    "predicted": "```\nAnswer: 3</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 118,
+    "ground_truth": "3",
+    "predicted": "Question: Now predict for the following case: The user is 35-year-old male with 176 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [2278.0, 1860.0, 1345.0, 246.0] steps • Burned Calories: [243.0, 188.0, 168.0, 98.0] calories • Resting Heart Rate: [63.47901",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 119,
+    "ground_truth": "3",
+    "predicted": "This question.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 120,
+    "ground_truth": "3",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 121,
+    "ground_truth": "2",
+    "predicted": "user: 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 122,
+    "ground_truth": "3",
+    "predicted": "I'm sorry</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 123,
+    "ground_truth": "3",
+    "predicted": "Please clarify your question. Do you want to know if the person is fatigued or just ask me to guess?</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 124,
+    "ground_truth": "4",
+    "predicted": "Responses to the answer to the question in response to question</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 125,
+    "ground_truth": "3",
+    "predicted": "How you]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 126,
+    "ground_truth": "3",
+    "predicted": "Answer:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 127,
+    "ground_truth": "2",
+    "predicted": "I, 0</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 128,
+    "ground_truth": "2",
+    "predicted": "I am sorry but I do not have access to your past 2 weeks of data nor any other data about you in order to make such a prediction.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 129,
+    "ground_truth": "3",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 130,
+    "ground_truth": "3",
+    "predicted": "I'm sorry, but as an AI language model I do not have access to the physical or mental condition of the user, nor do I have the ability to detect mood. However, I can provide some general information on how physical activity may impact one's mood. According to the Mayo Clinic, exercise releases endorphins which can act as natural pain relievers and also improve self-esteem and sleep quality. Additionally, regular physical activity can reduce symptoms of depression and anxiety according to studies done by the National Institute of Mental Health.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 131,
+    "ground_truth": "1",
+    "predicted": "Poss, 5 minute</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 132,
+    "ground_truth": "3",
+    "predicted": "User is 25-year-old female with 171 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [407.0, 1073.0, 2048.0, 1408.0, 1518.0, 1408.0, 407.0, 107.0, 62.0, 62.0, 407.0, 518.0, 140.",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 133,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4262.0, 1495.0, 2281.0, 1843.0, 4340.0, 4484.0, 412.0, 4330.0, 249.0, 241.0, 232.0,",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 134,
+    "ground_truth": "3",
+    "predicted": "Demand 5</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 135,
+    "ground_truth": "3",
+    "predicted": "```\n4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 136,
+    "ground_truth": "3",
+    "predicted": "[Prediction]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 137,
+    "ground_truth": "2",
+    "predicted": "Answer: 2</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 138,
+    "ground_truth": "3",
+    "predicted": "Now predict for the following case:\nThe user is 25-year-old male with 184 cm. The analysis of recent 2-weeks sensor readings show: • Steps: [2535.0, 1429.0, 3283.0, 3105.0] steps • Burned Calories: [235.0, 144.0, 306.0, 264.0] calories • Resting Heart Rate: [59.0402",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 139,
+    "ground_truth": "3",
+    "predicted": "In this regard, can you predict user's heart rate beats per minute.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 140,
+    "ground_truth": "2",
+    "predicted": "The answer to your question would depend on how you defined \"fatigue\". If it were based solely off heart rate variability (HRV) and sleep quality, then I could provide a more accurate prediction model. However, if \"fatigue\" is based off mood and step count, I believe there are other factors that may influence those values that aren't being accounted for in your data set, such as stress level, social interactions, diet, etc.</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 141,
+    "ground_truth": "3",
+    "predicted": "With:</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 142,
+    "ground_truth": "3",
+    "predicted": "[Example 4]\nThe user is 42-year-old male with 179 cm. The analysis of recent 2-weeks sensor readings show:\n• Steps: [4809.0, 1832.0, 1682.0, 1832.0, 5786.0, 4568.0, 1588.0, 1685.0, 5786.0, 1831.0, 5623",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 143,
+    "ground_truth": "3",
+    "predicted": "[Answer: 3]</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  },
+  {
+    "task": "PMData_fatigue",
+    "val_idx": 144,
+    "ground_truth": "3",
+    "predicted": "Answer: 4</s><s>",
+    "status": "SUCCESS",
+    "n_shots": 3
+  }
+]
