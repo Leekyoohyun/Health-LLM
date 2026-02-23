@@ -11,6 +11,9 @@ S3_BUCKET="s3://khlee-healthllm-checkpoints/healthalpaca-full-${TASK}"
 
 set -e
 
+# DeepSpeed에 필요한 CUDA_HOME 설정
+export CUDA_HOME=${CUDA_HOME:-/usr/local/cuda}
+
 cd "$(dirname "$0")/medalpaca"
 
 echo "============================================"
