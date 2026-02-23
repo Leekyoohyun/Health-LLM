@@ -30,7 +30,7 @@ torchrun \
     --model_max_length 2048 \
     --per_device_batch_size 1 \
     --global_batch_size 32 \
-    --num_epochs 3 \
+    --num_epochs 1 \
     --learning_rate 2e-5 \
     --bf16 True \
     --warmup_steps 50 \
