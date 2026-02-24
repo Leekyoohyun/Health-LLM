@@ -16,12 +16,12 @@ MODEL="gpt2"                    # 테스트: gpt2 → 본학습: medalpaca/medal
 BF16=False                      # 테스트: False (T4) → 본학습: True (A100)
 NUM_GPUS=1                      # 테스트: 1 (T4) → 본학습: 8 (p4d/p4de)
 EPOCHS=1                        # 테스트: 1 → 본학습: 5
+PER_DEVICE_BATCH=1              # 테스트: 1 (T4) → 본학습: 4 (A100, 논문 설정)
 TASK=${1:-stress}
 # ──────────────────
 
 S3_BUCKET="s3://khlee-healthllm-checkpoints/healthalpaca-full-13b-${TASK}"
-GLOBAL_BATCH=32
-PER_DEVICE_BATCH=1
+GLOBAL_BATCH=128                # 논문 설정: 128
 
 set -e
 
@@ -29,22 +29,30 @@ export CUDA_HOME=${CUDA_HOME:-$(python -c "import sys; print(sys.prefix)")}
 
 cd "$(dirname "$0")/medalpaca"
 
+OUTPUT_DIR="../outputs/test_gpt2"          # 본학습: ../outputs/healthalpaca-13b-full-${TASK}
+LOG_FILE="${OUTPUT_DIR}/train.log"
+mkdir -p "${OUTPUT_DIR}"
+
 echo "============================================"
 echo "Full Fine-Tuning: ${MODEL}"
-echo "Task:   ${TASK}"
-echo "GPUs:   ${NUM_GPUS}"
-echo "BF16:   ${BF16}"
-echo "Epochs: ${EPOCHS}"
-echo "S3:     ${S3_BUCKET}"
+echo "Task:       ${TASK}"
+echo "GPUs:       ${NUM_GPUS}"
+echo "BF16:       ${BF16}"
+echo "Epochs:     ${EPOCHS}"
+echo "Batch:      per_device=${PER_DEVICE_BATCH}, global=${GLOBAL_BATCH}"
+echo "S3:         ${S3_BUCKET}"
+echo "Output:     ${OUTPUT_DIR}"
+echo "Log:        ${LOG_FILE}"
 echo "============================================"
 
+# tee로 stdout+stderr를 파일에도 저장 (S3 동기화 대상)
 torchrun \
     --nproc_per_node=${NUM_GPUS} \
     --master_port=29500 \
     train_full_finetuning.py \
     --model ${MODEL} \
     --data_path ../data/finetune_data.json \
-    --output_dir ../outputs/healthalpaca-13b-full-${TASK} \
+    --output_dir ${OUTPUT_DIR} \
     --prompt_template prompt_templates/medalpaca.json \
     --model_max_length 2048 \
     --per_device_batch_size ${PER_DEVICE_BATCH} \
@@ -54,9 +62,10 @@ torchrun \
     --bf16 ${BF16} \
     --warmup_steps 50 \
     --save_steps 100 \
-    --save_total_limit 3 \
+    --save_total_limit 1 \
     --optim adamw_torch \
     --lr_scheduler_type cosine \
     --task_filter "${TASK}" \
     --s3_path "${S3_BUCKET}" \
-    --ds_config ds_config_zero3.json
+    --ds_config ds_config_zero3.json \
+    2>&1 | tee -a "${LOG_FILE}"
