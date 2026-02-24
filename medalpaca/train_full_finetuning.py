@@ -150,6 +150,7 @@ def main(
     resume_from_checkpoint: str = None,
     s3_path: str = "",
     task_filter: str = "",
+    ds_config: str = "",
     **kwargs
 ):
     """
@@ -174,8 +175,11 @@ def main(
     if use_wandb and len(wandb_project) > 0:
         os.environ["WANDB_PROJECT"] = wandb_project
 
-    # DeepSpeed config 경로
-    ds_config_path = os.path.join(os.path.dirname(__file__), "ds_config_zero3_offload.json")
+    # DeepSpeed config 경로 (외부 지정 가능, 미지정 시 offload 버전 사용)
+    if ds_config:
+        ds_config_path = ds_config
+    else:
+        ds_config_path = os.path.join(os.path.dirname(__file__), "ds_config_zero3_offload.json")
 
     # ── 로깅 (rank 0만) ──
     if local_rank == 0:
