@@ -189,6 +189,8 @@ def main():
     parser.add_argument("--max_samples", type=float, default=0,
                         help="Task별 최대 샘플 수 (0=전체, 0<x<1=비율, x>=1=개수)")
     parser.add_argument("--n_shots", type=int, default=3, help="Few-shot 예시 수")
+    parser.add_argument("--tasks", default=None,
+                        help="특정 task만 실행 (쉼표 구분, 예: AW_FB_activity,LifeSnaps_stress_resilience)")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
@@ -204,6 +206,14 @@ def main():
     if not tasks:
         print(f"ERROR: No *_eval_zeroshot.json files found in {args.task_dir}")
         return
+
+    # --tasks 필터
+    if args.tasks:
+        task_filter = set(t.strip() for t in args.tasks.split(","))
+        tasks = [t for t in tasks if t['name'] in task_filter]
+        if not tasks:
+            print(f"ERROR: No matching tasks for: {args.tasks}")
+            return
 
     print("=" * 80)
     print(f"13B EVALUATION — Mode: {args.mode.upper()}")
@@ -375,8 +385,25 @@ def main():
     # ── 결과 저장 ──
     elapsed = time.time() - start_time
 
+    # 통합 파일 저장
     with open(args.output, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
+
+    # Task별 파일 분리 저장
+    output_dir = os.path.dirname(args.output) or "."
+    task_groups = {}
+    for r in all_results:
+        task_groups.setdefault(r['task'], []).append(r)
+
+    print(f"\n{'=' * 80}")
+    print("RESULTS SAVED")
+    print("=" * 80)
+    print(f"  ALL: {args.output} ({len(all_results)} samples)")
+    for tname, tresults in sorted(task_groups.items()):
+        task_file = os.path.join(output_dir, f"{tname}_{args.mode}.json")
+        with open(task_file, 'w', encoding='utf-8') as f:
+            json.dump(tresults, f, indent=2, ensure_ascii=False)
+        print(f"  {tname}: {task_file} ({len(tresults)} samples)")
 
     print(f"\n{'=' * 80}")
     print("SUMMARY")
@@ -386,7 +413,6 @@ def main():
     print(f"Errors:         {total_errors}")
     print(f"Success rate:   {(total_samples - total_errors) / max(total_samples, 1) * 100:.1f}%")
     print(f"Time:           {elapsed/60:.1f} min ({elapsed/max(total_samples,1):.1f} sec/sample)")
-    print(f"Results:        {args.output}")
     print("=" * 80)
 
 
