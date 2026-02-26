@@ -244,6 +244,7 @@ def main():
     t0 = time.time()
 
     tokenizer = LlamaTokenizer.from_pretrained(args.model)
+    tokenizer.model_max_length = 2048
     tokenizer.pad_token_id = 0
     tokenizer.padding_side = "left"
 
