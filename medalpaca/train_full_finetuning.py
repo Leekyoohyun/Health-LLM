@@ -196,7 +196,7 @@ def main(
         print(f"BF16:                     {bf16}")
         print(f"Epochs:                   {num_epochs}")
         print(f"Learning rate:            {learning_rate}")
-        print(f"DeepSpeed:                ZeRO-3 + CPU Offload (param + optimizer)")
+        print(f"DeepSpeed:                ZeRO-3 (config: {ds_config_path})")
         print(f"Gradient Checkpointing:   True")
         print(f"Task filter:              {task_filter if task_filter else 'all (no filter)'}")
         print(f"S3 sync:                  {s3_path if s3_path else 'disabled'}")
@@ -286,8 +286,8 @@ def main(
         lr_scheduler_type=lr_scheduler_type,
         # eval & save (Spot 인스턴스 대비: step 단위 저장)
         evaluation_strategy="epoch" if val_set_size > 0 else "no",
-        save_strategy="steps",
-        save_steps=save_steps,
+        save_strategy="steps" if save_steps > 0 else "no",
+        save_steps=save_steps if save_steps > 0 else None,
         output_dir=output_dir,
         save_total_limit=save_total_limit,
         load_best_model_at_end=False,
@@ -337,6 +337,15 @@ def main(
         print("\nSaving model...")
     trainer.save_model(output_dir)
     tokenizer.save_pretrained(output_dir)
+
+    # ── 최종 모델 저장 후 S3 동기화 (on_train_end는 save_model 전에 실행되므로 여기서 한 번 더) ──
+    if s3_path and local_rank == 0:
+        try:
+            cmd = ["aws", "s3", "sync", output_dir, s3_path, "--quiet"]
+            subprocess.run(cmd, check=True, timeout=600)
+            print(f"  [S3] Final model synced to {s3_path}")
+        except Exception as e:
+            print(f"  [S3] Final model sync failed: {e}")
 
     if local_rank == 0:
         print(f"\nFull fine-tuning complete! Model saved to: {output_dir}")
